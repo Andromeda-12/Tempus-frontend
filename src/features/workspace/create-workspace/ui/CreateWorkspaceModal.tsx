@@ -1,0 +1,137 @@
+import { workspaceModel } from '@/entities/workspace'
+import { CreateWorkspaceDto } from '@/shared/api'
+import { MAX_COVER_SIZE } from '@/shared/config'
+import { Button, FormField, Modal } from '@/shared/ui'
+import { ImageUpload } from '@/shared/ui/ImageUpload'
+import { useEvent } from 'effector-react'
+import { Controller, useForm } from 'react-hook-form'
+
+interface CreateWorkspaceModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+interface IFormData {
+  workspaceTitle: string
+  workspaceCover: File | string | null
+}
+
+const defaultValues = {
+  workspaceTitle: '',
+  workspaceCover: null
+}
+
+export const CreateWorkspaceModal = ({
+  isOpen,
+  onClose
+}: CreateWorkspaceModalProps) => {
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors }
+  } = useForm<IFormData>({
+    defaultValues
+  })
+
+  const createWorkspaceFn = useEvent(workspaceModel.createWorkspace)
+
+  const sendFormData = (formData: IFormData) => {
+    const createWorkspaceDto: CreateWorkspaceDto = {
+      title: formData.workspaceTitle,
+      cover: formData.workspaceCover as File
+    }
+
+    const createWorkspaceFormData = new FormData()
+
+    Object.keys(createWorkspaceDto).forEach((key) => {
+      if (key === 'cover') return
+      createWorkspaceFormData.append(key, (createWorkspaceDto as any)[key])
+    })
+    if (createWorkspaceDto.cover)
+      createWorkspaceFormData.append('cover', createWorkspaceDto.cover)
+
+    createWorkspaceFn(createWorkspaceFormData)
+    handleCloseModal()
+  }
+
+  const handleCloseModal = () => {
+    reset()
+    onClose()
+  }
+
+  const getPreview = (value: string | File | null) => {
+    if (typeof value === 'string') return value
+    if (value instanceof File) return URL.createObjectURL(value)
+
+    return value
+  }
+
+  return (
+    <Modal
+      className='w-full max-w-4xl'
+      isOpen={isOpen}
+      onClose={handleCloseModal}
+    >
+      <form onSubmit={handleSubmit(sendFormData)} className='space-y-4'>
+        <FormField
+          placeholder='Title'
+          name='workspaceTitle'
+          control={control}
+          rules={{
+            required: 'Title is required'
+          }}
+        />
+
+        <div className='space-y-4'>
+          <div>
+            <div>Cover</div>
+            <div className='text-xs'>(optional)</div>
+          </div>
+
+          <div>
+            <Controller
+              control={control}
+              name='workspaceCover'
+              rules={{
+                validate: (file) => {
+                  if (!file) return true
+                  if ((file as File).size > MAX_COVER_SIZE)
+                    return `The cover cannot be larger than ${
+                      MAX_COVER_SIZE / 1024 / 1024
+                    } mb`
+                  return true
+                }
+              }}
+              render={({ field: { onChange, value } }) => (
+                <ImageUpload
+                  className='h-[150px] sm:h-[280px]'
+                  preview={getPreview(value)}
+                  onChange={onChange}
+                />
+              )}
+            />
+
+            <div className='text-error'>{errors.workspaceCover?.message}</div>
+          </div>
+        </div>
+
+        <div className='flex justify-end'>
+          <div className='sm:w-2/5 flex space-x-3'>
+            <Button
+              className='w-full'
+              variant='text'
+              type='button'
+              onClick={handleCloseModal}
+            >
+              Cancel
+            </Button>
+            <Button className='w-full' accent>
+              Create
+            </Button>
+          </div>
+        </div>
+      </form>
+    </Modal>
+  )
+}

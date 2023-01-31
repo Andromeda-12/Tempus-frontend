@@ -1,0 +1,85 @@
+.btn {
+  @apply px-5 py-3 text-sm inline-flex items-center justify-center outline-none text-white;
+  @apply dark:text-red-500 rounded-xl bg-primary hover:bg-primary-hover duration-200 active:scale-95 ring-primary focus-visible:ring focus-visible:ring-offset-2;
+}
+.btn.btn-disabled {
+  @apply cursor-not-allowed text-primary-disabled active:scale-100 hover:bg-primary;
+}
+:global(.dark) .btn {
+  @apply ring-offset-background-dark;
+}
+
+.btn-accent {
+  @apply bg-accent ring-accent hover:bg-accent-hover;
+}
+.btn-accent.btn-disabled {
+  @apply text-gray-200 bg-accent-disabled hover:bg-accent-disabled;
+}
+.btn-accent.btn-disabled.btn-outline {
+  @apply bg-transparent border-accent-disabled text-accent-disabled;
+}
+.btn-accent.btn-disabled.btn-text {
+  @apply bg-accent/10 active:bg-accent/10;
+}
+
+.btn-outline {
+  @apply text-color-light border-primary border-2 bg-transparent hover:bg-inherit;
+}
+:global(.dark) .btn-outline {
+  @apply text-color-dark border-gray-400;
+}
+
+.btn-outline.btn-accent {
+  @apply border-accent text-accent;
+}
+
+.btn-text {
+  @apply bg-transparent text-color-light shadow-none hover:shadow-sm;
+  @apply hover:bg-primary/10 focus-visible:bg-primary/10 active:bg-primary/15;
+}
+:global(.dark) .btn-text {
+  @apply text-color-dark hover:bg-color-dark/10 focus-visible:bg-color-dark/10 active:bg-color-dark/15;
+}
+.btn-text.btn-accent {
+  @apply text-accent hover:bg-accent/10 focus-visible:bg-accent/10 active:bg-accent/15;
+}
+
+.btn-glow {
+  @apply shadow-lg shadow-primary/50 hover:shadow-primary-hover active:shadow-primary-hover/70;
+}
+
+.btn-xs {
+  @apply px-3 py-1;
+}
+
+.btn-sm {
+  @apply px-4 py-2;
+}
+
+.btn-lg {
+  @apply px-6 py-4 text-lg;
+}
+
+.btn-xl {
+  @apply px-7 py-5 text-xl;
+}
+
+.btn-xs.dense {
+  @apply py-0.5;
+}
+
+.btn-sm.dense {
+  @apply py-1.5;
+}
+
+.dense {
+  @apply py-2;
+}
+
+.btn-lg.dense {
+  @apply py-2.5;
+}
+
+.btn-xl.dense {
+  @apply py-3;
+}

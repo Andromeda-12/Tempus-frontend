@@ -1,0 +1,57 @@
+.input-wrapper {
+  @apply flex focus-within:shadow-input-shadow focus-within:shadow-primary/60 outline-none;
+  @apply focus:ring ring-offset-4 ring-primary;
+}
+:global(.dark) .input-wrapper {
+  @apply focus-within:shadow-secondary/60;
+  @apply ring-offset-neutral ring-secondary;
+}
+.input-wrapper-selected {
+  @apply ring ring-offset-4 ring-primary;
+}
+:global(.dark) .input-wrapper-selected {
+  @apply ring-offset-neutral ring-secondary;
+}
+
+.input {
+  @apply w-full h-12 bg-transparent inline-flex items-center outline-none;
+  @apply disabled:text-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed;
+}
+:global(.dark) .input {
+  @apply disabled:bg-gray-100/10;
+}
+
+.input-icon {
+  @apply flex items-center;
+}
+
+.input-icon-disabled {
+  @apply bg-gray-100 text-gray-400;
+}
+:global(.dark) .input-icon-disabled {
+  @apply bg-gray-100/10;
+}
+
+.input-xs {
+  @apply h-6 text-sm;
+}
+.input-sm {
+  @apply h-8 text-sm;
+}
+.input-lg {
+  @apply h-14 text-lg;
+}
+.input-xl {
+  @apply h-16 text-xl;
+}
+
+.error {
+  @apply !border-error text-error placeholder:text-error/60;
+}
+:global(.dark) .error {
+  @apply border-error;
+}
+
+.error.input-wrapper {
+  @apply focus-within:shadow-error;
+}

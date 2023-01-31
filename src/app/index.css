@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Montserrat', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    @apply scrollbar text-color-light dark:text-color-dark;
+  }
+
+  body::before {
+    content: '';
+    @apply fixed top-0 bottom-0 right-0 left-0 -z-10 bg-background-light dark:bg-gradient-to-br dark:from-background-dark dark:to-neutral;
+  }
+}
+/* dark:bg-background-dark font-sans */
+@keyframes animation {
+  0 {
+    stroke-dasharray: 1, 400;
+    stroke-dashoffset: 0;
+  }
+
+  50 {
+    stroke-dasharray: 400, 400;
+    stroke-dashoffset: -100;
+  }
+
+  100 {
+    stroke-dasharray: 400, 400;
+    stroke-dashoffset: -260;
+  }
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar-dense::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  border-radius: 100vh;
+  @apply dark:bg-neutral;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-background-dark;
+  border-radius: 100vh;
+  /* border: 3px solid; 
+  @apply border-primary; */
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent-hover;
+}
+
+/* input::-webkit-contacts-auto-fill-button,
+input::-webkit-autofill,
+input::-webkit-contacts-auto-fill-button,
+input::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+} */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  /* color: red; */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+a {
+  @apply cursor-pointer text-sm font-medium hover:text-accent;
+}
+
+.ScrollAreaRoot {
+  width: 100%;
+  height: 100%;
+}
+
+.ScrollAreaViewport {
+  width: 100%;
+  height: 100%;
+}
+
+.ScrollAreaScrollbar {
+  width: 4px;
+  padding: 5px 2px;
+}
+
+.ScrollAreaThumb {
+  background: red;
+  borderradius: 3px;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}
+
+.notification {
+  transform: translateX(calc(100%));
+  transition: all 2s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  animation: progress linear forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.fade-enter-active {
+  animation: fade-in 200ms forwards;
+}
+
+.fade-exit-active {
+  animation: fade-out 200ms forwards;
+}
