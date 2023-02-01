@@ -26,7 +26,7 @@ interface WorkspaceListProps {
 }
 
 export const WorkspaceList = ({}: WorkspaceListProps) => {
-  // useGate(workspaceGate)
+  useGate(workspaceGate)
 
   const isAllDataLoaded = useUnit($isAllDataLoaded)
   const workspaces = useUnit($workspaces)
@@ -36,8 +36,6 @@ export const WorkspaceList = ({}: WorkspaceListProps) => {
 
   const scrollHanlder = (e: Event) => {
     const document = e.target as Document
-
-    console.log(isAllDataLoaded)
 
     if (
       !isAllDataLoaded &&
@@ -56,17 +54,14 @@ export const WorkspaceList = ({}: WorkspaceListProps) => {
   }, [isAllDataLoaded]) // иначе не обновляется isAllDataLoaded в обработчике скролла
 
   return (
-    <div className='grid gap-5 grid-cols-[repeat(auto-fill,minmax(272px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]'>
+    <div className='grid gap-6 grid-cols-[repeat(auto-fill,minmax(272px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]'>
       {workspaces.map((workspace) => (
         <Link
           to={workspaceRoute}
-          params={workspace.id}
-          // href={`/workspaces/${workspace.id}`}
+          params={{ id: workspace.id }}
           key={workspace.id}
         >
-          <a>
-            <Workspace workspace={workspace} />
-          </a>
+          <Workspace workspace={workspace} />
         </Link>
       ))}
 
@@ -76,7 +71,7 @@ export const WorkspaceList = ({}: WorkspaceListProps) => {
         </div>
       )}
 
-      {workspaces.length === 0 && (
+      {!isLoading && workspaces.length === 0 && (
         <div className='col-span-full justify-center flex flex-col space-y-3 items-center'>
           <h3>No workspaces</h3>
         </div>

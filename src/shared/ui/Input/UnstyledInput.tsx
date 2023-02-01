@@ -18,6 +18,7 @@ export interface InputProps
   startIconName?: string
   endIconName?: string
   error?: boolean
+  notAccent?: boolean
   ref?: React.ForwardedRef<HTMLInputElement>
 }
 

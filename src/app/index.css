@@ -42,6 +42,7 @@ a {
 }
 
 .scrollbar::-webkit-scrollbar {
+  @apply dark:bg-neutral;
   width: 10px;
 }
 
@@ -51,7 +52,6 @@ a {
 
 .scrollbar::-webkit-scrollbar-track {
   border-radius: 100vh;
-  @apply dark:bg-neutral;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

@@ -3,6 +3,7 @@ import { WorkspaceList } from '@/entities/workspace'
 import { Avatar } from '@/shared/ui'
 import { PageCover } from '@/shared/ui/PageCover/PageCover'
 import { ProjectList } from '@/entities/project'
+import { UpdateWorkspaceButton } from '@/features/workspace/update-workspace'
 
 const workspaces = {
   id: 1,
@@ -18,8 +19,11 @@ export const WorkspacePage = ({}) => {
       <div className='h-full'>
         <PageCover cover='' />
 
-        <ContentContainer className='mt-1'>
-          <h2 className='text-xl mb-2'>{workspaces.title}</h2>
+        <ContentContainer className='mt-5'>
+          <div className='flex justify-between'>
+            <h2 className='text-xl mb-2'>{workspaces.title}</h2>  
+            <UpdateWorkspaceButton />
+          </div>
 
           <div className='mb-7 mt-2 text-xs'>21 members</div>
 

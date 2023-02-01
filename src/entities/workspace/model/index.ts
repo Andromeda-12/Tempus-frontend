@@ -14,7 +14,6 @@ import {
   WorkspaceService
 } from '@/shared/api'
 import { GetRequestQuery } from '@/shared/lib'
-import { debug, throttle } from 'patronum'
 
 export const workspaceGate = createGate()
 
@@ -34,11 +33,7 @@ const getWorkspacesFx = createEffect<GetRequestQuery, WorkspaceDto[], ApiError>(
   async ({ offset, limit }) =>
     await WorkspaceService.workspaceControllerFindAll(offset, limit)
 )
-const createWorkspaceFx = createEffect<
-  CreateWorkspaceDto,
-  WorkspaceDto,
-  ApiError
->(
+const createWorkspaceFx = createEffect<CreateWorkspaceDto, WorkspaceDto, ApiError>(
   async (createWorkspaceDto) =>
     await WorkspaceService.workspaceControllerCreate(createWorkspaceDto)
 )

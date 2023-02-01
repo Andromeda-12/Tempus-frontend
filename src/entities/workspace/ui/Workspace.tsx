@@ -35,10 +35,12 @@ export const Workspace = ({ workspace }: WorkspaceProps) => {
         <div className='flex items-start'>
           <SquareButton
             className=''
+            variant='text'
             icon='ellipsisHorizontal'
             onClick={(e) => e.preventDefault()}
           />
         </div>
+
       </div>
     </Card>
   )

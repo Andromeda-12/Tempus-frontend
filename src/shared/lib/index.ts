@@ -9,3 +9,5 @@ export * from './types'
 export * from './jwt'
 
 export * from './get-sidebar-state-server-side'
+
+export * from './create-modal'

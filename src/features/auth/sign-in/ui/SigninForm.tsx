@@ -5,6 +5,7 @@ import { Button, Card, Checkbox, FormField } from '@/shared/ui'
 import { emailRegexp } from '@/shared/lib'
 import { signupRoute } from '@/shared/routing'
 import { $isLoading, signIn } from '../model'
+import { notificationModel } from '@/features/notification'
 
 const defaultValues = {
   email: '',
@@ -75,7 +76,11 @@ export const SigninForm = () => {
             </div>
 
             <div className='mb-2'>
-              <Button accent disabled={pending} className='w-full'>
+              <Button
+                accent
+                disabled={pending}
+                className='w-full'
+              >
                 Sign in
               </Button>
             </div>

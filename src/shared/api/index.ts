@@ -21,6 +21,7 @@ export type { TaskDto } from './models/TaskDto';
 export type { TimeLineDto } from './models/TimeLineDto';
 export type { UpdateProjectDto } from './models/UpdateProjectDto';
 export type { UpdateTaskDto } from './models/UpdateTaskDto';
+export type { UpdateUserDto } from './models/UpdateUserDto';
 export type { UpdateWorkspaceDto } from './models/UpdateWorkspaceDto';
 export type { UserDto } from './models/UserDto';
 export type { ValidationUserId } from './models/ValidationUserId';

@@ -1,1 +1,1 @@
-export * from './WorkspaceFilter'
+export * from './ui'

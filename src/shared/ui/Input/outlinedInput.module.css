@@ -25,3 +25,12 @@
 .input-icon-start {
   @apply rounded-l-xl border border-r-0 pr-1.5;
 }
+
+.not-accent {
+  @apply border-primary/50;
+}
+:global(.dark) .not-accent {
+  @apply border-secondary/50;
+}
+
+

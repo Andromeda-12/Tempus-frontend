@@ -4,7 +4,7 @@ import { UnstyledInput, InputProps } from './UnstyledInput'
 import styles from './outlinedInput.module.css'
 
 export const OutlinedInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ ...rest }, ref) => {
+  ({ notAccent, ...rest }, ref) => {
     return (
       <UnstyledInput
         ref={ref}
@@ -13,12 +13,13 @@ export const OutlinedInput = React.forwardRef<HTMLInputElement, InputProps>(
           styles.input,
           (rest.type === 'password' || rest.endIconName) &&
             styles['input-with-end-icon'],
-          rest.startIconName && styles['input-with-start-icon']
+          rest.startIconName && styles['input-with-start-icon'],
+          notAccent && styles['not-accent']
         )}
         containerStyles='rounded-xl'
-        startIconStyles={styles['input-icon-start']}
+        startIconStyles={clsx(styles['input-icon-start'], notAccent && styles['not-accent'])}
         endIconStyles={styles['input-icon-end']}
-        iconWrapperStyles={styles['input-icon']}
+        iconWrapperStyles={clsx(styles['input-icon'], notAccent && styles['not-accent'])}
       />
     )
   }

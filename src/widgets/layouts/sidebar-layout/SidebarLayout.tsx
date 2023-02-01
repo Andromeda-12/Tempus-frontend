@@ -56,7 +56,13 @@ export const SidebarLayout = ({ children }: SidebarLayout) => {
           open ? 'md:pl-64' : 'md:pl-16'
         )}
       >
-        <div className='md:mt-0 py-5 px-3 pt-20 md:py-0 md:px-5 mx-auto flex-1'>
+        <div
+          className={clsx(
+            'md:mt-0 py-5 pt-20 md:py-0 mx-auto px-3 flex-1 duration-300',
+            !open && 'md:px-10',
+            open && 'md:px-5'
+          )}
+        >
           {children}
         </div>
       </div>

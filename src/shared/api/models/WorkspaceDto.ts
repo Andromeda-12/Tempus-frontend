@@ -6,17 +6,17 @@ import type { UserDto } from './UserDto';
 
 export type WorkspaceDto = {
     /**
-     * WorkSpace id
+     * Workspace id
      */
     id: number;
     /**
-     * WorkSpace description
+     * Workspace title
      */
     title: string;
     /**
-     * WorkSpace cover(url)
+     * Image cover
      */
-    cover: string;
+    coverFile?: Blob;
     /**
      * Workspace owner
      */

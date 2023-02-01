@@ -33,10 +33,18 @@ export const Modal = ({
           )}
         >
           <Card className='p-5 sm:p-8'>
-            <div className='flex justify-between'>
-              <DialogPrimitive.DialogTitle asChild> 
-                <h3 className='text-2xl font-bold mb-10'>Create workspace</h3>
-              </DialogPrimitive.DialogTitle>
+            <div
+              className={clsx(
+                'mb-7 flex',
+                !title && 'justify-end',
+                title && 'justify-between'
+              )}
+            >
+              {title && (
+                <DialogPrimitive.DialogTitle asChild>
+                  <h3 className='text-2xl font-bold'>{title}</h3>
+                </DialogPrimitive.DialogTitle>
+              )}
 
               <DialogPrimitive.Close
                 asChild

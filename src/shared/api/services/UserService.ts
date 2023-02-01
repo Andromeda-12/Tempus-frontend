@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ChangeUserPasswordDto } from '../models/ChangeUserPasswordDto';
+import type { UpdateUserDto } from '../models/UpdateUserDto';
 import type { UserDto } from '../models/UserDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -38,6 +39,23 @@ searchText?: string,
                 'email': email,
                 'searchText': searchText,
             },
+        });
+    }
+
+    /**
+     * Change password
+     * @param requestBody 
+     * @returns UserDto 
+     * @throws ApiError
+     */
+    public static userControllerUpdate(
+requestBody: UpdateUserDto,
+): CancelablePromise<UserDto> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/api/user',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

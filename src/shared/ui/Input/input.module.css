@@ -33,10 +33,10 @@
 }
 
 .input-xs {
-  @apply h-6 text-sm;
+  @apply h-8 text-sm;
 }
 .input-sm {
-  @apply h-8 text-sm;
+  @apply h-10 text-sm;
 }
 .input-lg {
   @apply h-14 text-lg;

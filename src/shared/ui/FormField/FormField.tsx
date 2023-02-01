@@ -5,6 +5,7 @@ interface FormField extends UseControllerProps {
   placeholder: string
   password?: boolean
   control: Control<any>
+  variant?: 'outline' | 'standard' | 'unstyled'
 }
 
 export const FormField = ({
@@ -12,7 +13,8 @@ export const FormField = ({
   name,
   control,
   placeholder,
-  password
+  password,
+  variant
 }: FormField) => {
   return (
     <Controller
@@ -23,6 +25,7 @@ export const FormField = ({
         <FormControl
           type={password ? 'password' : 'text'}
           placeholder={placeholder}
+          variant={variant}
           error={!!error}
           helperText={error?.message}
           {...field}

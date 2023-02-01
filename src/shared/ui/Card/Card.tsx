@@ -13,7 +13,7 @@ export const Card = ({ children, className, withHover }: CardProps) => {
       className={clsx(
         'bg-white text-black dark:text-white dark:bg-neutral shadow-md rounded-xl dark:border-gray-700 overflow-hidden',
         {
-          'cursor-pointer hover:scale-103 duration-300': withHover
+          'cursor-pointer hover:scale-102 duration-150': withHover
         },
         className
       )}

@@ -32,7 +32,7 @@ sample({
     notificationModel.createNotificationBody({
       type: 'error',
       title: 'Sign up error',
-      message: error.message
+      message: error.body.message
     }),
   target: notificationModel.createNotification
 })

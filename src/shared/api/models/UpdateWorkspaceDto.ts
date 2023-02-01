@@ -4,11 +4,15 @@
 
 export type UpdateWorkspaceDto = {
     /**
-     * WorkSpace description
+     * Workspace title
      */
     title?: string;
     /**
-     * WorkSpace owner id
+     * Image cover
+     */
+    coverFile?: Blob;
+    /**
+     * Workspace owner id
      */
     ownerId?: number;
 };

@@ -4,7 +4,11 @@
 
 export type CreateWorkspaceDto = {
     /**
-     * WorkSpace description
+     * Workspace title
      */
     title: string;
+    /**
+     * Image cover
+     */
+    coverFile?: Blob;
 };

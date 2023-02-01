@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import clsx from 'clsx'
 import { Button } from '@/shared/ui'
 import { CreateWorkspaceModal } from './CreateWorkspaceModal'
-import clsx from 'clsx'
 
 interface CreateWorkspaceButtonProps {
   className?: string
@@ -10,23 +10,25 @@ interface CreateWorkspaceButtonProps {
 export const CreateWorkspaceButton = ({
   className
 }: CreateWorkspaceButtonProps) => {
-  const [isShowCreateModal, setIsShowCreateModal] = useState(false)
+  const [isShowModal, setIsShowModal] = useState(false)
+
+  const handleOpenModal = () => {
+    setIsShowModal(true)
+  }
 
   const handleCloseModal = () => {
-    setIsShowCreateModal(false)
+    setIsShowModal(false)
   }
 
   return (
     <>
-      <CreateWorkspaceModal
-        isOpen={isShowCreateModal}
-        onClose={handleCloseModal}
-      />
+      <CreateWorkspaceModal isOpen={isShowModal} onClose={handleCloseModal} />
 
       <Button
         dense
-        className={clsx('bg-neutral !rounded-full py-2 mb-7', className)}
-        onClick={() => setIsShowCreateModal(true)}
+        accent
+        className={clsx('!rounded-full py-2 mb-7', className)}
+        onClick={handleOpenModal}
       >
         Create workspace
       </Button>

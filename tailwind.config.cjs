@@ -32,7 +32,7 @@ module.exports = {
       },
       scale: {
         85: ".85",
-        103: "1.03",
+        102: "1.02",
       },
       boxShadow: {
         "input-shadow": "0 0 0 1px",

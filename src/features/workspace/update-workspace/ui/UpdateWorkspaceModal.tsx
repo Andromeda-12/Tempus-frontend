@@ -1,15 +1,13 @@
 import { workspaceModel } from '@/entities/workspace'
-import { CreateWorkspaceDto } from '@/shared/api'
+import { UpdateWorkspaceDto } from '@/shared/api'
 import { MAX_COVER_SIZE } from '@/shared/config'
 import { Button, FormField, Modal } from '@/shared/ui'
 import { ImageUpload } from '@/shared/ui/ImageUpload'
-import { useEvent } from 'effector-react'
+import { useEvent, useUnit } from 'effector-react'
 import { Controller, useForm } from 'react-hook-form'
+import { updateWorkspaceModal } from '../model'
 
-interface CreateWorkspaceModalProps {
-  isOpen: boolean
-  onClose: () => void
-}
+interface UpdateWorkspaceModalProps {}
 
 interface IFormData {
   workspaceTitle: string
@@ -21,10 +19,7 @@ const defaultValues = {
   workspaceCover: null
 }
 
-export const CreateWorkspaceModal = ({
-  isOpen,
-  onClose
-}: CreateWorkspaceModalProps) => {
+export const UpdateWorkspaceModal = ({}: UpdateWorkspaceModalProps) => {
   const {
     handleSubmit,
     control,
@@ -34,21 +29,33 @@ export const CreateWorkspaceModal = ({
     defaultValues
   })
 
-  const createWorkspaceFn = useEvent(workspaceModel.createWorkspace)
+  const isOpen = useUnit(updateWorkspaceModal.$isOpen)
+  const closeModal = useUnit(updateWorkspaceModal.closeModal)
+
+  const updateWorkspaceFn = useEvent(workspaceModel.updateWorkspace)
 
   const sendFormData = (formData: IFormData) => {
-    const createWorkspaceDto: CreateWorkspaceDto = {
+    const updateWorkspaceDto: UpdateWorkspaceDto = {
       title: formData.workspaceTitle,
       coverFile: formData.workspaceCover as File
     }
 
-    createWorkspaceFn(createWorkspaceDto)
+    const updateWorkspaceFormData = new FormData()
+
+    Object.keys(updateWorkspaceDto).forEach((key) => {
+      if (key === 'coverFile') return
+      updateWorkspaceFormData.append(key, (updateWorkspaceDto as any)[key])
+    })
+    if (updateWorkspaceDto.coverFile)
+      updateWorkspaceFormData.append('cover', updateWorkspaceDto.coverFile)
+
+    updateWorkspaceFn(updateWorkspaceFormData)
     handleCloseModal()
   }
 
   const handleCloseModal = () => {
     reset()
-    onClose()
+    closeModal()
   }
 
   const getPreview = (value: string | File | null) => {
@@ -61,7 +68,7 @@ export const CreateWorkspaceModal = ({
   return (
     <Modal
       className='w-full max-w-4xl'
-      title='Create workspace'
+      title='Update workspace'
       isOpen={isOpen}
       onClose={handleCloseModal}
     >
