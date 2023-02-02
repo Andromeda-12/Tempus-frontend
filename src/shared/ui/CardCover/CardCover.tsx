@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 interface CardCoverProps {
   className?: string
-  cover: string
+  cover: string | undefined
 }
 
 export const CardCover = ({ className, cover }: CardCoverProps) => {

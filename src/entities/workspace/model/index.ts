@@ -31,6 +31,31 @@ export const getWorkspacesFx = createEffect<
   async ({ offset, limit }) =>
     await WorkspaceService.workspaceControllerFindAll(offset, limit)
 )
+
+export const getCurrentWorkspaceFx = createEffect<
+  {
+    workspaces: WorkspaceDto[]
+    param: number
+  },
+  WorkspaceDto | null,
+  ApiError
+>(async ({ workspaces, param }) => {
+  const workspaceId = Number(param)
+  if (isNaN(workspaceId)) return null
+
+  const currentWorkspace = workspaces.find(
+    (workspace) => workspace.id === workspaceId
+  )
+
+  if (currentWorkspace) return currentWorkspace
+  
+  const data = await WorkspaceService.workspaceControllerFindOne(workspaceId)
+
+  if (data) return data
+
+  return null
+})
+
 export const createWorkspaceFx = createEffect<
   CreateWorkspaceDto,
   WorkspaceDto,

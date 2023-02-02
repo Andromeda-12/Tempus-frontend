@@ -1,6 +1,7 @@
 import { createEvent, createStore, restore, sample } from 'effector'
 import { createGate } from 'effector-react'
 import { workspaceModel } from '@/entities/workspace'
+import { deleteWorkspaceModel } from '@/features/workspace/delete-workspace'
 
 export const workspaceGate = createGate()
 
@@ -75,4 +76,9 @@ sample({
   clock: workspaceModel.getWorkspacesFx.done,
   source: $limit,
   target: addOffset
+})
+
+sample({
+  clock: workspaceGate.close,
+  target: deleteWorkspaceModel.confirmModal.closeModal
 })

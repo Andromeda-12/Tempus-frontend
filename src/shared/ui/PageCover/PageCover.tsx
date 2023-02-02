@@ -2,7 +2,7 @@ import clsx from 'clsx'
 
 interface PageCoverProps {
   className?: string
-  cover: string
+  cover: string | undefined
 }
 
 export const PageCover = ({ className, cover }: PageCoverProps) => {
@@ -13,7 +13,7 @@ export const PageCover = ({ className, cover }: PageCoverProps) => {
           'h-44 md:h-64 bg-cover bg-center rounded-xl',
           className
         )}
-        style={{ backgroundImage: `url(/${cover})` }}
+        style={{ backgroundImage: `url(${cover})` }}
       ></div>
     )
 

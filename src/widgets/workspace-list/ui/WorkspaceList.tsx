@@ -53,16 +53,16 @@ export const WorkspaceList = () => {
   return (
     <div className='grid gap-6 grid-cols-[repeat(auto-fill,minmax(272px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]'>
       {workspaces.map((workspace) => (
-        <div
-          // to={workspaceRoute}
-          // params={{ id: workspace.id }}
+        <Link
+          to={workspaceRoute}
+          params={{ workspaceId: workspace.id }}
           key={workspace.id}
         >
           <Workspace
-            actions={<DeleteWorkspaceButton workspace={workspace} />}
             workspace={workspace}
+            actions={<DeleteWorkspaceButton workspace={workspace} />}
           />
-        </div>
+        </Link>
       ))}
 
       {isLoading && (

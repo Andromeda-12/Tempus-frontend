@@ -16,6 +16,8 @@ export const signinRoute = createRoute()
 export const signupRoute = createRoute()
 
 export const workspacesRoute = createRoute()
-export const workspaceRoute = createRoute()
+export const workspaceRoute = createRoute<{ workspaceId: number }>()
 
 export const projectRoute = createRoute()
+
+export const notFoundRoute = createRoute()

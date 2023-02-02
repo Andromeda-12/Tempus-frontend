@@ -14,9 +14,9 @@ export type WorkspaceDto = {
      */
     title: string;
     /**
-     * Image cover
+     * Workspace cover(url)
      */
-    coverFile?: Blob;
+    cover: string;
     /**
      * Workspace owner
      */
