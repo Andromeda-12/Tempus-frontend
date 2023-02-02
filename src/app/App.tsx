@@ -7,6 +7,8 @@ import { appGate } from '@/shared/routing'
 import { router, RoutesView } from './routing'
 import './index.css'
 
+import {  } from '@/entities/workspace'
+
 export const App = () => {
   useGate(appGate)
 

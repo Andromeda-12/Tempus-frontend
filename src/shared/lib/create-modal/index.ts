@@ -1,22 +1,14 @@
-import { createEvent, createStore, sample } from 'effector'
+import { createEvent, createStore } from 'effector'
 
 export const createModal = () => {
   const openModal = createEvent()
   const closeModal = createEvent()
 
   const $isOpen = createStore(false)
+    .on(openModal, () => true)
+    .on(closeModal, () => false)
 
-  sample({
-    clock: openModal,
-    fn: () => true,
-    target: $isOpen
-  })
-
-  sample({
-    clock: closeModal,
-    fn: () => false,
-    target: $isOpen
-  })
+  $isOpen.watch((f) => console.log(f))
 
   return {
     openModal,

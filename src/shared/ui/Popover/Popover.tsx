@@ -4,25 +4,33 @@ import * as PopoverPrimitive from '@radix-ui/react-popover'
 
 interface PropsProps {
   className?: string
+  rootClassName?: string
   children: ReactNode
-  trigger: ReactNode
+  trigger?: ReactNode
   withArrow?: boolean
   sideOffset?: number
+  isOpen?: boolean
   onOpenChange?: (open: boolean) => void
 }
 
 export const Popover = ({
   className,
+  rootClassName,
   children,
   trigger,
   withArrow,
   sideOffset,
+  isOpen,
   onOpenChange
 }: PropsProps) => {
   return (
-    <div className='relative'>
-      <PopoverPrimitive.Root onOpenChange={onOpenChange}>
-        <PopoverPrimitive.Trigger asChild>{trigger}</PopoverPrimitive.Trigger>
+    <div className={clsx('', rootClassName)}>
+      <PopoverPrimitive.Root  open={isOpen} onOpenChange={onOpenChange}>
+        {trigger && (
+          <PopoverPrimitive.Trigger asChild>
+            <div>{trigger}</div>
+          </PopoverPrimitive.Trigger>
+        )}
 
         <PopoverPrimitive.Content
           align='start'
@@ -33,10 +41,7 @@ export const Popover = ({
           )}
           sideOffset={sideOffset}
         >
-          {withArrow && (
-            // text-white dark:text-gray-800
-            <PopoverPrimitive.Arrow className='fill-current' />
-          )}
+          {withArrow && <PopoverPrimitive.Arrow className='fill-current' />}
 
           {children}
         </PopoverPrimitive.Content>

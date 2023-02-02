@@ -1,9 +1,8 @@
 import * as SelectPrimitive from '@radix-ui/react-select'
 import clsx from 'clsx'
-import { WorkspaceList } from '@/entities/workspace'
+import { WorkspaceList } from '@/widgets/workspace-list'
 import { Icon, Input } from '@/shared/ui'
 import { CreateWorkspaceButton } from '@/features/workspace/create-workspace'
-import { useGate } from 'effector-react'
 import { UpdateWorkspaceButton } from '@/features/workspace/update-workspace'
 import { UpdateWorkspaceModal } from '@/features/workspace/update-workspace'
 import { WorkspaceFilter } from '@/features/filter/workspace-filter'
@@ -86,9 +85,14 @@ export const WorkspacesPage = () => {
 
       <div className='flex'></div>
       <div className='mb-5 flex items-center justify-between  space-x-10'>
-        <WorkspaceFilter className='' />
+        <WorkspaceFilter />
 
-        <Input notAccent size='sm' placeholder='Search title'  startIconName='search' />
+        <Input
+          notAccent
+          size='sm'
+          placeholder='Search title'
+          startIconName='search'
+        />
       </div>
 
       <div className='scrollbar'>

@@ -7,6 +7,7 @@ import { Card } from '../Card'
 interface ModalProps {
   children: ReactNode
   className?: string
+  cardClassName?: string
   title?: string
   isOpen: boolean
   onClose: () => void
@@ -15,16 +16,18 @@ interface ModalProps {
 export const Modal = ({
   children,
   className,
+  cardClassName,
   title,
   isOpen,
   onClose
 }: ModalProps) => {
   return (
-    <DialogPrimitive.Root open={isOpen} modal onOpenChange={onClose}>
+    <DialogPrimitive.Root open={isOpen} onOpenChange={onClose}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className='fixed inset-0 backdrop-blur-sm z-[1000] bg-black/50' />
 
         <DialogPrimitive.Content
+          onClick={(e) => e.stopPropagation()}
           onOpenAutoFocus={(e) => e.preventDefault()}
           className={clsx(
             'fixed z-[1001] outline-none p-2',
@@ -32,12 +35,12 @@ export const Modal = ({
             className
           )}
         >
-          <Card className='p-5 sm:p-8'>
+          <Card className={clsx('p-5 sm:p-8', cardClassName)}>
             <div
               className={clsx(
-                'mb-7 flex',
+                'flex',
                 !title && 'justify-end',
-                title && 'justify-between'
+                title && 'justify-between mb-7'
               )}
             >
               {title && (
