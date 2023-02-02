@@ -5,6 +5,7 @@ import { viewerModel } from '@/entities/viewer'
 import { Card, CardCover, SquareButton } from '@/shared/ui'
 import { WorkspaceDto } from '@/shared/api'
 import { API_URL } from '@/shared/config'
+import { getImageUrl } from '@/shared/lib'
 
 export interface WorkspaceProps {
   workspace: WorkspaceDto
@@ -16,8 +17,6 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
 
   const viewer = useUnit(viewerModel.$viewer)
 
-  const coverUrl = cover ? `${API_URL}/api/images/${cover}` : ''
-
   let own = false
   if (viewer) own = owner.id === viewer.id
 
@@ -27,15 +26,19 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
 
   useOutsideAlerter(wrapperRef, () => setIsPopoverOpen(false))
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setIsPopoverOpen((isOpen) => !isOpen)
+  }
+
   return (
     <div className='relative' ref={wrapperRef}>
-      <Card className='relative overflow-visible' withHover>
+      <Card className='relative' withHover>
         {own && <OwnMark />}
 
-        <CardCover cover={coverUrl} />
+        <CardCover cover={getImageUrl(cover)} />
 
         <div className='px-5 py-2 flex justify-between'>
-          <div className=' '>
+          <div>
             <div className='text-ellipsis font-medium overflow-hidden whitespace-nowrap h-[20px] mb-2'>
               {title}
             </div>
@@ -46,11 +49,17 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
             </div>
           </div>
 
-          <div className='flex items-start relative'>
+          <div
+            className='flex items-start relative'
+            onClick={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
+            }}
+          >
             <SquareButton
               variant='text'
               icon='ellipsisHorizontal'
-              onClick={() => setIsPopoverOpen((isOpen) => !isOpen)}
+              onClick={handleClick}
             />
           </div>
         </div>
@@ -83,6 +92,10 @@ const WorkspacePopover = ({ actions }: { actions: ReactNode }) => {
         'bg-white dark:bg-neutral',
         'absolute -bottom-11 right-0 z-50 w-32'
       )}
+      onClick={(e) => {
+        e.stopPropagation()
+        e.preventDefault()
+      }}
     >
       {actions}
     </div>

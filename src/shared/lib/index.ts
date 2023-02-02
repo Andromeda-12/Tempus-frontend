@@ -11,3 +11,5 @@ export * from './jwt'
 export * from './get-sidebar-state-server-side'
 
 export * from './create-modal'
+
+export * from './get-image-url'
