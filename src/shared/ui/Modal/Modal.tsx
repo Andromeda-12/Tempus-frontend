@@ -9,6 +9,7 @@ interface ModalProps {
   className?: string
   cardClassName?: string
   title?: string
+  z?: '1' | '2'
   isOpen: boolean
   onClose: () => void
 }
@@ -18,20 +19,29 @@ export const Modal = ({
   className,
   cardClassName,
   title,
+  z = '1',
   isOpen,
   onClose
 }: ModalProps) => {
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={onClose}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className='fixed inset-0 backdrop-blur-sm z-[1000] bg-black/50' />
+        <DialogPrimitive.Overlay
+          className={clsx(
+            'fixed inset-0 backdrop-blur-sm bg-black/50',
+            z === '1' && 'z-[300]',
+            z === '2' && 'z-[500]'
+          )}
+        />
 
         <DialogPrimitive.Content
           onClick={(e) => e.stopPropagation()}
           onOpenAutoFocus={(e) => e.preventDefault()}
           className={clsx(
-            'fixed z-[1001] outline-none p-2',
+            'fixed outline-none p-2',
             'top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]',
+            z === '1' && 'z-[350]',
+            z === '2' && 'z-[550]',
             className
           )}
         >

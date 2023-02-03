@@ -22,3 +22,5 @@ export * from './ContentContainer'
 export * from './Modal'
 export * from './Popover'
 export * from './Filter'
+
+export * from './ImageUpload'

@@ -12,6 +12,7 @@ import {
 import { getImageUrl } from '@/shared/lib'
 import { $currentWorkspace, $isLoadingCurrentWorkspace } from './model'
 import { ProjectsFilter } from '@/features/filter/projects-filter'
+import { DeleteWorkspaceButton } from '@/features/workspace/delete-workspace'
 
 export const WorkspacePage = () => {
   const isLoading = useUnit($isLoadingCurrentWorkspace)
@@ -34,10 +35,14 @@ export const WorkspacePage = () => {
           <div className='flex justify-between items-center'>
             <div className='flex space-x-2'>
               <h2 className='text-xl'>{currentWorkspace?.title}</h2>
-              {/* <SquareButton size='xs' icon='chevronDown' /> */}
             </div>
 
-            <UpdateWorkspaceButton />
+            <UpdateWorkspaceButton
+              workspace={currentWorkspace}
+              deleteButton={
+                <DeleteWorkspaceButton workspace={currentWorkspace!} />
+              }
+            />
           </div>
 
           <div className='mb-2 mt-2 text-xs'>

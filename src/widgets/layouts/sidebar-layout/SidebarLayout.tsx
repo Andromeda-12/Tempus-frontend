@@ -34,7 +34,7 @@ export const SidebarLayout = ({ children }: SidebarLayout) => {
     <div className='h-full'>
       <div
         className={clsx(
-          'z-40 fixed h-full',
+          'z-[100] fixed h-full',
           open ? 'w-64' : 'w-16',
           'duration-300'
         )}

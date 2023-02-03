@@ -2,6 +2,7 @@ import { createEvent, createStore, restore, sample } from 'effector'
 import { createGate } from 'effector-react'
 import { workspaceModel } from '@/entities/workspace'
 import { deleteWorkspaceModel } from '@/features/workspace/delete-workspace'
+import { workspaceFilterModel } from '@/features/filter/workspace-filter'
 
 export const workspaceGate = createGate()
 
@@ -57,11 +58,6 @@ sample({
 sample({
   clock: workspaceGate.close,
   target: resetWorkspaces
-})
-
-sample({
-  clock: workspaceGate.close,
-  target: workspaceModel.setCurrentWorkspaceToNull
 })
 
 sample({

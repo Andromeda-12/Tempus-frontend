@@ -6,7 +6,7 @@ import { Icon } from '../Icon'
 
 interface ImageUploadProps {
   className?: string
-  preview: string | null
+  preview: string | null | undefined
   onChange?: (files: File) => void
 }
 

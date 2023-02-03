@@ -18,12 +18,12 @@ export const DeleteWorkspaceButton = ({
   }
 
   return (
-    <>
+    <div onMouseDown={(e) => e.stopPropagation()} className='w-full'>
       <ConfirmDeletionWorkspaceModal />
 
       <Button variant='text' className='z-50 w-full' onClick={handleClick}>
         Delete
       </Button>
-    </>
+    </div>
   )
 }

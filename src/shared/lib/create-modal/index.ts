@@ -8,8 +8,6 @@ export const createModal = () => {
     .on(openModal, () => true)
     .on(closeModal, () => false)
 
-  $isOpen.watch((f) => console.log(f))
-
   return {
     openModal,
     closeModal,

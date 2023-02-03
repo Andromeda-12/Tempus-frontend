@@ -1,25 +1,40 @@
-import { workspaceModel } from '@/entities/workspace'
-import { UpdateWorkspaceDto } from '@/shared/api'
-import { MAX_COVER_SIZE } from '@/shared/config'
-import { Button, FormField, Modal } from '@/shared/ui'
-import { ImageUpload } from '@/shared/ui/ImageUpload'
 import { useEvent, useUnit } from 'effector-react'
 import { Controller, useForm } from 'react-hook-form'
-import { updateWorkspaceModal } from '../model'
+import { Button, FormField, Modal, ImageUpload } from '@/shared/ui'
+import { UpdateWorkspaceDto } from '@/shared/api'
+import { getImageUrl } from '@/shared/lib'
+import { MAX_COVER_SIZE } from '@/shared/config'
+import {
+  $currentWorkspace,
+  updateWorkspace,
+  updateWorkspaceModal
+} from '../model'
+import { ReactNode } from 'react'
 
-interface UpdateWorkspaceModalProps {}
+interface UpdateWorkspaceModalProps {
+  deleteButton: ReactNode
+}
 
 interface IFormData {
   workspaceTitle: string
   workspaceCover: File | string | null
 }
 
-const defaultValues = {
-  workspaceTitle: '',
-  workspaceCover: null
-}
+export const UpdateWorkspaceModal = ({
+  deleteButton
+}: UpdateWorkspaceModalProps) => {
+  const currentWorkspace = useUnit($currentWorkspace)
 
-export const UpdateWorkspaceModal = ({}: UpdateWorkspaceModalProps) => {
+  const defaultValues = {
+    workspaceTitle: currentWorkspace?.title,
+    workspaceCover: currentWorkspace?.cover
+  }
+
+  const isOpen = useUnit(updateWorkspaceModal.$isOpen)
+  const closeModal = useUnit(updateWorkspaceModal.closeModal)
+
+  const updateWorkspaceFn = useEvent(updateWorkspace)
+
   const {
     handleSubmit,
     control,
@@ -29,27 +44,16 @@ export const UpdateWorkspaceModal = ({}: UpdateWorkspaceModalProps) => {
     defaultValues
   })
 
-  const isOpen = useUnit(updateWorkspaceModal.$isOpen)
-  const closeModal = useUnit(updateWorkspaceModal.closeModal)
-
-  const updateWorkspaceFn = useEvent(workspaceModel.updateWorkspace)
-
   const sendFormData = (formData: IFormData) => {
     const updateWorkspaceDto: UpdateWorkspaceDto = {
-      title: formData.workspaceTitle,
-      coverFile: formData.workspaceCover as File
+      title: formData.workspaceTitle
     }
 
-    const updateWorkspaceFormData = new FormData()
+    if (formData.workspaceCover instanceof File) {
+      updateWorkspaceDto.coverFile = formData.workspaceCover as File
+    }
 
-    Object.keys(updateWorkspaceDto).forEach((key) => {
-      if (key === 'coverFile') return
-      updateWorkspaceFormData.append(key, (updateWorkspaceDto as any)[key])
-    })
-    if (updateWorkspaceDto.coverFile)
-      updateWorkspaceFormData.append('cover', updateWorkspaceDto.coverFile)
-
-    updateWorkspaceFn(updateWorkspaceFormData)
+    updateWorkspaceFn(updateWorkspaceDto)
     handleCloseModal()
   }
 
@@ -59,7 +63,7 @@ export const UpdateWorkspaceModal = ({}: UpdateWorkspaceModalProps) => {
   }
 
   const getPreview = (value: string | File | null) => {
-    if (typeof value === 'string') return value
+    if (typeof value === 'string') return getImageUrl(value)
     if (value instanceof File) return URL.createObjectURL(value)
 
     return value
@@ -115,7 +119,16 @@ export const UpdateWorkspaceModal = ({}: UpdateWorkspaceModalProps) => {
           </div>
         </div>
 
-        <div className='flex justify-end'>
+        <div className='flex justify-between'>
+          <div
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+          >
+            {deleteButton}
+          </div>
+
           <div className='sm:w-2/5 flex space-x-3'>
             <Button
               className='w-full'
@@ -126,7 +139,7 @@ export const UpdateWorkspaceModal = ({}: UpdateWorkspaceModalProps) => {
               Cancel
             </Button>
             <Button className='w-full' accent>
-              Create
+              Edit
             </Button>
           </div>
         </div>

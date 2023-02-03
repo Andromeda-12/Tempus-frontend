@@ -4,6 +4,7 @@ import { createGate } from 'effector-react'
 import { ApiError, WorkspaceDto, WorkspaceService } from '@/shared/api'
 import { workspaceModel } from '@/entities/workspace'
 import { controls, notFoundRoute, workspaceRoute } from '@/shared/routing'
+import { notificationModel } from '@/features/notification'
 
 export const workspacePageGate = createGate()
 
@@ -14,7 +15,8 @@ const getCurrentWorkspace = createEvent<{
 }>()
 
 export const $currentWorkspace = createStore<WorkspaceDto | null>(null)
-export const $isLoadingCurrentWorkspace = workspaceModel.getCurrentWorkspaceFx.pending
+export const $isLoadingCurrentWorkspace =
+  workspaceModel.getCurrentWorkspaceFx.pending
 
 sample({
   clock: [workspaceRoute.opened, workspaceRoute.updated],
@@ -46,4 +48,20 @@ sample({
 redirect({
   clock: redirectToNotFoundPage,
   route: notFoundRoute
+})
+
+sample({
+  clock: workspaceModel.updateWorkspaceFx.doneData,
+  target: $currentWorkspace
+})
+
+sample({
+  clock: workspaceModel.updateWorkspaceFx.failData,
+  fn: (error) =>
+    notificationModel.createNotificationBody({
+      type: 'error',
+      title: 'Update workspace error',
+      message: error.body.message
+    }),
+  target: notificationModel.createNotification
 })

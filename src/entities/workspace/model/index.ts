@@ -15,11 +15,11 @@ import {
 import { GetRequestQuery } from '@/shared/lib'
 
 export const createWorkspace = createEvent<CreateWorkspaceDto>()
-export const updateWorkspace = createEvent<UpdateWorkspaceDto>()
+export const updateWorkspace = createEvent<{
+  id: number
+  updateWorkspaceDto: UpdateWorkspaceDto
+}>()
 export const removeWorkspace = createEvent<number>()
-
-export const setCurrentWorkspace = createEvent<WorkspaceDto>()
-export const setCurrentWorkspaceToNull = createEvent()
 
 export const resetWorkspaces = createEvent()
 
@@ -48,7 +48,7 @@ export const getCurrentWorkspaceFx = createEffect<
   )
 
   if (currentWorkspace) return currentWorkspace
-  
+
   const data = await WorkspaceService.workspaceControllerFindOne(workspaceId)
 
   if (data) return data
@@ -79,10 +79,6 @@ export const removeWorkspaceFx = createEffect<number, WorkspaceDto, ApiError>(
   async (id) => await WorkspaceService.workspaceControllerRemove(id)
 )
 
-export const $currentWorkspace = restore<WorkspaceDto>(
-  setCurrentWorkspace,
-  null
-).reset(setCurrentWorkspaceToNull)
 export const $workspaces = createStore<WorkspaceDto[]>([])
   .on(getWorkspacesFx.doneData, (_, workspaces) => [..._, ...workspaces])
   .on(createWorkspaceFx.doneData, (_, workspace) => [..._, workspace])
@@ -98,12 +94,6 @@ sample({
 
 sample({
   clock: updateWorkspace,
-  source: $currentWorkspace,
-  filter: Boolean,
-  fn: (currentWorkspace, updateWorkspaceDto) => ({
-    id: currentWorkspace.id,
-    updateWorkspaceDto
-  }),
   target: updateWorkspaceFx
 })
 

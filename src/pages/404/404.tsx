@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'atomic-router-react'
 import { Button } from '@/shared/ui'
-import { controls } from '@/shared/routing'
-import { useUnit } from 'effector-react'
+import { workspacesRoute } from '@/shared/routing'
 
 export const NotFoundPage = () => {
   const [isShowBread, setIsShowBread] = useState(false)
-
-  const goBack = useUnit(controls.back)
 
   useEffect(() => {
     const random = Math.random() < 0.1
@@ -24,9 +22,9 @@ export const NotFoundPage = () => {
         <div className='text-xl mb-5'>There is nothing here</div>
 
         <div className='mb-2 text-2xl'>👇</div>
-        <Button accent onClick={goBack}>
-          Go back
-        </Button>
+        <Link to={workspacesRoute}>
+          <Button accent>Go to dashboard</Button>
+        </Link>
       </div>
     </div>
   )
