@@ -20,7 +20,7 @@ export const UpdateWorkspaceButton = ({
       <Button
         dense
         variant='text'
-        className={clsx('bg-neutral !rounded-full py-2 mb-7', className)}
+        className={clsx('py-2', className)}
         onClick={handleClickFn}
       >
         Update workspace

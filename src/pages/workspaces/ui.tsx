@@ -84,7 +84,7 @@ export const WorkspacesPage = () => {
       </div>
 
       <div className='flex'></div>
-      <div className='mb-5 flex items-center justify-between  space-x-10'>
+      <div className='mb-7 flex items-center justify-between space-x-10'>
         <WorkspaceFilter />
 
         <Input

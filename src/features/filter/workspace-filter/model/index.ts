@@ -1,12 +1,15 @@
 import { createEvent, createStore, sample } from 'effector'
+import { querySync } from 'atomic-router'
+import { controls, workspacesRoute } from '@/shared/routing'
 
 type FilterValue = 'own' | 'others' | null
 
 const createFilter = <T>(value: T) => {
   const toggle = createEvent()
+  const reset = createEvent()
 
   const $value = createStore(value)
-  const $checked = createStore(false)
+  const $checked = createStore(false).reset(reset)
 
   sample({
     clock: toggle,
@@ -21,17 +24,52 @@ const createFilter = <T>(value: T) => {
   return {
     value: $value,
     checked: $checked,
-    toggle
+    toggle,
+    reset
   }
 }
 
 export const ownFilter = createFilter<FilterValue>('own')
 export const othersFilter = createFilter<FilterValue>('others')
 
+const resetFilter = createEvent()
+
+export const $currentFilter = createStore<FilterValue>(null).reset(resetFilter)
+
+const $currentFilterFromQuery = createStore<FilterValue>(null)
+const setCurrentFilterFromQuery = createEvent<FilterValue>()
+
+sample({
+  clock: $currentFilter,
+  target: $currentFilterFromQuery
+})
+
+sample({
+  clock: $currentFilterFromQuery,
+  source: $currentFilter,
+  filter: (currentFilter) => currentFilter === null,
+  fn: (_, currentFilterFromQuery) => currentFilterFromQuery,
+  target: setCurrentFilterFromQuery
+})
+
+sample({
+  clock: setCurrentFilterFromQuery,
+  filter: (currentFilterFromQuery) => currentFilterFromQuery === 'own',
+  target: ownFilter.toggle
+})
+
+sample({
+  clock: setCurrentFilterFromQuery,
+  filter: (currentFilterFromQuery) => currentFilterFromQuery === 'others',
+  target: othersFilter.toggle
+})
+
+querySync({
+  source: { filter: $currentFilterFromQuery },
+  controls
+})
+
 const filters = [ownFilter, othersFilter]
-
-export const $currentFilter = createStore<FilterValue>(null)
-
 filters.map((filter) => {
   sample({
     clock: filter.toggle,
@@ -54,4 +92,9 @@ sample({
   clock: othersFilter.toggle,
   fn: () => false,
   target: ownFilter.checked
+})
+
+sample({
+  clock: [workspacesRoute.closed],
+  target: [ownFilter.reset, othersFilter.reset, resetFilter]
 })

@@ -24,6 +24,12 @@ export const Project = ({ project }: ProjectProps) => {
           </div>
         )}
 
+        {assignedTask === 0 && (
+          <div className='text-sm mt-1 opacity-60'>
+            no assigned tasks
+          </div>
+        )}
+
         <div className='text-xs mt-1 opacity-60'>{totalTasks} total tasks</div>
       </ContentContainer>
     </Card>
