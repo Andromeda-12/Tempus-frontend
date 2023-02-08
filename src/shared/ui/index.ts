@@ -24,3 +24,5 @@ export * from './Popover'
 export * from './Filter'
 
 export * from './ImageUpload'
+
+export * from './FilterToggleGroup'

@@ -1,5 +1,4 @@
 import { Card, ContentContainer, Tab, Tabs } from '@/shared/ui'
-import { useRouter } from 'next/router'
 
 const tabs: Tab[] = [
   {

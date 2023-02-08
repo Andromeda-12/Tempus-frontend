@@ -1,30 +1,37 @@
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
 import clsx from 'clsx'
-import { Filter, FilterItem, Icon } from '@/shared/ui'
-import { $currentFilter, ownFilter, othersFilter } from '../model'
+import { FilterToggleGroup, Icon, Popover } from '@/shared/ui'
+import { FilterValue, values, workspaceFilter } from '../model'
 
 interface WorkspaceFilterProps {
   className?: string
 }
 
 export const WorkspaceFilter = ({ className }: WorkspaceFilterProps) => {
+  const currentFilter = useUnit(workspaceFilter.currentValue)
+  const changeValue = useUnit(workspaceFilter.changeValue)
+
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <Filter
-      className={clsx(className, 'z-50 w-44')}
-      trigger={<FilterTrigger isOpen={isOpen} />}
+    <Popover
       onOpenChange={setIsOpen}
+      sideOffset={8}
+      className={clsx(className, 'z-50 w-44 -right-10')}
+      trigger={<FilterTrigger isOpen={isOpen} />}
     >
-      <OwnFilter />
-      <OthersFilter />
-    </Filter>
+      <FilterToggleGroup
+        currentValue={currentFilter}
+        onValueChange={(value) => changeValue(value as FilterValue)}
+        values={values}
+      />
+    </Popover>
   )
 }
 
 const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
-  const currentFilter = useUnit($currentFilter)
+  const currentFilter = useUnit(workspaceFilter.currentValue)
 
   return (
     <div className='flex space-x-3 text-sm'>
@@ -41,29 +48,5 @@ const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
         />
       </div>
     </div>
-  )
-}
-
-const OwnFilter = () => {
-  const { value, checked, toggle } = useUnit({
-    value: ownFilter.value,
-    checked: ownFilter.checked,
-    toggle: ownFilter.toggle
-  })
-
-  return (
-    <FilterItem value={value as string} checked={checked} onClick={toggle} />
-  )
-}
-
-const OthersFilter = () => {
-  const { value, checked, toggle } = useUnit({
-    value: othersFilter.value,
-    checked: othersFilter.checked,
-    toggle: othersFilter.toggle
-  })
-
-  return (
-    <FilterItem value={value as string} checked={checked} onClick={toggle} />
   )
 }
