@@ -21,13 +21,7 @@ export const ConfirmDeletionWorkspaceModal = () => {
 
   return (
     <div onMouseDown={(e) => e.stopPropagation()}>
-      <Modal
-        // cardClassName='!p-3 !py-6'
-        className='w-full max-w-md'
-        isOpen={isOpen}
-        onClose={closeModal}
-        z='2'
-      >
+      <Modal className='w-full max-w-md' isOpen={isOpen} onClose={closeModal}>
         <div className='text-center text-lg mb-10'>
           Are you sure you want to delete the workspace{' '}
           <span className='text-accent font-bold'>

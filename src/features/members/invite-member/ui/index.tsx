@@ -20,7 +20,6 @@ export const ConfirmDeletionWorkspaceModal = () => {
         className='w-full max-w-md'
         isOpen={isOpen}
         onClose={closeModal}
-        z='2'
       >
         <div className='text-center text-lg mb-10'>
           Are you sure you want to delete the workspace{' '}

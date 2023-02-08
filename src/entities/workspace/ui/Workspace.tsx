@@ -6,6 +6,7 @@ import { Card, CardCover, SquareButton } from '@/shared/ui'
 import { WorkspaceDto } from '@/shared/api'
 import { API_URL } from '@/shared/config'
 import { getImageUrl } from '@/shared/lib'
+import * as Portal from '@radix-ui/react-portal'
 
 export interface WorkspaceProps {
   workspace: WorkspaceDto
