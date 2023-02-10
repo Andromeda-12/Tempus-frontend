@@ -1,11 +1,12 @@
 import { ReactNode } from 'react'
 import clsx from 'clsx'
 import { Link } from 'atomic-router-react'
-import { RouteInstance } from 'atomic-router'
+import { RouteInstance, RouteParams } from 'atomic-router'
 
 export interface NavigationItem {
   // href?: string
-  route?: RouteInstance<{}>
+  route?: RouteInstance<any>
+  params?: Object
   title?: string
   icon?: ReactNode
   content?: ReactNode
@@ -23,13 +24,15 @@ interface NavigationProps {
 
 const NavigationItemWithLink = ({
   route,
+  params,
   children
 }: {
-  route: RouteInstance<{}>
+  route: RouteInstance<any>
+  params: RouteParams
   children: ReactNode
 }) => {
   return (
-    <Link to={route} className='outline-none'>
+    <Link to={route} params={params} className='outline-none'>
       {children}
     </Link>
   )
@@ -66,7 +69,7 @@ export const Navigation = ({ open, items }: NavigationProps) => (
     {items.map((item) => (
       <li key={item.title}>
         {item.route ? (
-          <NavigationItemWithLink route={item.route}>
+          <NavigationItemWithLink route={item.route} params={item.params || {}}>
             <NavigationItem open={open} item={item} />
           </NavigationItemWithLink>
         ) : (

@@ -19,10 +19,10 @@ const tabs: Tab[] = [
   }
 ]
 
-export const Settings = () => {
+export const SettingsPage = () => {
 
-  const router = useRouter()
-  const {tabTitle} = router.query
+  // const router = useRouter()
+  // const {tabTitle} = router.query
   
 
   return (
@@ -31,7 +31,9 @@ export const Settings = () => {
 
       <Card className='flex flex-col h-full'>
         <ContentContainer className='h-full flex flex-col'>
-          <Tabs defaultTab={tabTitle as string} tabs={tabs}  />
+          еуые
+
+          {/* <Tabs defaultTab={tabTitle as string} tabs={tabs}  /> */}
         </ContentContainer>
       </Card>
     </div>

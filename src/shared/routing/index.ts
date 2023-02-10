@@ -20,7 +20,7 @@ export const workspaceRoute = createRoute<{ workspaceId: number }>()
 
 export const projectRoute = createRoute()
 
-export const settingRoute = createRoute()
+export const settingRoute = createRoute<{ settingSection: string }>()
 export const generalSettingsRoute = createRoute()
 export const userSettingsRoute = createRoute()
 

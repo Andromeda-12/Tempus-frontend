@@ -5,7 +5,7 @@ import { HamburgerButton, Icon } from '@/shared/ui'
 import { SidebarSection } from './SidebarSection'
 import { SidebarContainer } from './SidebarContainer'
 import { Navigation, NavigationItem } from './Navigaton'
-import { workspacesRoute } from '@/shared/routing'
+import { settingRoute, workspacesRoute } from '@/shared/routing'
 
 const topNavigation: NavigationItem[] = [
   {
@@ -32,7 +32,8 @@ const topNavigation: NavigationItem[] = [
 
 const bottomNavigation: NavigationItem[] = [
   {
-    // route: '/settings',
+    route: settingRoute,
+    params: { settingSection: 'general' },
     title: 'Settings',
     icon: <Icon name='settings' />
   },
@@ -57,7 +58,7 @@ export const Sidebar = ({ open, onToggle, className }: SidebarProps) => {
 
       <div
         className={clsx(
-          'hidden md:flex  mb-4 flex-wrap justify-end h-14 md:h-auto'
+          'hidden md:flex mb-4 flex-wrap justify-end h-14 md:h-auto'
         )}
       >
         <div className='justify-end hidden md:flex'>

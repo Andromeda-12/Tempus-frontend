@@ -1,10 +1,9 @@
 export * from './settings'
 
+import { settingRoute } from '@/shared/routing'
+import { SettingsPage } from './settings'
 
-import { workspaceRoute } from '@/shared/routing'
-import { WorkspacePage } from './ui'
-
-export const Workspace = {
-  view: WorkspacePage,
-  route: workspaceRoute
+export const Settings = {
+  view: SettingsPage,
+  route: settingRoute
 }

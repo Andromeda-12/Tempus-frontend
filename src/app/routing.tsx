@@ -8,12 +8,14 @@ import { Workspace } from '@/pages/workspace'
 import { NotFound } from '@/pages/404'
 import { AuthLayout, SidebarLayout } from '@/widgets/layouts'
 import { controls } from '@/shared/routing'
+import { Settings } from '@/pages/settings'
 
 const routes = [
   { path: '/signin', route: SignIn.route },
   { path: '/signup', route: SignUp.route },
   { path: '/workspaces', route: Workspaces.route },
   { path: '/workspaces/:workspaceId', route: Workspace.route },
+  { path: '/settings/:settingSection', route: Settings.route },
   { path: '/404', route: NotFound.route }
 ]
 
@@ -32,6 +34,7 @@ export const RoutesView = createRoutesView({
     { route: SignUp.route, view: SignUp.view, layout: AuthLayout },
     { route: Workspaces.route, view: Workspaces.view, layout: SidebarLayout },
     { route: Workspace.route, view: Workspace.view, layout: SidebarLayout },
+    { route: Settings.route, view: Settings.view, layout: SidebarLayout },
     { route: NotFound.route, view: NotFound.view }
   ],
   otherwise() {
