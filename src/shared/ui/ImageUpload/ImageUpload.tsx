@@ -7,12 +7,14 @@ import { Icon } from '../Icon'
 interface ImageUploadProps {
   className?: string
   preview: string | null | undefined
+  title?: string
   onChange?: (files: File) => void
 }
 
 export const ImageUpload = ({
   className,
   onChange,
+  title,
   preview: previewProp
 }: ImageUploadProps) => {
   const [isDragActive, setIsDragActive] = useState(false)
@@ -62,7 +64,7 @@ export const ImageUpload = ({
           size='lg'
           className={clsx(isDragActive && 'animate-bounce')}
         />
-        <p className='mt-4'>Browse File to Upload</p>
+        <p className='mt-4'>{title || 'Browse File to Upload'}</p>
       </div>
 
       {preview && (

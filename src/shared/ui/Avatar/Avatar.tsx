@@ -1,11 +1,12 @@
 import clsx from 'clsx'
 import * as AvatarPrimitive from '@radix-ui/react-avatar'
+import { ImageUpload } from '../ImageUpload'
 
 const avatarSizes = {
   sm: 'h-6 w-6',
   base: 'h-8 w-8',
-  lg: 'h-10 w-10',
-  xl: 'h-12 w-12',
+  lg: 'h-32 w-32',
+  xl: 'h-40 w-40',
   full: 'h-56 w-56'
 }
 
@@ -13,7 +14,7 @@ const fallbackSize = {
   sm: 'text-xs',
   base: 'text-sm',
   lg: 'text-base',
-  xl: 'text-xl',
+  xl: 'text-7xl',
   full: 'text-8xl'
 }
 
@@ -38,6 +39,7 @@ interface AvatarProps {
   size?: 'sm' | 'base' | 'lg' | 'xl' | 'full'
   src?: string
   variant?: 'circle' | 'rounded'
+  upload?: boolean
   isOnline?: boolean
   fallback?: string
   fallbackDelay?: number
@@ -48,14 +50,15 @@ export const Avatar = ({
   src,
   variant = 'circle',
   size = 'base',
-  fallback = 'AF',
+  upload,
+  fallback = '',
   fallbackDelay,
   isOnline
 }: AvatarProps) => {
   return (
     <AvatarPrimitive.Root
       className={clsx(
-        'relative inline-flex',
+        'relative inline-flex group',
         {
           ['circle']: 'rounded-full',
           ['rounded']: 'rounded'
@@ -64,17 +67,33 @@ export const Avatar = ({
         className
       )}
     >
-      <AvatarPrimitive.Image
-        src={src}
-        alt='Avatar'
-        className={clsx(
-          'h-full w-full object-cover',
-          {
-            ['circle']: 'rounded-full',
-            ['rounded']: 'rounded'
-          }[variant]
-        )}
-      />
+      {!upload && (
+        <AvatarPrimitive.Image
+          src={src}
+          alt='Avatar'
+          className={clsx(
+            'h-full w-full object-cover',
+            {
+              ['circle']: 'rounded-full',
+              ['rounded']: 'rounded'
+            }[variant]
+          )}
+        />
+      )}
+
+      {upload && (
+        <ImageUpload
+          title='Upload your avatar'
+          className={clsx(
+            'h-full w-full px-5 text-center !bg-none z-10',
+            {
+              ['circle']: '!rounded-full',
+              ['rounded']: 'rounded'
+            }[variant]
+          )}
+          preview={undefined}
+        />
+      )}
 
       {isOnline && (
         <OnlineStatus
@@ -90,7 +109,8 @@ export const Avatar = ({
 
       <AvatarPrimitive.Fallback
         className={clsx(
-          'flex h-full w-full items-center justify-center bg-gray-200/60 dark:bg-gray-700',
+          'flex absolute h-full w-full items-center justify-center bg-gray-200/60 dark:bg-gray-700',
+          upload && 'opacity-40',
           {
             ['circle']: 'rounded-full',
             ['rounded']: 'rounded'
@@ -100,7 +120,7 @@ export const Avatar = ({
       >
         <span
           className={clsx(
-            'font-medium uppercase text-gray-700 dark:text-gray-400',
+            'font-medium uppercase text-gray-700 dark:text-gray-400 select-none',
             fallbackSize[size]
           )}
         >
