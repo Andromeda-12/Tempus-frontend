@@ -4,6 +4,7 @@
 import type { CreateProjectDto } from '../models/CreateProjectDto';
 import type { ProjectDto } from '../models/ProjectDto';
 import type { UpdateProjectDto } from '../models/UpdateProjectDto';
+import type { UpdateRoleDto } from '../models/UpdateRoleDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -149,6 +150,27 @@ id: number,
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @param id 
+     * @param requestBody 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static projectControllerChangeProjectRole(
+id: number,
+requestBody: UpdateRoleDto,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/api/projects/{id}/changeProjectRole',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

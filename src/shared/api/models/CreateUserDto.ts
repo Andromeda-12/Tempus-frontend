@@ -19,4 +19,12 @@ export type CreateUserDto = {
      * User password
      */
     password: string;
+    /**
+     * User avatar (File)
+     */
+    avatarFile?: Blob;
+    /**
+     * User avatar (Url)
+     */
+    avatar: string;
 };

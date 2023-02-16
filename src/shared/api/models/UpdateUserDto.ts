@@ -15,4 +15,8 @@ export type UpdateUserDto = {
      * User lastname
      */
     lastName?: string;
+    /**
+     * User avatar (File)
+     */
+    avatarFile?: Blob;
 };

@@ -43,19 +43,19 @@ searchText?: string,
     }
 
     /**
-     * Change password
-     * @param requestBody 
+     * Update user
+     * @param formData 
      * @returns UserDto 
      * @throws ApiError
      */
     public static userControllerUpdate(
-requestBody: UpdateUserDto,
+formData: UpdateUserDto,
 ): CancelablePromise<UserDto> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/user',
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
 

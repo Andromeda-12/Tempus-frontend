@@ -20,6 +20,7 @@ export type { ServerSideTokensDto } from './models/ServerSideTokensDto';
 export type { TaskDto } from './models/TaskDto';
 export type { TimeLineDto } from './models/TimeLineDto';
 export type { UpdateProjectDto } from './models/UpdateProjectDto';
+export type { UpdateRoleDto } from './models/UpdateRoleDto';
 export type { UpdateTaskDto } from './models/UpdateTaskDto';
 export type { UpdateUserDto } from './models/UpdateUserDto';
 export type { UpdateWorkspaceDto } from './models/UpdateWorkspaceDto';

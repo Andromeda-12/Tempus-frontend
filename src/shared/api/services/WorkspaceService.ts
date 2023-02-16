@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateWorkspaceDto } from '../models/CreateWorkspaceDto';
+import type { UpdateRoleDto } from '../models/UpdateRoleDto';
 import type { UpdateWorkspaceDto } from '../models/UpdateWorkspaceDto';
 import type { WorkspaceDto } from '../models/WorkspaceDto';
 
@@ -33,6 +34,7 @@ formData: CreateWorkspaceDto,
      * @param offset Offset of workspaces
      * @param limit Limit of workspaces
      * @param title Workspace title
+     * @param isOwned Workspace title
      * @returns WorkspaceDto 
      * @throws ApiError
      */
@@ -40,6 +42,7 @@ formData: CreateWorkspaceDto,
 offset?: number,
 limit?: number,
 title?: string,
+isOwned?: boolean,
 ): CancelablePromise<Array<WorkspaceDto>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -48,6 +51,7 @@ title?: string,
                 'offset': offset,
                 'limit': limit,
                 'title': title,
+                'isOwned': isOwned,
             },
         });
     }
@@ -143,6 +147,27 @@ id: number,
             path: {
                 'id': id,
             },
+        });
+    }
+
+    /**
+     * @param id 
+     * @param requestBody 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static workspaceControllerChangeWorkspaceRole(
+id: number,
+requestBody: UpdateRoleDto,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/api/workspace/{id}/changeWorkspaceRole',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

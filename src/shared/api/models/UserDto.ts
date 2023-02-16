@@ -19,4 +19,8 @@ export type UserDto = {
      * User lastname
      */
     lastName: string;
+    /**
+     * User avatar (Url)
+     */
+    avatar: string;
 };

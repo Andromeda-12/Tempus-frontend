@@ -12,4 +12,6 @@ export interface PropsWithChildren extends PropsWithClassName {
 export type GetRequestQuery = {
   offset: number
   limit: number
+  title: string
+  isOwned: boolean
 }
