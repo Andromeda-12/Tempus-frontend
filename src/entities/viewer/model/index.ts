@@ -5,7 +5,8 @@ import {
   CreateUserDto,
   AuthService,
   UserService,
-  ApiError
+  ApiError,
+  UpdateUserDto
 } from '@/shared/api'
 
 export const setViewer = createEvent<UserDto | null>()
@@ -41,6 +42,10 @@ export const changePasswordFx = createEffect<void, void, ApiError>(
   async (changePasswordDto) => {
     await AuthService.authControllerChangePassword(changePasswordDto)
   }
+)
+
+export const updateViewerFx = createEffect<UpdateUserDto, UserDto, ApiError>(
+  async (updateUserDto) => await UserService.userControllerUpdate(updateUserDto)
 )
 
 export const $viewer = restore<UserDto | null>(setViewer, null).reset(

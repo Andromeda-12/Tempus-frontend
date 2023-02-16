@@ -26,3 +26,5 @@ export * from './Filter'
 export * from './ImageUpload'
 
 export * from './FilterToggleGroup'
+
+export * from './UploadAvatar'

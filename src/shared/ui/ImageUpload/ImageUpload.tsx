@@ -1,20 +1,22 @@
-/* eslint-disable @next/next/no-img-element */
-import { useRef, useState } from 'react'
+import { ReactNode, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { DropZone as DropZoneContainer } from '@/shared/lib'
 import { Icon } from '../Icon'
+import { Preview } from './Preview'
 
 interface ImageUploadProps {
   className?: string
+  previewClassName?: string
   preview: string | null | undefined
-  title?: string
+  overlay?: ReactNode
   onChange?: (files: File) => void
 }
 
 export const ImageUpload = ({
   className,
+  previewClassName,
   onChange,
-  title,
+  overlay,
   preview: previewProp
 }: ImageUploadProps) => {
   const [isDragActive, setIsDragActive] = useState(false)
@@ -39,15 +41,15 @@ export const ImageUpload = ({
     const preveiweURL = URL.createObjectURL(files[0])
     setPreview(preveiweURL)
   }
-
+  // bg-gray-100/60 dark:bg-secondary/5
   return (
     <DropZoneContainer
       onClick={triggeFileInput}
       onDragStateChange={onDragStateChange}
       onFilesDrop={handleInputChange}
       className={clsx(
-        'text-primary relative h-full w-full rounded-2xl group',
-        'cursor-pointer bg-gray-100/60 dark:bg-secondary/5 dark:text-secondary',
+        'text-primary relative h-full w-full rounded-2xl overflow-hidden group',
+        'cursor-pointer  dark:text-secondary',
         'flex items-center justify-center flex-col',
         isDragActive && 'border-dashed',
         className
@@ -59,27 +61,19 @@ export const ImageUpload = ({
           preview && 'text-black dark:text-white'
         )}
       >
-        <Icon
-          name='fileUpload'
-          size='lg'
-          className={clsx(isDragActive && 'animate-bounce')}
-        />
-        <p className='mt-4'>{title || 'Browse File to Upload'}</p>
+        {overlay || <DefaultOverlay isDragActive={isDragActive} />}
       </div>
 
       {preview && (
-        <div
+        <Preview
+          alt='Cover'
+          preview={preview}
           className={clsx(
             'h-full w-full absolute inset-0 overflow-hidden z-20 group-hover:opacity-50 group-hover:z-0 duration-200 rounded-2xl',
+            previewClassName,
             isDragActive && 'z-0 opacity-50'
           )}
-        >
-          <img
-            src={preview}
-            alt='cover'
-            className='h-full w-full object-cover pointer-events-none'
-          />
-        </div>
+        />
       )}
 
       <input
@@ -91,5 +85,25 @@ export const ImageUpload = ({
         onChange={(e) => e.target.files && handleInputChange(e.target.files)}
       />
     </DropZoneContainer>
+  )
+}
+
+const DefaultOverlay = ({ isDragActive }: { isDragActive: boolean }) => {
+  return (
+    <div
+      className={clsx(
+        'absolute inset-0 rounded-2xl duration-100 flex justify-center items-center',
+        isDragActive && 'border-2 border-dashed'
+      )}
+    >
+      <div className='flex flex-col items-center'>
+        <Icon
+          name='fileUpload'
+          size='lg'
+          className={clsx(isDragActive && 'animate-bounce')}
+        />
+        <p className='mt-4'>Browse File to Upload</p>
+      </div>
+    </div>
   )
 }
