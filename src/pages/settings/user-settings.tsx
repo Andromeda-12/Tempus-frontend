@@ -1,31 +1,26 @@
-import { ViewerAvatar, viewerModel } from '@/entities/viewer'
-import { Button, FormField, ImageUpload } from '@/shared/ui'
-import { UploadAvatar } from '@/shared/ui/UploadAvatar'
-import { useStore } from 'effector-react'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useUnit } from 'effector-react'
+import { UpdateUserForm } from '@/features/users/update-user'
+import { UploadAvatar } from '@/features/users/upload-avatar'
+import { ViewerAvatar, viewerModel } from '@/entities/viewer'
+import { Button } from '@/shared/ui'
 
 export const UserSettings = () => {
   const [isEditable, setIsEditable] = useState(false)
-
-  const viewer = useStore(viewerModel.$viewer)
-
-  const defaultValues = {
-    firstName: viewer!.firstName,
-    lastName: viewer!.lastName
-  }
-
-  const { handleSubmit, control } = useForm({
-    defaultValues
-  })
-
-  const onSubmit = (data: { firstName: string; lastName: string }) => {}
 
   return (
     <div className='py-8'>
       <div className='space-y-6'>
         <div className='flex justify-between'>
-          <ViewerAvatar upload={isEditable} size='xl' />
+          <div>
+            {!isEditable ? <ViewerAvatar size='xl' /> : <UploadAvatar />}
+
+            <UserEmailInfo />
+
+            <div className='mt-2'>
+              {!isEditable ? <UserInfo /> : <UpdateUserForm />}
+            </div>
+          </div>
 
           <div>
             <Button accent onClick={() => setIsEditable(!isEditable)}>
@@ -33,60 +28,37 @@ export const UserSettings = () => {
             </Button>
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
 
-        {/* <ImageUpload preview={viewer.avatar} onChange={() => {}} /> */}
+const UserEmailInfo = () => {
+  const viewer = useUnit(viewerModel.$viewer)
 
-        <div className='max-w-md'>
-          {/* <div className='flex space-x-2 md:text-2xl font-medium'>
-            <div>{viewer?.firstName}</div>
+  return (
+    <div className='flex items-center mb-2 space-x-4'>
+      <div className='md:text-xl'>{viewer?.email}</div>
 
-            <div>{viewer?.lastName}</div>
-          </div> */}
+      <Button variant='contained' accent>
+        Change email
+      </Button>
+    </div>
+  )
+}
 
-          <div className='flex items-center mb-2 space-x-4'>
-            <div className='md:text-xl'>{viewer?.email}</div>
+const UserInfo = () => {
+  const viewer = useUnit(viewerModel.$viewer)
 
-            {isEditable && (
-              <Button variant='contained' accent>
-                Change email
-              </Button>
-            )}
-          </div>
+  return (
+    <div className='max-w-md'>
+      <div className='space-y-2 text-xl'>
+        <div>{viewer?.firstName}</div>
+        <div>{viewer?.lastName}</div>
 
-          <form className='space-y-2 text-xl' onSubmit={handleSubmit(onSubmit)}>
-            {isEditable ? (
-              <FormField
-                placeholder='First name'
-                name='firstName'
-                control={control}
-                rules={{
-                  required: 'First name is required'
-                }}
-              />
-            ) : (
-              <div>{viewer?.firstName}</div>
-            )}
-
-            {isEditable ? (
-              <FormField
-                placeholder='Last name'
-                name='lastName'
-                control={control}
-                rules={{
-                  required: 'Last name is required'
-                }}
-              />
-            ) : (
-              <div>{viewer?.lastName}</div>
-            )}
-
-            {isEditable && (
-              <Button accent className='w-full !mt-4'>
-                Save
-              </Button>
-            )}
-          </form>
-        </div>
+        <Button accent className='w-full !mt-4'>
+          Save
+        </Button>
       </div>
     </div>
   )

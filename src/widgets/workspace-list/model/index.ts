@@ -4,6 +4,8 @@ import { workspaceModel } from '@/entities/workspace'
 import { deleteWorkspaceModel } from '@/features/workspace/delete-workspace'
 import { workspaceFilterModel } from '@/features/filter/workspace-filter'
 import { GetRequestQuery } from '@/shared/lib'
+import { workspaceSearchModel } from '@/features/filter/workspace-search'
+import { debounce } from 'patronum';
 
 export const workspaceGate = createGate()
 
@@ -14,7 +16,6 @@ const resetOffset = createEvent()
 const resetWorkspaces = createEvent()
 const setIsAllDataLoaded = createEvent<boolean>()
 
-const $searchTitle = createStore('')
 const $isOwnedFilter = createStore<boolean | null>(null)
 const $limit = createStore(20)
 export const $offset = createStore(0)
@@ -35,7 +36,7 @@ sample({
     offset: $offset,
     limit: $limit,
     isOwned: $isOwnedFilter,
-    searchTitle: $searchTitle,
+    searchTitle: workspaceSearchModel.$searchWorkspaceTitle,
     isLoadign: $isLoading
   },
   filter: ({ isLoadign }) => !isLoadign,
@@ -105,4 +106,12 @@ sample({
   target: [loadMoreWorkspaces, resetOffset, resetWorkspaces]
 })
 
-$offset.watch((e) => console.log(e))
+const debouncedSearchWorkspace = debounce({
+  source: workspaceSearchModel.setSearchWorkspaceTitle,
+  timeout: 300,
+});
+
+sample({
+  clock: debouncedSearchWorkspace,
+  target: [loadMoreWorkspaces, resetOffset, resetWorkspaces]
+})

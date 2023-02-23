@@ -1,11 +1,23 @@
 import clsx from 'clsx'
 import { ThemeSwitcher } from '@/features/theme-switcher'
-import { ViewerAvatar } from '@/entities/viewer'
+import { ViewerAvatar, viewerModel } from '@/entities/viewer'
 import { HamburgerButton, Icon } from '@/shared/ui'
 import { SidebarSection } from './SidebarSection'
 import { SidebarContainer } from './SidebarContainer'
 import { Navigation, NavigationItem } from './Navigaton'
 import { settingRoute, workspacesRoute } from '@/shared/routing'
+import { useUnit } from 'effector-react'
+
+const ViewerFullName = () => {
+  const viewer = useUnit(viewerModel.$viewer)
+  const fullName = `${viewer?.firstName} ${viewer?.lastName}`
+
+  return (
+    <div className='ml-1 text-sm  whitespace-nowrap overflow-hidden text-ellipsis'>
+      {fullName}
+    </div>
+  )
+}
 
 const topNavigation: NavigationItem[] = [
   {
@@ -39,7 +51,7 @@ const bottomNavigation: NavigationItem[] = [
   },
   {
     icon: <ViewerAvatar className='relative -left-1' />,
-    title: 'SomeName Some'
+    content: <ViewerFullName />
   }
 ]
 

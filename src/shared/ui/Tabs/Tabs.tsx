@@ -13,11 +13,16 @@ export interface Tab {
 interface TabsProps {
   tabs: Tab[]
   defaultTab: string
+  onValueChange?: (value: string) => void
 }
 
-export const Tabs = ({ tabs }: TabsProps) => {
+export const Tabs = ({ tabs, defaultTab, onValueChange }: TabsProps) => {
   return (
-    <TabsPrimitive.Root defaultValue='general' className='focus:outline-none'>
+    <TabsPrimitive.Root
+      defaultValue={defaultTab}
+      className='focus:outline-none'
+      onValueChange={onValueChange}
+    >
       <TabsPrimitive.List className='focus:outline-none'>
         {tabs.map(({ title, value }) => (
           <Trigger key={`tab-trigger-${value}`} value={value} title={title} />
