@@ -38,7 +38,7 @@ export const SettingsPage = () => {
       <Card className='flex flex-col h-full'>
         <ContentContainer className='h-full flex flex-col'>
           <Tabs
-            defaultTab={settingSection as string}
+            currentTab={settingSection as string}
             tabs={tabs}
             onValueChange={(value) =>
               hanldeTabValueChange(value as SettingsTabs)

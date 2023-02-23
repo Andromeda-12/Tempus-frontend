@@ -12,14 +12,15 @@ export interface Tab {
 
 interface TabsProps {
   tabs: Tab[]
-  defaultTab: string
+  currentTab: string
   onValueChange?: (value: string) => void
 }
 
-export const Tabs = ({ tabs, defaultTab, onValueChange }: TabsProps) => {
+export const Tabs = ({ tabs, currentTab, onValueChange }: TabsProps) => {
   return (
     <TabsPrimitive.Root
-      defaultValue={defaultTab}
+      // defaultValue={defaultTab}
+      value={currentTab}
       className='focus:outline-none'
       onValueChange={onValueChange}
     >

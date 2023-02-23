@@ -3,6 +3,8 @@
 /* eslint-disable */
 import type { AuthUserDto } from '../models/AuthUserDto';
 import type { CreateUserDto } from '../models/CreateUserDto';
+import type { ForgetPasswordDto } from '../models/ForgetPasswordDto';
+import type { RecoveryPasswordDto } from '../models/RecoveryPasswordDto';
 import type { ServerSideTokensDto } from '../models/ServerSideTokensDto';
 import type { UserDto } from '../models/UserDto';
 
@@ -79,6 +81,63 @@ requestBody: CreateUserDto,
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/auth/refresh-server-side',
+        });
+    }
+
+    /**
+     * Forget password. Send message to user email
+     * @param requestBody 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static authControllerForgetPassword(
+requestBody: ForgetPasswordDto,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/auth/forget-password',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Restore password by token from email
+     * @param token 
+     * @param requestBody 
+     * @returns UserDto 
+     * @throws ApiError
+     */
+    public static authControllerRecoveryPassword(
+token: string,
+requestBody: RecoveryPasswordDto,
+): CancelablePromise<UserDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/auth/recovery-password/{token}',
+            path: {
+                'token': token,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Check recovery token for validation
+     * @param token 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static authControllerCheckRecoveryToken(
+token: string,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/auth/checkRecoveryToken/{token}',
+            path: {
+                'token': token,
+            },
         });
     }
 

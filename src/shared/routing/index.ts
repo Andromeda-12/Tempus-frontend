@@ -14,6 +14,8 @@ export const controls = createRouterControls()
 
 export const signinRoute = createRoute()
 export const signupRoute = createRoute()
+export const forgetPasswordRoute = createRoute()
+export const recoveryPasswordRoute = createRoute()
 
 export const workspacesRoute = createRoute()
 export const workspaceRoute = createRoute<{ workspaceId: number }>()

@@ -4,9 +4,11 @@ import { ViewerAvatar, viewerModel } from '@/entities/viewer'
 import { HamburgerButton, Icon } from '@/shared/ui'
 import { SidebarSection } from './SidebarSection'
 import { SidebarContainer } from './SidebarContainer'
-import { Navigation, NavigationItem } from './Navigaton'
+import { Navigation, NavigationContainer } from './Navigaton'
 import { settingRoute, workspacesRoute } from '@/shared/routing'
 import { useUnit } from 'effector-react'
+import { UsersActions } from '../users-actions'
+import { NavigationItem } from './NavigationItem'
 
 const ViewerFullName = () => {
   const viewer = useUnit(viewerModel.$viewer)
@@ -21,21 +23,22 @@ const ViewerFullName = () => {
 
 const topNavigation: NavigationItem[] = [
   {
-    // route: '/',
+    id: 'task',
     title: 'Tasks',
     icon: <Icon name='time' />
   },
   {
-    // route: '/reports',
+    id: 'report',
     title: 'Reports',
     icon: <Icon name='report' />
   },
   {
-    // route: '/team',
+    id: 'team',
     title: 'Team',
     icon: <Icon name='team' />
   },
   {
+    id: 'workspaces',
     route: workspacesRoute,
     title: 'Workspaces',
     icon: <Icon name='team' />
@@ -44,16 +47,46 @@ const topNavigation: NavigationItem[] = [
 
 const bottomNavigation: NavigationItem[] = [
   {
+    id: 'settings',
     route: settingRoute,
     params: { settingSection: 'general' },
     title: 'Settings',
     icon: <Icon name='settings' />
   },
   {
-    icon: <ViewerAvatar className='relative -left-1' />,
-    content: <ViewerFullName />
+    id: 'user',
+    icon: <ViewerAvatar className='relative -left-1' />
+    // content:
   }
 ]
+
+const BottomNavigation = ({ open }: { open: boolean }) => {
+  return (
+    <NavigationContainer>
+      <NavigationItem
+        open={open}
+        item={{
+          icon: <Icon name='settings' />,
+          route: settingRoute,
+          params: { settingSection: 'general' },
+          title: 'Settings'
+        }}
+      />
+
+      <UsersActions
+        trigger={
+          <NavigationItem
+            open={open}
+            item={{
+              icon: <ViewerAvatar className='relative -left-1' />,
+              content: <ViewerFullName />
+            }}
+          />
+        }
+      />
+    </NavigationContainer>
+  )
+}
 
 interface SidebarProps {
   open: boolean
@@ -84,7 +117,7 @@ export const Sidebar = ({ open, onToggle, className }: SidebarProps) => {
         </SidebarSection>
 
         <SidebarSection>
-          <Navigation open={open} items={bottomNavigation} />
+          <BottomNavigation open={open} />
         </SidebarSection>
       </div>
     </SidebarContainer>

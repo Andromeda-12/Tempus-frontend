@@ -17,6 +17,12 @@ export const UserSettings = () => {
 
             <UserEmailInfo />
 
+            <div>
+              {/* <Link to={}> */}
+              <Button>Change password</Button>
+              {/* </Link> */}
+            </div>
+
             <div className='mt-2'>
               {!isEditable ? <UserInfo /> : <UpdateUserForm />}
             </div>

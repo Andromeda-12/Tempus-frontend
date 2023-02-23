@@ -1,10 +1,6 @@
 import { createEvent, sample } from 'effector'
 import { redirect } from 'atomic-router'
-import {
-  generalSettingsRoute,
-  settingRoute,
-  userSettingsRoute
-} from '@/shared/routing'
+import { settingRoute } from '@/shared/routing'
 
 export type SettingsTabs = 'general' | 'user'
 
