@@ -32,18 +32,6 @@ export const refresh = createEffect<void, void, ApiError>(async () => {
   await AuthService.authControllerRefresh()
 })
 
-export const sendEmailForChangePassword = createEffect<string, void, ApiError>(
-  async (email) => {
-    await AuthService.authControllerSendEmail(email)
-  }
-)
-
-export const changePasswordFx = createEffect<void, void, ApiError>(
-  async (changePasswordDto) => {
-    await AuthService.authControllerChangePassword(changePasswordDto)
-  }
-)
-
 export const updateViewerFx = createEffect<UpdateUserDto, UserDto, ApiError>(
   async (updateUserDto) => await UserService.userControllerUpdate(updateUserDto)
 )

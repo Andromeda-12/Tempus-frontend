@@ -17,7 +17,7 @@ export const AuthGuard = ({
 
   const route = useUnit(router.$path)
 
-  const publicRoutes = ['/signin', '/signup']
+  const publicRoutes = ['/signin', '/signup', '/forget-password', '/recovery-password']
 
   if (isAuthenticated && publicRoutes.includes(route)) goToDashboardFn()
   if (!isAuthenticated && !publicRoutes.includes(route)) goToSignInFn()

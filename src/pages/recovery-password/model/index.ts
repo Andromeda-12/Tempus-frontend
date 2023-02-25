@@ -1,18 +1,22 @@
 import { createEffect, createStore, sample } from 'effector'
-import { createGate } from 'effector-react'
-import { ResponseError } from '@/shared/lib'
-
-export const gate = createGate<string>()
+import { chainRoute } from 'atomic-router'
+import { ApiError, AuthService } from '@/shared/api'
+import { recoveryPasswordRoute } from '@/shared/routing'
 
 export const $email = createStore('Andromeda-12')
 export const $isTokenValid = createStore(false)
 export const $isLoading = createStore(true)
 
-const checkTokenFx = createEffect<string, string, ResponseError>()
+const checkTokenFx = createEffect<string, string, ApiError>(async (token) =>
+  AuthService.authControllerCheckRecoveryToken(token)
+)
 
-sample({
-  clock: gate.state,
-  target: checkTokenFx
+chainRoute({
+  route: recoveryPasswordRoute,
+  beforeOpen: {
+    effect: checkTokenFx,
+    mapParams: ({ query }) => query.token
+  }
 })
 
 sample({

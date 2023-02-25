@@ -4,6 +4,7 @@ import { UpdateUserForm } from '@/features/users/update-user'
 import { UploadAvatar } from '@/features/users/upload-avatar'
 import { ViewerAvatar, viewerModel } from '@/entities/viewer'
 import { Button } from '@/shared/ui'
+import { ChangePasswordButton } from '@/features/auth/change-password'
 
 export const UserSettings = () => {
   const [isEditable, setIsEditable] = useState(false)
@@ -17,11 +18,7 @@ export const UserSettings = () => {
 
             <UserEmailInfo />
 
-            <div>
-              {/* <Link to={}> */}
-              <Button>Change password</Button>
-              {/* </Link> */}
-            </div>
+            <ChangePasswordButton />
 
             <div className='mt-2'>
               {!isEditable ? <UserInfo /> : <UpdateUserForm />}

@@ -1,9 +1,8 @@
-import { SignOutButton } from '@/features/auth/sign-out'
-import { SettingsPage } from '@/pages/settings'
-import { settingRoute, userSettingsRoute } from '@/shared/routing'
-import { Button, Popover } from '@/shared/ui'
-import { Link } from 'atomic-router-react'
 import { ReactNode } from 'react'
+import { Link } from 'atomic-router-react'
+import { SignOutButton } from '@/features/auth/sign-out'
+import { settingRoute } from '@/shared/routing'
+import { Button, Popover } from '@/shared/ui'
 
 interface UsersActions {
   trigger: ReactNode

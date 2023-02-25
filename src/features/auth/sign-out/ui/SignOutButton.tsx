@@ -9,7 +9,7 @@ interface SignOutButtonProps {
 export const SignOutButton = ({ className }: SignOutButtonProps) => {
   const signOutFn = useEvent(signOut)
   return (
-    <Button className={className} onClick={signOutFn}>
+    <Button variant='text' className={className} onClick={signOutFn}>
       Sign out
     </Button>
   )

@@ -2,7 +2,6 @@ import {
   createEffect,
   createEvent,
   createStore,
-  restore,
   sample
 } from 'effector'
 import {

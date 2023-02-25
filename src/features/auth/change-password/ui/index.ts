@@ -1,2 +1,2 @@
-export { ChangePasswordForm } from './ChangePasswordForm'
-export { InputEmailForm } from './InputEmailForm'
+export * from './ChangePasswordForm'
+export * from './ChangePasswordButton'

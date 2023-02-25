@@ -1,43 +1,48 @@
-import { createEvent, createStore, sample } from 'effector'
-import { viewerModel } from '@/entities/viewer'
+import { createEffect, createEvent, sample } from 'effector'
 import { notificationModel } from '@/features/notification'
-// import { AuthUserDto } from '@/shared/api'
+import { ApiError, ChangeUserPasswordDto, UserService } from '@/shared/api'
+import { createModal } from '@/shared/lib'
 
-export const redirect = createEvent()
-export const sendEmail = createEvent<AuthUserDto>()
-export const $isLoading = viewerModel.changePasswordFx.pending
-export const $isEmailSenden = createStore(false)
+const changePasswordFx = createEffect<ChangeUserPasswordDto, void, ApiError>(
+  async (changeUserPasswordDto: ChangeUserPasswordDto) =>
+    UserService.userControllerChangePassword(changeUserPasswordDto)
+)
 
-export const changePassword = createEvent<{}>()
+export const changePassword = createEvent<ChangeUserPasswordDto>()
+export const $isPending = changePasswordFx.pending
 
-sample({
-  clock: sendEmail,
-  target: viewerModel.sendEmailForChangePassword
-})
-
-sample({
-  clock: viewerModel.sendEmailForChangePassword.done,
-  fn: () => true,
-  target: $isEmailSenden
-})
+export const changePasswordModal = createModal()
 
 sample({
   clock: changePassword,
-  target: viewerModel.changePasswordFx
+  target: changePasswordFx
 })
 
 sample({
-  clock: viewerModel.changePasswordFx.failData,
-  fn: (error) =>
+  clock: changePasswordFx.doneData,
+  fn: () =>
     notificationModel.createNotificationBody({
-      type: 'error',
-      title: 'Send email error',
-      message: error.message
+      type: 'success',
+      title: 'Change password success',
+      message: 'Password has been changed successfully'
     }),
   target: notificationModel.createNotification
 })
 
 sample({
-  clock: viewerModel.changePasswordFx.doneData,
-  target: redirect
+  clock: changePasswordFx.done,
+  target: changePasswordModal.closeModal
 })
+
+sample({
+  clock: changePasswordFx.failData,
+  fn: (error) =>
+    notificationModel.createNotificationBody({
+      type: 'error',
+      title: 'Change password error',
+      message: error.body.message
+    }),
+  target: notificationModel.createNotification
+})
+
+createModal()

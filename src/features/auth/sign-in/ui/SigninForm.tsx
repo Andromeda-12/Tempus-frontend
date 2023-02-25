@@ -3,7 +3,7 @@ import { useEvent, useUnit } from 'effector-react'
 import { Controller, useForm } from 'react-hook-form'
 import { Button, Card, Checkbox, FormField } from '@/shared/ui'
 import { emailRegexp } from '@/shared/lib'
-import { signupRoute } from '@/shared/routing'
+import { forgetPasswordRoute, signupRoute } from '@/shared/routing'
 import { $isLoading, signIn } from '../model'
 import { notificationModel } from '@/features/notification'
 
@@ -70,17 +70,11 @@ export const SigninForm = () => {
                 )}
               />
 
-              {/* <Link href='/forgot-password'>
-                <a>Forgot Password?</a>
-              </Link> */}
+              <Link to={forgetPasswordRoute}>Forgot Password?</Link>
             </div>
 
             <div className='mb-2'>
-              <Button
-                accent
-                disabled={pending}
-                className='w-full'
-              >
+              <Button accent disabled={pending} className='w-full'>
                 Sign in
               </Button>
             </div>
