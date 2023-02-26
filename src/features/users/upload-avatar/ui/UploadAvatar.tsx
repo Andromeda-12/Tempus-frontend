@@ -5,7 +5,11 @@ import { UpdateUserDto } from '@/shared/api'
 import { getImageUrl } from '@/shared/lib'
 import { uploadAvatar } from '../model'
 
-export const UploadAvatar = () => {
+interface UploadAvatarProps {
+  size?: 'sm' | 'base' | 'lg' | 'xl' | 'full'
+}
+
+export const UploadAvatar = ({ size }: UploadAvatarProps) => {
   const viewer = useStore(viewerModel.$viewer)
   const uploadAvatarFn = useUnit(uploadAvatar)
 
@@ -24,7 +28,7 @@ export const UploadAvatar = () => {
       onUpload={handleUploadAvatar}
       preview={getImageUrl(viewer?.avatar)}
       fallback={fallback}
-      size='xl'
+      size={size}
     />
   )
 }

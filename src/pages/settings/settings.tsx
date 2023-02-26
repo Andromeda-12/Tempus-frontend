@@ -1,6 +1,6 @@
-import { settingRoute } from '@/shared/routing'
-import { Card, ContentContainer, Tab, Tabs } from '@/shared/ui'
 import { useUnit } from 'effector-react'
+import { Card, ContentContainer, Tab, Tabs } from '@/shared/ui'
+import { settingRoute } from '@/shared/routing'
 import { UserSettings } from './user-settings'
 import { SettingsTabs, changeRoute } from './model'
 
@@ -32,20 +32,14 @@ export const SettingsPage = () => {
   }
 
   return (
-    <div className='h-full flex flex-col py-10'>
+    <div className='pt-10 flex flex-col h-full'>
       <h3 className='text-xl mb-5 text-black dark:text-color-dark'>Settings</h3>
 
-      <Card className='flex flex-col h-full'>
-        <ContentContainer className='h-full flex flex-col'>
-          <Tabs
-            currentTab={settingSection as string}
-            tabs={tabs}
-            onValueChange={(value) =>
-              hanldeTabValueChange(value as SettingsTabs)
-            }
-          />
-        </ContentContainer>
-      </Card>
+      <Tabs
+        currentTab={settingSection as string}
+        tabs={tabs}
+        onValueChange={(value) => hanldeTabValueChange(value as SettingsTabs)}
+      />
     </div>
   )
 }

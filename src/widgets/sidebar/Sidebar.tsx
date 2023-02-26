@@ -1,14 +1,14 @@
 import clsx from 'clsx'
+import { useUnit } from 'effector-react'
 import { ThemeSwitcher } from '@/features/theme-switcher'
 import { ViewerAvatar, viewerModel } from '@/entities/viewer'
 import { HamburgerButton, Icon } from '@/shared/ui'
+import { settingRoute, workspacesRoute } from '@/shared/routing'
 import { SidebarSection } from './SidebarSection'
 import { SidebarContainer } from './SidebarContainer'
 import { Navigation, NavigationContainer } from './Navigaton'
-import { settingRoute, workspacesRoute } from '@/shared/routing'
-import { useUnit } from 'effector-react'
-import { UsersActions } from '../users-actions'
 import { NavigationItem } from './NavigationItem'
+import { UsersActions } from '../users-actions'
 
 const ViewerFullName = () => {
   const viewer = useUnit(viewerModel.$viewer)
@@ -41,22 +41,7 @@ const topNavigation: NavigationItem[] = [
     id: 'workspaces',
     route: workspacesRoute,
     title: 'Workspaces',
-    icon: <Icon name='team' />
-  }
-]
-
-const bottomNavigation: NavigationItem[] = [
-  {
-    id: 'settings',
-    route: settingRoute,
-    params: { settingSection: 'general' },
-    title: 'Settings',
-    icon: <Icon name='settings' />
-  },
-  {
-    id: 'user',
-    icon: <ViewerAvatar className='relative -left-1' />
-    // content:
+    icon: <Icon name='workspaces' />
   }
 ]
 

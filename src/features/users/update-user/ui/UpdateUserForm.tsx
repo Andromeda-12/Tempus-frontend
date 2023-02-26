@@ -14,7 +14,12 @@ export const UpdateUserForm = () => {
     lastName: viewer!.lastName
   }
 
-  const { handleSubmit, control } = useForm({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { isDirty }
+  } = useForm({
     defaultValues
   })
 
@@ -27,8 +32,14 @@ export const UpdateUserForm = () => {
     updateViewerFn(updateUserDto)
   }
 
+  const resetForm = () =>
+    reset({
+      firstName: defaultValues.firstName,
+      lastName: defaultValues.lastName
+    })
+
   return (
-    <form className='space-y-2 text-xl' onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <FormField
         placeholder='First name'
         name='firstName'
@@ -47,9 +58,15 @@ export const UpdateUserForm = () => {
         }}
       />
 
-      <Button accent className='w-full !mt-4'>
-        Save
-      </Button>
+      <div className='space-x-2 flex justify-end'>
+        <Button variant='text' type='button' onClick={resetForm}>
+          Reset
+        </Button>
+
+        <Button accent disabled={!isDirty}>
+          Save
+        </Button>
+      </div>
     </form>
   )
 }

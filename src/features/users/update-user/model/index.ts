@@ -16,6 +16,17 @@ sample({
 })
 
 sample({
+  clock: viewerModel.updateViewerFx.done,
+  fn: () =>
+    notificationModel.createNotificationBody({
+      type: 'success',
+      title: 'Update user information',
+      message: 'User information updated successfully'
+    }),
+  target: notificationModel.createNotification
+})
+
+sample({
   clock: viewerModel.updateViewerFx.failData,
   fn: (error) =>
     notificationModel.createNotificationBody({

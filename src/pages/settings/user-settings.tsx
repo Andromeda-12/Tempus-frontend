@@ -1,68 +1,27 @@
-import { useState } from 'react'
-import { useUnit } from 'effector-react'
 import { UpdateUserForm } from '@/features/users/update-user'
 import { UploadAvatar } from '@/features/users/upload-avatar'
-import { ViewerAvatar, viewerModel } from '@/entities/viewer'
-import { Button } from '@/shared/ui'
 import { ChangePasswordButton } from '@/features/auth/change-password'
+import { ChangeEmailButton } from '@/features/users/change-email'
+import { Card } from '@/shared/ui'
 
 export const UserSettings = () => {
-  const [isEditable, setIsEditable] = useState(false)
-
   return (
-    <div className='py-8'>
-      <div className='space-y-6'>
+    <div className='pt-8 w-full flex justify-center h-full'>
+      <Card className='max-w-xl w-full h-full px-4 sm:px-10 py-6 sm:py-12 !rounded-3xl'>
         <div className='flex justify-between'>
-          <div>
-            {!isEditable ? <ViewerAvatar size='xl' /> : <UploadAvatar />}
-
-            <UserEmailInfo />
-
-            <ChangePasswordButton />
-
-            <div className='mt-2'>
-              {!isEditable ? <UserInfo /> : <UpdateUserForm />}
-            </div>
-          </div>
-
-          <div>
-            <Button accent onClick={() => setIsEditable(!isEditable)}>
-              Edit
-            </Button>
-          </div>
+          <UploadAvatar size='xl' />
         </div>
-      </div>
-    </div>
-  )
-}
 
-const UserEmailInfo = () => {
-  const viewer = useUnit(viewerModel.$viewer)
+        <div className='gap-4 mt-4 flex flex-wrap'>
+          <ChangeEmailButton />
 
-  return (
-    <div className='flex items-center mb-2 space-x-4'>
-      <div className='md:text-xl'>{viewer?.email}</div>
+          <ChangePasswordButton />
+        </div>
 
-      <Button variant='contained' accent>
-        Change email
-      </Button>
-    </div>
-  )
-}
-
-const UserInfo = () => {
-  const viewer = useUnit(viewerModel.$viewer)
-
-  return (
-    <div className='max-w-md'>
-      <div className='space-y-2 text-xl'>
-        <div>{viewer?.firstName}</div>
-        <div>{viewer?.lastName}</div>
-
-        <Button accent className='w-full !mt-4'>
-          Save
-        </Button>
-      </div>
+        <div className='mt-2'>
+          <UpdateUserForm />
+        </div>
+      </Card>
     </div>
   )
 }

@@ -17,7 +17,7 @@ export const ChangePasswordButton = ({
     <>
       <ChangePasswordModal />
 
-      <Button dense accent className={clsx(className)} onClick={openModal}>
+      <Button dense size='sm' accent className={clsx(className)} onClick={openModal}>
         Change password
       </Button>
     </>

@@ -15,10 +15,9 @@ export const Trigger = ({ className, value, title }: TabTriggerProps) => {
         'group duration-150',
         'first:rounded-tl-xl last:rounded-tr-xl',
         'border-b border-gray-300 dark:border-gray-600',
-        'radix-state-active:border-b-gray-700 focus-visible:radix-state-active:border-b-transparent dark:radix-state-active:border-b-gray-100',
-        'focus-visible:dark:radix-state-active:border-b-transparent',
+        'radix-state-active:border-b-gray-700 dark:radix-state-active:border-b-gray-100',
+        'outline-none',
         'px-6 py-2.5',
-        'focus:z-10 outline-none focus-visible:ring',
         className
       )}
     >

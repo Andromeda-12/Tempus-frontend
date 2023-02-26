@@ -19,7 +19,6 @@ interface TabsProps {
 export const Tabs = ({ tabs, currentTab, onValueChange }: TabsProps) => {
   return (
     <TabsPrimitive.Root
-      // defaultValue={defaultTab}
       value={currentTab}
       className='focus:outline-none'
       onValueChange={onValueChange}
