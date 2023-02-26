@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 
 interface IconProps {
-  // ref: ReactRef
   name: string
   size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl'
   className?: string
@@ -25,7 +24,6 @@ export const Icon = ({
 
   return (
     <svg
-      //   ref={ref}
       focusable='false'
       aria-hidden={true}
       className={clsx(
