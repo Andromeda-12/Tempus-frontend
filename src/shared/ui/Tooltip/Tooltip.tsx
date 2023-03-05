@@ -12,16 +12,20 @@ interface TooltipProps {
   children: ReactNode
   className?: string
   text: string
-  offset?: number
   side?: 'top' | 'right' | 'bottom' | 'left'
+  sideOffset?: number
+  align?: 'center' | 'start' | 'end'
+  alignOffset?: number
 }
 
 export const Tooltip = ({
   children,
   className,
   text,
-  offset = 6,
-  side
+  side,
+  sideOffset = 6,
+  align,
+  alignOffset
 }: TooltipProps) => {
   return (
     <TooltipProvider delayDuration={100} skipDelayDuration={1000}>
@@ -32,7 +36,9 @@ export const Tooltip = ({
 
         <TooltipContent
           side={side}
-          sideOffset={offset}
+          sideOffset={sideOffset}
+          align={align}
+          alignOffset={alignOffset}
           className={clsx(
             'radix-side-top:animate-slide-down-fade',
             'radix-side-right:animate-slide-left-fade',
