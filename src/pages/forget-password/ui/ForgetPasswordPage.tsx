@@ -1,3 +1,3 @@
-import { ForgetPasswordForm } from '@/features/auth/forget-password'
+import { SendMailForm } from '@/features/auth/forget-password'
 
-export const ForgetPasswordPage = () => <ForgetPasswordForm />
+export const ForgetPasswordPage = () => <SendMailForm />

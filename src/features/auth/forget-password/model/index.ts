@@ -23,13 +23,13 @@ const recoveryPasswordFx = createEffect<
   void,
   ApiError
 >(async ({ token, recoveryPasswordDto }) => {
-  AuthService.authControllerRecoveryPassword(token, recoveryPasswordDto)
+  await AuthService.authControllerRecoveryPassword(token, recoveryPasswordDto)
 })
 
 export const sendEmail = createEvent<ForgetPasswordDto>()
 export const $isEmailSending = sendEmailForChangePasswordFx.pending
 export const $isEmailSended = createStore(false).on(
-  sendEmailForChangePasswordFx.done,
+  sendEmailForChangePasswordFx.doneData,
   () => true
 )
 

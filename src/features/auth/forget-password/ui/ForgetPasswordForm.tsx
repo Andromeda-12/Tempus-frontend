@@ -1,13 +1,13 @@
-import { useEvent, useUnit } from 'effector-react'
 import { useForm } from 'react-hook-form'
+import { Link } from 'atomic-router-react'
+import { useEvent, useUnit } from 'effector-react'
 import { Button, Card, FormField } from '@/shared/ui'
+import { signinRoute } from '@/shared/routing'
 import {
   $isPasswordSending,
   $isPasswordChanged,
   recoveryPassword
 } from '../model'
-import { Link } from 'atomic-router-react'
-import { signinRoute } from '@/shared/routing'
 
 const defaultValues = {
   email: '',
