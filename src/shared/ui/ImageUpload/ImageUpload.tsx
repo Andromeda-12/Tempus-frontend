@@ -1,5 +1,5 @@
-import { ReactNode, useRef, useState } from 'react'
 import clsx from 'clsx'
+import { ReactNode, useRef, useState } from 'react'
 import { DropZone as DropZoneContainer } from '@/shared/lib'
 import { Icon } from '../Icon'
 import { Preview } from './Preview'
@@ -41,7 +41,7 @@ export const ImageUpload = ({
     const preveiweURL = URL.createObjectURL(files[0])
     setPreview(preveiweURL)
   }
-  // bg-gray-100/60 dark:bg-secondary/5
+
   return (
     <DropZoneContainer
       onClick={triggeFileInput}
@@ -49,9 +49,8 @@ export const ImageUpload = ({
       onFilesDrop={handleInputChange}
       className={clsx(
         'text-primary relative h-full w-full rounded-2xl overflow-hidden group',
-        'cursor-pointer  dark:text-secondary',
+        'cursor-pointer dark:text-secondary',
         'flex items-center justify-center flex-col',
-        isDragActive && 'border-dashed',
         className
       )}
     >
@@ -92,11 +91,11 @@ const DefaultOverlay = ({ isDragActive }: { isDragActive: boolean }) => {
   return (
     <div
       className={clsx(
-        'absolute inset-0 rounded-2xl duration-100 flex justify-center items-center',
-        isDragActive && 'border-2 border-dashed'
+        'absolute inset-0 rounded-2xl duration-100 flex justify-center items-center border-2 border-primary/50 dark:border-secondary/70',
+        isDragActive && 'border-dashed'
       )}
     >
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center -z-10'>
         <Icon
           name='fileUpload'
           size='lg'

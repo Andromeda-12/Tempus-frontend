@@ -1,10 +1,9 @@
-import { workspaceModel } from '@/entities/workspace'
-import { CreateWorkspaceDto } from '@/shared/api'
-import { MAX_COVER_SIZE } from '@/shared/config'
-import { Button, FormField, Modal } from '@/shared/ui'
-import { ImageUpload } from '@/shared/ui/ImageUpload'
-import { useEvent } from 'effector-react'
 import { Controller, useForm } from 'react-hook-form'
+import { useEvent } from 'effector-react'
+import { workspaceModel } from '@/entities/workspace'
+import { Button, FormField, Modal, ImageUpload } from '@/shared/ui'
+import { MAX_COVER_SIZE } from '@/shared/config'
+import { CreateWorkspaceDto } from '@/shared/api'
 
 interface CreateWorkspaceModalProps {
   isOpen: boolean
