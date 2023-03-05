@@ -1,9 +1,9 @@
-import { redirect } from 'atomic-router';
+import { redirect } from 'atomic-router'
 import { createEvent, createStore, sample } from 'effector'
 import { UpdateWorkspaceDto, WorkspaceDto } from '@/shared/api'
 import { createModal } from '@/shared/lib'
 import { workspaceModel } from '@/entities/workspace'
-import { workspacesRoute } from '@/shared/routing';
+import { workspacesRoute } from '@/shared/routing'
 
 export const setCurrentWorkspace = createEvent<WorkspaceDto | null>()
 const resetCurrentWorkspace = createEvent()
@@ -35,6 +35,11 @@ sample({
     updateWorkspaceDto
   }),
   target: workspaceModel.updateWorkspace
+})
+
+sample({
+  clock: workspaceModel.removeWorkspaceFx.doneData,
+  target: updateWorkspaceModal.closeModal
 })
 
 redirect({
