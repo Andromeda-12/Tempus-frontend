@@ -74,12 +74,12 @@ formData: UpdateUserDto,
     /**
      * Change password
      * @param requestBody 
-     * @returns UserDto 
+     * @returns any 
      * @throws ApiError
      */
     public static userControllerChangePassword(
 requestBody: ChangeUserPasswordDto,
-): CancelablePromise<UserDto> {
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PUT',
             url: '/api/user/changePassword',

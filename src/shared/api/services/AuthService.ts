@@ -105,13 +105,13 @@ requestBody: ForgetPasswordDto,
      * Restore password by token from email
      * @param token 
      * @param requestBody 
-     * @returns UserDto 
+     * @returns any 
      * @throws ApiError
      */
     public static authControllerRecoveryPassword(
 token: string,
 requestBody: RecoveryPasswordDto,
-): CancelablePromise<UserDto> {
+): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/auth/recovery-password/{token}',
