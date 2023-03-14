@@ -2,7 +2,6 @@ import { Root as CheckboxRoot, Indicator } from '@radix-ui/react-checkbox'
 import { Label } from '@radix-ui/react-label'
 import clsx from 'clsx'
 import React from 'react'
-import { Icon } from '../Icon'
 
 const CheckIcon = ({ className }: { className: string }) => (
   <svg

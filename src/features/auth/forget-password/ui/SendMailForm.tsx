@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import { Button, Card, FormField } from '@/shared/ui'
 import { emailRegexp } from '@/shared/lib'
 import { sendEmail, $isEmailSending, $isEmailSended } from '../model'
+import { Link } from 'atomic-router-react'
+import { signinRoute } from '@/shared/routing'
 
 const defaultValues = {
   email: ''
@@ -26,7 +28,9 @@ export const SendMailForm = () => {
   if (isEmailSended)
     return (
       <Card className='p-7 sm:p-10 max-w-lg w-full'>
-        <h2 className='font-bold text-lg text-center mb-3'>Letter sent to your mail</h2>
+        <h2 className='font-bold text-lg text-center mb-3'>
+          Letter sent to your mail
+        </h2>
 
         <h3 className='font-medium text-sm mb-5'>
           If your mail exists in our system, a letter will be sent to it. Check
@@ -74,6 +78,12 @@ export const SendMailForm = () => {
             >
               {isEmailSending ? 'Loading...' : 'Send email'}
             </Button>
+
+            <div className='text-center mt-3'>
+              <Link to={signinRoute}>
+                <span>Go to sign in page</span>
+              </Link>
+            </div>
           </div>
         </div>
       </form>

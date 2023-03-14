@@ -88,4 +88,40 @@ requestBody: ChangeUserPasswordDto,
         });
     }
 
+    /**
+     * Check change mail token for validation
+     * @param token 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static userControllerCheckChangeMailToken(
+token: string,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/checkMailToken/{token}',
+            path: {
+                'token': token,
+            },
+        });
+    }
+
+    /**
+     * Change mail by token
+     * @param token 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static userControllerConfirmChangeMail(
+token: string,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/user/confirmChangeMail/{token}',
+            path: {
+                'token': token,
+            },
+        });
+    }
+
 }

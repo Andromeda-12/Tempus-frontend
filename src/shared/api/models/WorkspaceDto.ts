@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { MemberDto } from './MemberDto';
 import type { UserDto } from './UserDto';
 
 export type WorkspaceDto = {
@@ -24,5 +25,5 @@ export type WorkspaceDto = {
     /**
      * Workspace members
      */
-    members: Array<string>;
+    members: Array<MemberDto>;
 };
