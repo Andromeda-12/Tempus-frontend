@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import clsx from 'clsx'
 import { viewerModel } from '@/entities/viewer'
-import { Card, CardCover, SquareButton } from '@/shared/ui'
+import { Card, CardCover, IconButton } from '@/shared/ui'
 import { WorkspaceDto } from '@/shared/api'
 import { API_URL } from '@/shared/config'
 import { getImageUrl } from '@/shared/lib'
@@ -57,7 +57,7 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
               e.preventDefault()
             }}
           >
-            <SquareButton
+            <IconButton
               variant='text'
               icon='ellipsisHorizontal'
               onClick={handleClick}

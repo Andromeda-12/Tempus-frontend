@@ -40,9 +40,9 @@ export const ProjectList = () => {
     <div className='grid gap-7 grid-cols-[repeat(auto-fill,minmax(272px,1fr))]'>
       {projects.map((project) => (
         // href={`/project/${1}/dashboard`}
-        // <Link to={projectRoute} params={1} key={project.id}>
+        <Link to={projectRoute} params={{ projectId: 1 }} key={project.id}>
           <Project project={project} />
-        // </Link>
+        </Link>
       ))}
     </div>
   )

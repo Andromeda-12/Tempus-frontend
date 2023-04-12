@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { AddButton } from '@/shared/ui'
-import { CreateWorkspaceModal } from './CreateWorkspaceModal'
+import { CreateProjectModal } from './CreateProjectModal'
 
 interface CreateWorkspaceButtonProps {
   className?: string
 }
 
-export const CreateWorkspaceButton = ({
+export const CreateProjectButton = ({
   className
 }: CreateWorkspaceButtonProps) => {
   const [isShowModal, setIsShowModal] = useState(false)
@@ -21,8 +21,8 @@ export const CreateWorkspaceButton = ({
 
   return (
     <>
-      <CreateWorkspaceModal isOpen={isShowModal} onClose={handleCloseModal} />
-      <AddButton text='Workspaces' onClick={handleOpenModal} />
+      <CreateProjectModal isOpen={isShowModal} onClose={handleCloseModal} />
+      <AddButton text='Project' onClick={handleOpenModal} />
     </>
   )
 }

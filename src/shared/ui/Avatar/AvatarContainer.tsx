@@ -1,6 +1,6 @@
-import * as AvatarPrimitive from '@radix-ui/react-avatar'
-import clsx from 'clsx'
 import { ReactNode } from 'react'
+import clsx from 'clsx'
+import * as AvatarPrimitive from '@radix-ui/react-avatar'
 
 interface AvatarContainerProps {
   className?: string

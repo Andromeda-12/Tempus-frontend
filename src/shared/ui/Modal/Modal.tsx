@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { clsx } from 'clsx'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
-import { SquareButton } from '../SquareButton'
+import { IconButton } from '../IconButton'
 import { Card } from '../Card'
 
 interface ModalProps {
@@ -25,9 +25,7 @@ export const Modal = ({
     <DialogPrimitive.Root open={isOpen} onOpenChange={onClose}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
-          className={clsx(
-            'fixed inset-0 backdrop-blur-sm bg-black/50 z-[100]'
-          )}
+          className={clsx('fixed inset-0 backdrop-blur-sm bg-black/50 z-[100]')}
         />
 
         <DialogPrimitive.Content
@@ -59,7 +57,7 @@ export const Modal = ({
                   'inline-flex items-start justify-center outline-none'
                 )}
               >
-                <SquareButton icon='close' size='sm' variant='text' />
+                <IconButton icon='close' size='sm' variant='text' />
               </DialogPrimitive.Close>
             </div>
 

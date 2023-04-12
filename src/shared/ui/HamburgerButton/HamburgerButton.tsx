@@ -1,6 +1,5 @@
 import clsx from 'clsx'
-import { Button } from '../Button'
-import { SquareButton } from '../SquareButton'
+import { IconButton } from '../IconButton'
 
 interface HamburgerButtonProps {
   open: boolean
@@ -13,8 +12,8 @@ export const HamburgerButton = ({
   onClick,
   className
 }: HamburgerButtonProps) => (
-  <SquareButton
-    className={className}
+  <IconButton
+    className={clsx(className)}
     icon={!open ? 'hamburger' : 'close'}
     accent
     variant='text'

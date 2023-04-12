@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { ReactNode } from 'react'
 import { Icon, Spinner } from '@/shared/ui'
-import styles from './squareButton.module.css'
+import styles from './iconButton.module.css'
 import React from 'react'
 
 type sizes = 'xs' | 'sm' | 'base' | 'lg' | 'xl'
@@ -10,6 +10,7 @@ interface ButtonProps {
   children?: ReactNode
   className?: string
   variant?: 'contained' | 'outline' | 'text'
+  shape?: 'square' | 'rounded'
   size?: sizes
   accent?: boolean
   icon?: string
@@ -19,7 +20,7 @@ interface ButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-export const SquareButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
@@ -27,6 +28,7 @@ export const SquareButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'contained',
       size = 'base',
       accent = false,
+      shape = 'square',
       icon,
       withGlow,
       loading,
@@ -38,17 +40,20 @@ export const SquareButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     return (
       <button
+        ref={ref}
         onClick={onClick}
         disabled={disabled || loading}
         className={clsx(
-          styles['btn-square'],
-          accent && styles['btn-square-accent'],
-          styles[`btn-square-${variant}`],
-          styles[`btn-square-${size}`],
-          withGlow && styles['btn-square-glow'],
-          disabled && styles['btn-square-disabled'],
+          styles['btn-icon'],
+          accent && styles['btn-icon-accent'],
+          styles[`btn-icon-${variant}`],
+          styles[`btn-icon-${size}`],
+          withGlow && styles['btn-icon-glow'],
+          disabled && styles['btn-icon-disabled'],
+          shape === 'rounded' && styles['btn-icon-rounded'],
           className
         )}
+        {...props}
       >
         {loading && (
           <Spinner className={clsx('')} size={spinnerSizes[size] as sizes} />
@@ -72,4 +77,4 @@ const spinnerSizes = {
   xl: 'lg'
 }
 
-SquareButton.displayName = 'SquareButton'
+IconButton.displayName = 'IconButton'

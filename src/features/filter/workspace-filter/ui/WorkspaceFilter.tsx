@@ -34,7 +34,7 @@ const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
   const currentFilter = useUnit(workspaceFilter.currentValue)
 
   return (
-    <div className='flex space-x-3 text-sm'>
+    <div className='flex items-center space-x-3 text-sm'>
       <div className='select-none'>Filter:</div>
       <div className='select-none cursor-pointer flex items-center text-color-light/60 dark:text-color-dark/50'>
         {currentFilter === null && 'none'}

@@ -58,7 +58,7 @@ export const UpdateUserForm = () => {
         }}
       />
 
-      <div className='space-x-2 flex justify-end'>
+      <div className='space-x-2 mt-2 flex justify-end'>
         <Button variant='text' type='button' onClick={resetForm}>
           Reset
         </Button>

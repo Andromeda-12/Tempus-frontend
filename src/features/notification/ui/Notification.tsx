@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react'
 import clsx from 'clsx'
-import { Icon, SquareButton } from '@/shared/ui'
+import { Icon, IconButton } from '@/shared/ui'
 import { notificationModel } from '..'
 import {
   defaultNotificationDuration,
@@ -51,7 +51,7 @@ export const Notification = ({ notification }: NotificationProps) => {
         </div>
 
         <div className='flex-1 flex justify-end'>
-          <SquareButton
+          <IconButton
             size='xs'
             className='!text-white'
             variant='text'

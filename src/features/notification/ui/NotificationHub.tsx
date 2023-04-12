@@ -1,5 +1,5 @@
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { useUnit } from 'effector-react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import clsx from 'clsx'
 import { NotificationPositions } from '../lib'
 import { notificationModel, Notification } from '..'

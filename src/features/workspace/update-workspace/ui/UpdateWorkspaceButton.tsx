@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react'
 import clsx from 'clsx'
-import { Button } from '@/shared/ui'
+import { Button, Icon, IconButton } from '@/shared/ui'
 import { WorkspaceDto } from '@/shared/api'
 import { UpdateWorkspaceModal } from './UpdateWorkspaceModal'
 import { setCurrentWorkspace, updateWorkspaceModal } from '../model'
@@ -31,17 +31,7 @@ export const UpdateWorkspaceButton = ({
     <>
       {isOpen && <UpdateWorkspaceModal deleteButton={deleteButton} />}
 
-      <Button
-        dense
-        variant='outline'
-        className={clsx(
-          'py-2 border-primary/50 dark:!border-secondary/50',
-          className
-        )}
-        onClick={handleClick}
-      >
-        Edit workspace
-      </Button>
+      <IconButton icon='pencil' size='sm' variant='text' onClick={handleClick} />
     </>
   )
 }

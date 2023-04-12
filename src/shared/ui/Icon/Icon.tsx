@@ -27,7 +27,7 @@ export const Icon = ({
       focusable='false'
       aria-hidden={true}
       className={clsx(
-        'select-none fill-current inline-block text-inherit',
+        'select-none fill-current inline-block text-inherit text-center',
         sizeMap[size],
         className
       )}

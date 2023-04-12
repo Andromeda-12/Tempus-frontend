@@ -1,5 +1,5 @@
 import { redirect } from 'atomic-router'
-import { createEffect, createEvent, createStore, sample } from 'effector'
+import { createEvent, createStore, sample } from 'effector'
 import { createGate } from 'effector-react'
 import { ApiError, WorkspaceDto, WorkspaceService } from '@/shared/api'
 import { workspaceModel } from '@/entities/workspace'

@@ -12,10 +12,14 @@ export const UserSettings = () => {
           <UploadAvatar size='xl' />
         </div>
 
-        <div className='gap-4 mt-4 flex flex-wrap'>
-          <ChangeEmailButton />
+        <div className='mt-4 flex flex-wrap gap-4'>
+          <div>
+            <ChangeEmailButton />
+          </div>
 
-          <ChangePasswordButton />
+          <div>
+            <ChangePasswordButton />
+          </div>
         </div>
 
         <div className='mt-2'>

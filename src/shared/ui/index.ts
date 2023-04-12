@@ -13,7 +13,7 @@ export * from './Icon'
 export * from './Tabs'
 export * from './PageCover'
 export * from './CardCover'
-export * from './SquareButton'
+export * from './IconButton'
 export * from './FormField'
 export * from './Avatar'
 
@@ -28,3 +28,4 @@ export * from './ImageUpload'
 export * from './FilterToggleGroup'
 
 export * from './UploadAvatar'
+export * from './AddButton'

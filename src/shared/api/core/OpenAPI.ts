@@ -21,7 +21,7 @@ export type OpenAPIConfig = {
 
 export const OpenAPI: OpenAPIConfig = {
     BASE: API_URL,
-    // BASE: 'http://192.168.205.211:5000',
+    // BASE: 'http://192.168.149.211:5000',
     VERSION: '1.0.0',
     WITH_CREDENTIALS: true,
     CREDENTIALS: 'include',

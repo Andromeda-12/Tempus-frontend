@@ -1,69 +1,73 @@
-.btn-square {
+.btn-icon {
   @apply h-[44px] inline-flex justify-center items-center px-2.5 py-2.5 text-sm rounded-lg duration-200;
   @apply bg-primary text-white outline-none hover:bg-primary-hover active:scale-95;
   @apply ring-primary ring-offset-2 focus-visible:ring;
 }
-:global(.dark) .btn-square {
+:global(.dark) .btn-icon {
   @apply ring-offset-neutral ring-background-dark;
 }
-.btn-square.btn-square-disabled {
+.btn-icon.btn-icon-disabled {
   @apply cursor-not-allowed text-primary-disabled active:scale-100 hover:bg-primary;
 }
 
-.btn-square-accent {
+.btn-icon-accent {
   @apply bg-accent ring-accent hover:bg-accent-hover;
 }
-.btn-square-accent.btn-square-disabled {
+.btn-icon-accent.btn-icon-disabled {
   @apply text-gray-200 bg-accent-disabled hover:bg-accent-disabled;
 }
-.btn-square-accent.btn-square-disabled.btn-square-outline {
+.btn-icon-accent.btn-icon-disabled.btn-icon-outline {
   @apply bg-transparent border-accent-disabled text-accent-disabled;
 }
-.btn-square-accent.btn-square-disabled.btn-square-text {
+.btn-icon-accent.btn-icon-disabled.btn-icon-text {
   @apply bg-accent/10 active:bg-accent/10;
 }
 
-.btn-square-outline {
+.btn-icon-outline {
   @apply text-color-light border-primary border-2 bg-transparent hover:bg-inherit;
 }
-:global(.dark) .btn-square-outline {
+:global(.dark) .btn-icon-outline {
   @apply text-color-dark border-gray-400;
 }
 
-.btn-square-outline.btn-square-accent {
+.btn-icon-outline.btn-icon-accent {
   @apply border-accent text-accent;
 }
 
-.btn-square-text {
+.btn-icon-text {
   @apply bg-transparent text-color-light shadow-none hover:shadow-sm;
   @apply hover:bg-primary/10 focus-visible:bg-primary/10 active:bg-primary/15;
 }
-:global(.dark) .btn-square-text {
+:global(.dark) .btn-icon-text {
   @apply text-color-dark hover:bg-color-dark/10 focus-visible:bg-color-dark/10 active:bg-color-dark/15;
 }
-.btn-square-text.btn-square-accent {
+.btn-icon-text.btn-icon-accent {
   @apply text-accent hover:bg-accent hover:text-background-light;
 }
-:global(.dark) .btn-square-text.btn-square-accent {
+:global(.dark) .btn-icon-text.btn-icon-accent {
   @apply hover:text-background-dark;
 }
 
-.btn-square-glow {
+.btn-icon-glow {
   @apply shadow-lg shadow-primary/50 hover:shadow-primary-hover active:shadow-primary-hover/70;
 }
 
-.btn-square-xs {
+.btn-icon-xs {
   @apply px-1 py-1 h-[30px];
 }
 
-.btn-square-sm {
+.btn-icon-sm {
   @apply px-2 py-2 h-[38px];
 }
 
-.btn-square-lg {
+.btn-icon-lg {
   @apply px-3 py-3 h-[54px];
 }
 
-.btn-square-xl {
+.btn-icon-xl {
   @apply px-4 py-4 h-[66px];
+}
+
+.btn-icon-rounded {
+  @apply rounded-full;
 }

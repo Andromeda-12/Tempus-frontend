@@ -1,5 +1,5 @@
-import { SquareButton } from '@/shared/ui'
 import { useUnit } from 'effector-react'
+import { IconButton } from '@/shared/ui'
 import { $theme, toggleTheme } from '../model'
 
 interface ThemeSwitcherProps {
@@ -11,7 +11,7 @@ export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
   const toggleThemeFn = useUnit(toggleTheme)
 
   return (
-    <SquareButton
+    <IconButton
       className={className}
       icon={theme === 'dark' ? 'darkTheme' : 'lightTheme'}
       variant='text'

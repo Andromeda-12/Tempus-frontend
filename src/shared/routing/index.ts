@@ -20,7 +20,7 @@ export const recoveryPasswordRoute = createRoute()
 export const workspacesRoute = createRoute()
 export const workspaceRoute = createRoute<{ workspaceId: number }>()
 
-export const projectRoute = createRoute()
+export const projectRoute = createRoute<{ projectId: number }>()
 
 export const settingRoute = createRoute<{ settingSection: string }>()
 export const generalSettingsRoute = createRoute()
