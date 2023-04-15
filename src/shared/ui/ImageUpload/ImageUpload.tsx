@@ -48,7 +48,7 @@ export const ImageUpload = ({
       onDragStateChange={onDragStateChange}
       onFilesDrop={handleInputChange}
       className={clsx(
-        'text-primary relative h-full w-full rounded-2xl overflow-hidden group',
+        'text-primary relative w-full rounded-2xl overflow-hidden group',
         'cursor-pointer dark:text-secondary',
         'flex items-center justify-center flex-col',
         className

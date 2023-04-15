@@ -7,7 +7,7 @@ interface IconProps {
 }
 
 const sizeMap = {
-  xs: 'w-5 h-5',
+  xs: 'w-3.5 h-3.5',
   sm: 'w-5 h-5',
   base: 'w-6 h-6',
   lg: 'w-7 h-7',
