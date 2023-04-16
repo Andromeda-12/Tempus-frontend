@@ -6,10 +6,11 @@ import { getImageUrl } from '@/shared/lib'
 import { uploadAvatar } from '../model'
 
 interface UploadAvatarProps {
+  className?: string
   size?: 'sm' | 'base' | 'lg' | 'xl' | 'full'
 }
 
-export const UploadAvatar = ({ size }: UploadAvatarProps) => {
+export const UploadAvatar = ({ className, size }: UploadAvatarProps) => {
   const viewer = useStore(viewerModel.$viewer)
   const uploadAvatarFn = useUnit(uploadAvatar)
 
@@ -25,6 +26,7 @@ export const UploadAvatar = ({ size }: UploadAvatarProps) => {
 
   return (
     <BaseUploadAvatar
+      className={className}
       onUpload={handleUploadAvatar}
       preview={getImageUrl(viewer?.avatar)}
       fallback={fallback}

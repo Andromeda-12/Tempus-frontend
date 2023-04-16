@@ -7,24 +7,16 @@ import { Card } from '@/shared/ui'
 export const UserSettings = () => {
   return (
     <div className='pt-8 w-full flex justify-center h-full'>
-      <Card className='max-w-xl w-full h-full px-4 sm:px-10 py-6 sm:py-12 !rounded-3xl'>
-        <div className='flex justify-between'>
-          <UploadAvatar size='xl' />
+      <Card className='max-w-xl w-full h-full px-4 sm:px-10 py-6 sm:py-12 !rounded-3xl space-y-4'>
+        <UploadAvatar size='xl' className='hidden sm:block' />
+        <UploadAvatar size='lg' className='sm:hidden' />
+
+        <div className='flex flex-wrap space-x-4'>
+          <ChangeEmailButton />
+          <ChangePasswordButton />
         </div>
 
-        <div className='mt-4 flex flex-wrap gap-4'>
-          <div>
-            <ChangeEmailButton />
-          </div>
-
-          <div>
-            <ChangePasswordButton />
-          </div>
-        </div>
-
-        <div className='mt-2'>
-          <UpdateUserForm />
-        </div>
+        <UpdateUserForm />
       </Card>
     </div>
   )
