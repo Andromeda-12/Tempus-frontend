@@ -29,3 +29,5 @@ export * from './FilterToggleGroup'
 
 export * from './UploadAvatar'
 export * from './AddButton'
+
+export * from './Show'
