@@ -8,6 +8,7 @@ import { WorkspaceCover } from './WorkspaceCover'
 import { WorkspaceTitle } from './WorkspaceTitle'
 import { UpdateWorkspace } from './UpdateWorkspaceButton'
 import { $isLoadingCurrentWorkspace } from '../model'
+import { HasAccess } from './HasAccess'
 
 export const WorkspacePage = () => {
   const isLoading = useUnit($isLoadingCurrentWorkspace)
@@ -28,9 +29,15 @@ export const WorkspacePage = () => {
           <div className='flex justify-between'>
             <div className='mb-3 flex items-center space-x-2'>
               <WorkspaceTitle />
-              <UpdateWorkspace />
+
+              <HasAccess role='Manager'>
+                <UpdateWorkspace />
+              </HasAccess>
             </div>
-            <CreateProjectButton />
+
+            <HasAccess role='Manager'>
+              <CreateProjectButton />
+            </HasAccess>
           </div>
 
           <div className='mb-3 flex justify-between items-center'>

@@ -31,6 +31,16 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
     setIsPopoverOpen((isOpen) => !isOpen)
   }
 
+  const isViewerOwner = () => {
+    if (!viewer) return false
+    const viewerAsMember = workspace.members.find(
+      (member) => member.id === viewer.id
+    )
+
+    if (viewerAsMember) return viewerAsMember.role === 'Owner'
+    return false
+  }
+
   return (
     <div className='relative' ref={wrapperRef}>
       <Card className='relative' withHover>
@@ -50,19 +60,21 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
             </div>
           </div>
 
-          <div
-            className='flex items-start relative'
-            onClick={(e) => {
-              e.stopPropagation()
-              e.preventDefault()
-            }}
-          >
-            <IconButton
-              variant='text'
-              icon='ellipsisHorizontal'
-              onClick={handleClick}
-            />
-          </div>
+          <Show when={isViewerOwner()}>
+            <div
+              className='flex items-start relative'
+              onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
+              }}
+            >
+              <IconButton
+                variant='text'
+                icon='ellipsisHorizontal'
+                onClick={handleClick}
+              />
+            </div>
+          </Show>
         </div>
       </Card>
 

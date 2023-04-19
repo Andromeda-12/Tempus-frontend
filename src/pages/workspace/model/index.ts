@@ -5,6 +5,7 @@ import { ApiError, WorkspaceDto, WorkspaceService } from '@/shared/api'
 import { workspaceModel } from '@/entities/workspace'
 import { controls, notFoundRoute, workspaceRoute } from '@/shared/routing'
 import { notificationModel } from '@/features/notification'
+import { viewerModel } from '@/entities/viewer'
 
 export const workspacePageGate = createGate()
 
@@ -17,6 +18,23 @@ const getCurrentWorkspace = createEvent<{
 export const $currentWorkspace = createStore<WorkspaceDto | null>(null)
 export const $isLoadingCurrentWorkspace =
   workspaceModel.getCurrentWorkspaceFx.pending
+
+export const $workspaceViewerRole = createStore<
+  'Owner' | 'Manager' | 'Member' | null
+>(null)
+
+sample({
+  clock: [$currentWorkspace, viewerModel.$viewer],
+  source: { workspace: $currentWorkspace, viewer: viewerModel.$viewer },
+  fn: ({ workspace, viewer }) => {
+    const currentMember = workspace?.members.find(
+      (member) => member.id === viewer?.id
+    )
+    if (currentMember) return currentMember.role
+    return null
+  },
+  target: $workspaceViewerRole
+})
 
 sample({
   clock: [workspaceRoute.opened, workspaceRoute.updated],
