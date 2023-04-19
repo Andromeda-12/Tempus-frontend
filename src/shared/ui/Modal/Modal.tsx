@@ -25,45 +25,43 @@ export const Modal = ({
     <DialogPrimitive.Root open={isOpen} onOpenChange={onClose}>
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
-          className={clsx('fixed inset-0 backdrop-blur-sm bg-black/50 z-[100]')}
-        />
-
-        <DialogPrimitive.Content
-          onClick={(e) => e.stopPropagation()}
-          onOpenAutoFocus={(e) => e.preventDefault()}
           className={clsx(
-            'fixed outline-none p-2 z-[100]',
-            'top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]',
-            className
+            'fixed inset-0 backdrop-blur-sm bg-black/50 z-[100] overflow-y-auto grid place-items-center'
           )}
         >
-          <Card className={clsx('p-5 sm:p-8', cardClassName)}>
-            <div
-              className={clsx(
-                'flex',
-                !title && 'justify-end',
-                title && 'justify-between mb-7'
-              )}
-            >
-              {title && (
-                <DialogPrimitive.DialogTitle asChild>
-                  <h3 className='text-2xl font-bold'>{title}</h3>
-                </DialogPrimitive.DialogTitle>
-              )}
-
-              <DialogPrimitive.Close
-                asChild
+          <DialogPrimitive.Content
+            onClick={(e) => e.stopPropagation()}
+            onOpenAutoFocus={(e) => e.preventDefault()}
+            className={clsx(' outline-none px-2 py-4 z-[100]', className)}
+          >
+            <Card className={clsx('p-5 sm:p-8 ', cardClassName)}>
+              <div
                 className={clsx(
-                  'inline-flex items-start justify-center outline-none'
+                  'flex',
+                  !title && 'justify-end',
+                  title && 'justify-between mb-7'
                 )}
               >
-                <IconButton icon='close' size='sm' variant='text' />
-              </DialogPrimitive.Close>
-            </div>
+                {title && (
+                  <DialogPrimitive.DialogTitle asChild>
+                    <h3 className='text-lg sm:text-xl md:text-2xl font-bold'>{title}</h3>
+                  </DialogPrimitive.DialogTitle>
+                )}
 
-            {children}
-          </Card>
-        </DialogPrimitive.Content>
+                <DialogPrimitive.Close
+                  asChild
+                  className={clsx(
+                    'inline-flex items-start justify-center outline-none'
+                  )}
+                >
+                  <IconButton icon='close' size='sm' variant='text' />
+                </DialogPrimitive.Close>
+              </div>
+
+              {children}
+            </Card>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Overlay>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
   )
