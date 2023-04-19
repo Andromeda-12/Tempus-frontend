@@ -33,7 +33,7 @@ export const SigninForm = () => {
         <h3 className='text-center font-medium text-2xl mb-5'>Sign in</h3>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-col'>
+          <div className='flex flex-col space-y-4'>
             <FormField
               placeholder='Email'
               name='email'
@@ -61,7 +61,7 @@ export const SigninForm = () => {
               }}
             />
 
-            <div className='mt-3 mb-4 flex justify-between items-center'>
+            <div className='flex justify-between items-center'>
               <Controller
                 name='rememberMe'
                 control={control}

@@ -1,6 +1,14 @@
 import { useEvent, useUnit } from 'effector-react'
 import { Controller, useForm } from 'react-hook-form'
-import { Button, FormField, Modal, ImageUpload } from '@/shared/ui'
+import {
+  Button,
+  FormField,
+  Modal,
+  ImageUpload,
+  Icon,
+  IconButton,
+  AddButton
+} from '@/shared/ui'
 import { UpdateWorkspaceDto } from '@/shared/api'
 import { getImageUrl } from '@/shared/lib'
 import { MAX_COVER_SIZE } from '@/shared/config'
@@ -71,88 +79,84 @@ export const UpdateWorkspaceModal = ({
 
   return (
     <Modal
-      className='w-full max-w-6xl'
+      className='w-full max-w-4xl'
       title='Update workspace'
       isOpen={isOpen}
       onClose={handleCloseModal}
     >
-      <div className='md:flex space-x-5 sm:space-x-8 mb-4'>
-        <form className='space-y-4  w-2/3'>
-          <FormField
-            placeholder='Title'
-            name='workspaceTitle'
-            control={control}
-            rules={{
-              required: 'Title is required'
-            }}
-          />
-
-          <div className='space-y-4'>
-            <div>
-              <div>Cover</div>
-              <div className='text-xs'>(optional)</div>
-            </div>
-
-            <div>
-              <Controller
-                control={control}
-                name='workspaceCover'
-                rules={{
-                  validate: (file) => {
-                    if (!file) return true
-                    if ((file as File).size > MAX_COVER_SIZE)
-                      return `The cover cannot be larger than ${
-                        MAX_COVER_SIZE / 1024 / 1024
-                      } mb`
-                    return true
-                  }
-                }}
-                render={({ field: { onChange, value } }) => (
-                  <ImageUpload
-                    className='h-[150px] sm:h-[280px]'
-                    preview={getPreview(value)}
-                    onChange={onChange}
-                  />
-                )}
-              />
-
-              <div className='text-error'>{errors.workspaceCover?.message}</div>
-            </div>
-          </div>
-        </form>
-
-        <div className='bg-red-500 w-1/3'>sdf</div>
-      </div>
-
-      <div className='flex justify-between'>
-        <div
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
+      <form className='space-y-4'>
+        <FormField
+          placeholder='Title'
+          name='workspaceTitle'
+          control={control}
+          rules={{
+            required: 'Title is required'
           }}
-        >
-          {deleteButton}
+        />
+
+        <div className='space-y-4'>
+          <div>
+            <div>Cover</div>
+            <div className='text-xs'>(optional)</div>
+          </div>
+
+          <div>
+            <Controller
+              control={control}
+              name='workspaceCover'
+              rules={{
+                validate: (file) => {
+                  if (!file) return true
+                  if ((file as File).size > MAX_COVER_SIZE)
+                    return `The cover cannot be larger than ${
+                      MAX_COVER_SIZE / 1024 / 1024
+                    } mb`
+                  return true
+                }
+              }}
+              render={({ field: { onChange, value } }) => (
+                <ImageUpload
+                  className='h-[150px] sm:h-[280px]'
+                  preview={getPreview(value)}
+                  onChange={onChange}
+                />
+              )}
+            />
+
+            <div className='text-error'>{errors.workspaceCover?.message}</div>
+          </div>
         </div>
 
-        <div className='sm:w-2/5 flex space-x-3'>
-          <Button
-            className='w-full'
-            variant='text'
-            type='button'
-            onClick={handleCloseModal}
+        <div className='flex justify-between'>
+          <div
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
           >
-            Cancel
-          </Button>
+            {deleteButton}
+          </div>
 
-          <Button
-            className='w-full'
-            accent
-            onClick={handleSubmit(sendFormData)}
-          >
-            Edit
-          </Button>
+          <div className='sm:w-2/5 flex space-x-3'>
+            <Button
+              className='w-full'
+              variant='text'
+              type='button'
+              onClick={handleCloseModal}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              className='w-full'
+              accent
+              onClick={handleSubmit(sendFormData)}
+            >
+              Edit
+            </Button>
+          </div>
         </div>
-      </div>
+      </form>
     </Modal>
   )
 }

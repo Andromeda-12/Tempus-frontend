@@ -34,9 +34,10 @@ const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
         {currentFilter}
         <Icon
           className={clsx(
-            'ml-1 w-3.5 h-3.5 duration-100',
+            'ml-1 duration-100',
             isOpen && '-rotate-180'
           )}
+          size='xs'
           name='chevronDown'
         />
       </div>

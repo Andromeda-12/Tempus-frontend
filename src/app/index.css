@@ -14,6 +14,11 @@
     content: '';
     @apply fixed top-0 bottom-0 right-0 left-0 -z-10 bg-background-light dark:bg-gradient-to-br dark:from-background-dark dark:to-neutral;
   }
+
+  .dark-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: white;
+  }
 }
 /* dark:bg-background-dark font-sans */
 @keyframes animation {
@@ -81,8 +86,10 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  /* color: red; */
   transition: background-color 5000s ease-in-out 0s;
+  /* -webkit-box-shadow: 0 0 0 50px transparent inset;  Change the color to your own background color */
+  -webkit-text-fill-color: black;
+  @apply dark:dark-autofill;
 }
 
 a {
@@ -106,7 +113,7 @@ a {
 
 .ScrollAreaThumb {
   background: red;
-  borderradius: 3px;
+  border-radius: 3px;
 }
 
 @keyframes progress {

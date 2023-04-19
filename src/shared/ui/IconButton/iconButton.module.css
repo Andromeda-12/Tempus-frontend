@@ -1,5 +1,5 @@
 .btn-icon {
-  @apply h-[44px] inline-flex justify-center items-center px-2.5 py-2.5 text-sm rounded-lg duration-200;
+  @apply h-[44px] w-[44px] inline-flex justify-center items-center px-2.5 py-2.5 text-sm rounded-lg duration-200;
   @apply bg-primary text-white outline-none hover:bg-primary-hover active:scale-95;
   @apply ring-primary ring-offset-2 focus-visible:ring;
 }
@@ -53,19 +53,19 @@
 }
 
 .btn-icon-xs {
-  @apply px-1 py-1 h-[30px];
+  @apply px-1 py-1 h-[30px] w-[30px];
 }
 
 .btn-icon-sm {
-  @apply px-2 py-2 h-[38px];
+  @apply px-2 py-2 h-[38px] w-[38px];
 }
 
 .btn-icon-lg {
-  @apply px-3 py-3 h-[54px];
+  @apply px-3 py-3 h-[54px] w-[54px];
 }
 
 .btn-icon-xl {
-  @apply px-4 py-4 h-[66px];
+  @apply px-4 py-4 h-[66px] w-[66px];
 }
 
 .btn-icon-rounded {

@@ -14,38 +14,113 @@ import type { OpenAPIConfig } from './OpenAPI'
 import { AuthService } from '../services/AuthService'
 import { viewerModel } from '@/entities/viewer'
 
-axios.interceptors.response.use(
-  (config) => config,
-  async (error) => {
-    const originalRequest = error.config
+let refreshRequest: Promise<any> | null = null;
 
-    if (
-      error.response.status === 401 &&
-      originalRequest.url.includes('/auth/signOut')
-    )
-      return
+// Обработчик ошибок для Axios
+const axiosErrorHandler = async (error: any) => {
+  const originalRequest = error.config;
 
-    if (
-      error.response.status === 401 &&
-      originalRequest.url.includes('/auth/refresh')
-    ) {
-      viewerModel.signOut()
-      return Promise.reject(error)
-    } else if (
-      error.response.status === 400 &&
-      originalRequest.url.includes('/auth/refresh')
-    ) {
-      if (!originalRequest._retry) return Promise.reject(error)
-      else return axios(originalRequest)
-    } else if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true
-
-      await AuthService.authControllerRefresh()
-      return axios(originalRequest)
+  // Если запрос отклонен из-за истечения срока действия токена
+  if (error.response.status === 401) {
+    // Если запрос на выход пользователя из системы
+    if (isSignOutRequest(originalRequest)) {
+      return;
     }
-    return Promise.reject(error)
+
+    // Если запрос на обновление токена
+    if (isRefreshTokenRequest(originalRequest)) {
+      await handleRefreshTokenRequestError(originalRequest, error);
+      return Promise.reject(error);
+    }
+
+    // Если запрос на обычный ресурс и нужно обновить токен
+    if (shouldRetryWithNewToken(originalRequest)) {
+      originalRequest._retry = true;
+      await handleRetryWithNewToken(originalRequest);
+      return axios(originalRequest);
+    }
   }
-)
+
+  // Если запрос отклонен из-за неправильно сформированного запроса на обновление токена
+  if (error.response.status === 400 && isRefreshTokenRequest(originalRequest)) {
+    if (!originalRequest._retry) {
+      return Promise.reject(error);
+    } else {
+      return axios(originalRequest);
+    }
+  }
+
+  // Если никакой из блоков выше не сработал, то вернуть ошибку
+  return Promise.reject(error);
+};
+
+// Проверяет, является ли запрос запросом на выход пользователя из системы
+const isSignOutRequest = (request: any) => request.url.includes('/auth/signOut');
+
+// Проверяет, является ли запрос запросом на обновление токена
+const isRefreshTokenRequest = (request: any) => request.url.includes('/auth/refresh');
+
+// Проверяет, нужно ли повторить запрос с новым токеном
+const shouldRetryWithNewToken = (request: any) => !request._retry;
+
+// Обрабатывает ошибку запроса на обновление токена
+const handleRefreshTokenRequestError = async (request: any, error: any) => {
+  viewerModel.signOut();
+};
+
+// Обрабатывает повтор запроса с новым токеном
+const handleRetryWithNewToken = async (request: any) => {
+  if (!refreshRequest) {
+    refreshRequest = AuthService.authControllerRefresh();
+  }
+
+  await refreshRequest;
+  refreshRequest = null;
+};
+
+axios.interceptors.response.use((config) => config, axiosErrorHandler);
+// Подключаем обработчик ошибок к Axios
+
+// let refreshRequest: Promise<any> | null = null
+
+// axios.interceptors.response.use(
+//   (config) => config,
+//   async (error) => {
+//     const originalRequest = error.config
+
+//     if (
+//       error.response.status === 401 &&
+//       originalRequest.url.includes('/auth/signOut')
+//     )
+//       return
+
+//     if (
+//       error.response.status === 401 &&
+//       originalRequest.url.includes('/auth/refresh')
+//     ) {
+//       viewerModel.signOut()
+//       return Promise.reject(error)
+//     } else if (
+//       error.response.status === 400 &&
+//       originalRequest.url.includes('/auth/refresh')
+//     ) {
+//       if (!originalRequest._retry) return Promise.reject(error)
+//       else return axios(originalRequest)
+//     } else if (error.response.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true
+
+//       if (!refreshRequest) {
+//         refreshRequest = AuthService.authControllerRefresh()
+//       }
+
+//       await refreshRequest
+//       refreshRequest = null
+
+//       return axios(originalRequest)
+//     }
+//     return Promise.reject(error)
+//   }
+// )
 
 const isDefined = <T>(
   value: T | null | undefined

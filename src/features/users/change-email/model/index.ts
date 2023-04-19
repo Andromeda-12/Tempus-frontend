@@ -4,7 +4,9 @@ import { viewerModel } from '@/entities/viewer'
 import { ApiError, UserService } from '@/shared/api'
 import { createModal } from '@/shared/lib'
 
-const sendChangeEmailMailFx = createEffect<string, void, ApiError>()
+const sendChangeEmailMailFx = createEffect<string, void, ApiError>(
+  async () => {}
+)
 
 export const sendChangeEmailMail = createEvent()
 

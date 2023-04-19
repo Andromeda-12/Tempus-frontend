@@ -25,9 +25,8 @@ export const Spinner = ({ className, accent, size = 'base' }: SpinnerProps) => {
 
   if (isBreadSpinner)
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
-        src='bread.jpg'
+        src='/bread.jpg'
         alt='s'
         className='rounded-full object-cover h-44 w-44 animate-spin'
       />

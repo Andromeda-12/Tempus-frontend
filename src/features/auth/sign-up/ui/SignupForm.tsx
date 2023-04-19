@@ -33,8 +33,8 @@ export const SignupForm = () => {
       <h3 className='text-center font-medium text-2xl mb-5'>Sign up</h3>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='flex flex-col'>
-          <div className='flex gap-5'>
+        <div className='flex flex-col space-y-4'>
+          <div className='flex space-x-4'>
             <FormField
               placeholder='First name'
               name='firstName'

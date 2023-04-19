@@ -1,8 +1,8 @@
 import { redirect } from 'atomic-router'
 import { createEvent, createStore, sample } from 'effector'
+import { workspaceModel } from '@/entities/workspace'
 import { UpdateWorkspaceDto, WorkspaceDto } from '@/shared/api'
 import { createModal } from '@/shared/lib'
-import { workspaceModel } from '@/entities/workspace'
 import { workspacesRoute } from '@/shared/routing'
 
 export const setCurrentWorkspace = createEvent<WorkspaceDto | null>()
