@@ -55,13 +55,9 @@ export const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
-        {loading && (
-          <Spinner className={clsx('')} size={spinnerSizes[size] as sizes} />
-        )}
+        {loading && <Spinner size={spinnerSizes[size] as sizes} />}
 
-        {!loading && icon && (
-          <Icon className={clsx(className)} size={size} name={icon} />
-        )}
+        {!loading && icon && <Icon size={size} name={icon} />}
 
         {children}
       </button>
