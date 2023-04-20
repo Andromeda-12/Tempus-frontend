@@ -11,7 +11,7 @@ import { NotFound } from '@/pages/404'
 import { AuthLayout, CenteredLayout, SidebarLayout } from '@/widgets/layouts'
 import { controls } from '@/shared/routing'
 import { Settings } from '@/pages/settings'
-import { Project } from '@/pages/dashboard'
+import { Project } from '@/pages/project'
 
 const routes = [
   { path: '/signin', route: SignIn.route },

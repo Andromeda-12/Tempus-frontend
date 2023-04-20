@@ -1,7 +1,7 @@
 import { projectRoute } from '@/shared/routing'
-import { Dashboard } from './ui'
+import { ProjectPage } from './ui'
 
 export const Project = {
-  view: Dashboard,
+  view: ProjectPage,
   route: projectRoute
 }

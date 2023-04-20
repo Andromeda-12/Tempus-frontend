@@ -10,7 +10,7 @@ const workspaces = {
   own: true
 }
 
-export const Dashboard = ({}) => {
+export const ProjectPage = ({}) => {
   return (
     <div className='h-screen flex flex-col py-5 bg-cover bg-center relative'>
       <div className='h-full !bg-neutral/0'>
