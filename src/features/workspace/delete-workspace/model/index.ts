@@ -6,7 +6,6 @@ import { createModal } from '@/shared/lib'
 
 export const workspaceDeletionConfirme = createEvent()
 export const setCurrentWorkspace = createEvent<WorkspaceDto>()
-
 const deleteWorkspace = createEvent()
 
 export const confirmModal = createModal()
