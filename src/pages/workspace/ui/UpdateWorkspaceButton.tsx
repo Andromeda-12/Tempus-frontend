@@ -5,6 +5,7 @@ import { $currentWorkspace } from '../model'
 
 export const UpdateWorkspace = () => {
   const currentWorkspace = useUnit($currentWorkspace)
+  
   return (
     <UpdateWorkspaceButton
       workspace={currentWorkspace}

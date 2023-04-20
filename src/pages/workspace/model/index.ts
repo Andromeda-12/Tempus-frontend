@@ -1,13 +1,10 @@
 import { redirect } from 'atomic-router'
 import { createEvent, createStore, sample } from 'effector'
-import { createGate } from 'effector-react'
-import { ApiError, WorkspaceDto, WorkspaceService } from '@/shared/api'
-import { workspaceModel } from '@/entities/workspace'
-import { controls, notFoundRoute, workspaceRoute } from '@/shared/routing'
 import { notificationModel } from '@/features/notification'
+import { workspaceModel } from '@/entities/workspace'
 import { viewerModel } from '@/entities/viewer'
-
-export const workspacePageGate = createGate()
+import { notFoundRoute, workspaceRoute } from '@/shared/routing'
+import { WorkspaceDto } from '@/shared/api'
 
 const redirectToNotFoundPage = createEvent()
 const getCurrentWorkspace = createEvent<{

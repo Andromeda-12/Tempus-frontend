@@ -1,28 +1,29 @@
-import { useState } from 'react'
+import { useUnit } from 'effector-react'
 import { AddButton } from '@/shared/ui'
+import { WorkspaceDto } from '@/shared/api'
 import { CreateProjectModal } from './CreateProjectModal'
+import { createProjectModal, setCurrentWorkspace } from '../model'
 
 interface CreateWorkspaceButtonProps {
-  className?: string
+  workspace: WorkspaceDto | null
 }
 
 export const CreateProjectButton = ({
-  className
+  workspace
 }: CreateWorkspaceButtonProps) => {
-  const [isShowModal, setIsShowModal] = useState(false)
+  const openModal = useUnit(createProjectModal.openModal)
+  const setCurrentWorkspaceFn = useUnit(setCurrentWorkspace)
 
-  const handleOpenModal = () => {
-    setIsShowModal(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsShowModal(false)
+  const handleClick = () => {
+    setCurrentWorkspaceFn(workspace)
+    openModal()
   }
 
   return (
     <>
-      <CreateProjectModal isOpen={isShowModal} onClose={handleCloseModal} />
-      <AddButton text='Project' onClick={handleOpenModal} />
+      <CreateProjectModal />
+
+      <AddButton text='Project' onClick={handleClick} />
     </>
   )
 }

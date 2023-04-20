@@ -7,10 +7,11 @@ import { WorkspaceMembers } from './WorkspaceMembers'
 import { WorkspaceCover } from './WorkspaceCover'
 import { WorkspaceTitle } from './WorkspaceTitle'
 import { UpdateWorkspace } from './UpdateWorkspaceButton'
-import { $isLoadingCurrentWorkspace } from '../model'
 import { HasAccess } from './HasAccess'
+import { $currentWorkspace, $isLoadingCurrentWorkspace } from '../model'
 
 export const WorkspacePage = () => {
+  const currentWorkspace = useUnit($currentWorkspace)
   const isLoading = useUnit($isLoadingCurrentWorkspace)
 
   if (isLoading)
@@ -36,7 +37,7 @@ export const WorkspacePage = () => {
             </div>
 
             <HasAccess role='Manager'>
-              <CreateProjectButton />
+              <CreateProjectButton workspace={currentWorkspace} />
             </HasAccess>
           </div>
 

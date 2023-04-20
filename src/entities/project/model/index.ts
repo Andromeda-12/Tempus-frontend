@@ -78,7 +78,7 @@ export const removeProjectFx = createEffect<number, ProjectDto, ApiError>(
   async (id) => await ProjectsService.projectControllerRemove(id)
 )
 
-export const $projects= createStore<ProjectDto[]>([])
+export const $projects = createStore<ProjectDto[]>([])
   .on(getProjectsFx.doneData, (_, projects) => [..._, ...projects])
   .on(createProjectFx.doneData, (_, project) => [..._, project])
   .on(removeProjectFx.doneData, (_, project) => [
