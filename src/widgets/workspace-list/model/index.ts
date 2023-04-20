@@ -1,11 +1,11 @@
 import { createEvent, createStore, restore, sample } from 'effector'
 import { createGate } from 'effector-react'
-import { workspaceModel } from '@/entities/workspace'
+import { debounce } from 'patronum';
 import { deleteWorkspaceModel } from '@/features/workspace/delete-workspace'
 import { workspaceFilterModel } from '@/features/filter/workspace-filter'
-import { GetRequestQuery } from '@/shared/lib'
 import { workspaceSearchModel } from '@/features/filter/workspace-search'
-import { debounce } from 'patronum';
+import { workspaceModel } from '@/entities/workspace'
+import { GetRequestQuery } from '@/shared/lib'
 
 export const workspaceGate = createGate()
 

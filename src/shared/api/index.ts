@@ -20,6 +20,7 @@ export type { MemberDto } from './models/MemberDto';
 export type { ProjectDto } from './models/ProjectDto';
 export type { RecoveryPasswordDto } from './models/RecoveryPasswordDto';
 export type { ReportDto } from './models/ReportDto';
+export type { Roles } from './models/Roles';
 export type { ServerSideTokensDto } from './models/ServerSideTokensDto';
 export type { TaskDto } from './models/TaskDto';
 export type { TimeLineDto } from './models/TimeLineDto';

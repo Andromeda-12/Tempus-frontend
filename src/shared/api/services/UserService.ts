@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { ChangeUserMailDto } from '../models/ChangeUserMailDto';
 import type { ChangeUserPasswordDto } from '../models/ChangeUserPasswordDto';
 import type { UpdateUserDto } from '../models/UpdateUserDto';
 import type { UserDto } from '../models/UserDto';
@@ -89,24 +90,6 @@ requestBody: ChangeUserPasswordDto,
     }
 
     /**
-     * Check change mail token for validation
-     * @param token 
-     * @returns any 
-     * @throws ApiError
-     */
-    public static userControllerCheckChangeMailToken(
-token: string,
-): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/user/checkMailToken/{token}',
-            path: {
-                'token': token,
-            },
-        });
-    }
-
-    /**
      * Change mail by token
      * @param token 
      * @returns any 
@@ -121,6 +104,22 @@ token: string,
             path: {
                 'token': token,
             },
+        });
+    }
+
+    /**
+     * @param requestBody 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static userControllerChangeMail(
+requestBody: ChangeUserMailDto,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/user/changeMail',
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

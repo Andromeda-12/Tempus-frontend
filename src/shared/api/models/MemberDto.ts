@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { Roles } from './Roles';
+
 export type MemberDto = {
     /**
      * User id
@@ -26,5 +28,5 @@ export type MemberDto = {
     /**
      * Member role
      */
-    role: 'Owner' | 'Manager' | 'Member';
+    role: Roles;
 };

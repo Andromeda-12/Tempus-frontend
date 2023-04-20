@@ -4,7 +4,7 @@ import { notificationModel } from '@/features/notification'
 import { workspaceModel } from '@/entities/workspace'
 import { viewerModel } from '@/entities/viewer'
 import { notFoundRoute, workspaceRoute } from '@/shared/routing'
-import { WorkspaceDto } from '@/shared/api'
+import { Roles, WorkspaceDto } from '@/shared/api'
 
 const redirectToNotFoundPage = createEvent()
 const getCurrentWorkspace = createEvent<{
@@ -16,9 +16,7 @@ export const $currentWorkspace = createStore<WorkspaceDto | null>(null)
 export const $isLoadingCurrentWorkspace =
   workspaceModel.getCurrentWorkspaceFx.pending
 
-export const $workspaceViewerRole = createStore<
-  'Owner' | 'Manager' | 'Member' | null
->(null)
+export const $workspaceViewerRole = createStore<Roles | null>(null)
 
 sample({
   clock: [$currentWorkspace, viewerModel.$viewer],

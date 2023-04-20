@@ -34,7 +34,7 @@ formData: CreateWorkspaceDto,
      * @param offset Offset of workspaces
      * @param limit Limit of workspaces
      * @param title Workspace title
-     * @param isOwned Workspace title
+     * @param filter Workspace title
      * @returns WorkspaceDto 
      * @throws ApiError
      */
@@ -42,7 +42,7 @@ formData: CreateWorkspaceDto,
 offset?: number,
 limit?: number,
 title?: string,
-isOwned?: boolean,
+filter?: string,
 ): CancelablePromise<Array<WorkspaceDto>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -51,7 +51,7 @@ isOwned?: boolean,
                 'offset': offset,
                 'limit': limit,
                 'title': title,
-                'isOwned': isOwned,
+                'filter': filter,
             },
         });
     }

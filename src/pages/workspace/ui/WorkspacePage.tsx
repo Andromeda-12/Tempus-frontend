@@ -1,5 +1,4 @@
 import { useUnit } from 'effector-react'
-import { ProjectsFilter } from '@/features/filter/projects-filter'
 import { CreateProjectButton } from '@/features/project/create-project'
 import { ProjectList } from '@/entities/project'
 import { ContentContainer, Spinner, Input } from '@/shared/ui'
@@ -27,8 +26,8 @@ export const WorkspacePage = () => {
         <WorkspaceCover />
 
         <ContentContainer className='mt-5'>
-          <div className='flex justify-between'>
-            <div className='mb-3 flex items-center space-x-2'>
+          <div className='mb-5 flex justify-between'>
+            <div className='flex items-center space-x-2'>
               <WorkspaceTitle />
 
               <HasAccess role='Manager'>
@@ -41,13 +40,9 @@ export const WorkspacePage = () => {
             </HasAccess>
           </div>
 
-          <div className='mb-3 flex justify-between items-center'>
+          <div className='mb-7 flex justify-between items-center'>
             <WorkspaceMembers />
-          </div>
-
-          <div className='mb-7 flex items-center justify-between space-x-10'>
-            <ProjectsFilter />
-
+            
             <Input
               notAccent
               size='sm'
@@ -55,7 +50,6 @@ export const WorkspacePage = () => {
               startIconName='search'
             />
           </div>
-
           <ProjectList />
         </ContentContainer>
       </div>
