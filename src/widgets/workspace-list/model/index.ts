@@ -16,7 +16,7 @@ const resetOffset = createEvent()
 const resetWorkspaces = createEvent()
 const setIsAllDataLoaded = createEvent<boolean>()
 
-const $isOwnedFilter = createStore<boolean | null>(null)
+const $filter = workspaceFilterModel.workspaceFilter.currentValue
 const $limit = createStore(20)
 export const $offset = createStore(0)
   .on(addOffset, (currentOffset, addedOffset) => currentOffset + addedOffset)
@@ -35,17 +35,17 @@ sample({
   source: {
     offset: $offset,
     limit: $limit,
-    isOwned: $isOwnedFilter,
+    filter: $filter,
     searchTitle: workspaceSearchModel.$searchWorkspaceTitle,
     isLoadign: $isLoading
   },
   filter: ({ isLoadign }) => !isLoadign,
-  fn: ({ offset, limit, searchTitle, isOwned }) =>
+  fn: ({ offset, limit, searchTitle, filter }) =>
     ({
       offset,
       limit,
       title: searchTitle || undefined,
-      isOwned
+      filter
     } as GetRequestQuery),
   target: workspaceModel.getWorkspacesFx
 })
@@ -89,16 +89,6 @@ sample({
 sample({
   clock: workspaceGate.close,
   target: deleteWorkspaceModel.confirmModal.closeModal
-})
-
-sample({
-  clock: workspaceFilterModel.workspaceFilter.currentValue,
-  fn: (currentFilter) => {
-    if (currentFilter === 'own') return true
-    if (currentFilter === 'others') return false
-    return null
-  },
-  target: $isOwnedFilter
 })
 
 sample({

@@ -412,12 +412,6 @@ export const request = <T>(
       const body = getRequestBody(options)
       const headers = await getHeaders(config, options, formData)
 
-      if (formData) {
-        console.log(formData)
-        console.log(formData.get('title'))
-        console.log(formData.get('file'))
-      }
-
       if (!onCancel.isCancelled) {
         const response = await sendRequest<T>(
           config,

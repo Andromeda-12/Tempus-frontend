@@ -27,12 +27,12 @@ export const getWorkspacesFx = createEffect<
   WorkspaceDto[],
   ApiError
 >(
-  async ({ offset, limit, title, isOwned }) =>
+  async ({ offset, limit, title, filter }) =>
     await WorkspaceService.workspaceControllerFindAll(
       offset,
       limit,
       title,
-      isOwned
+      filter
     )
 )
 
