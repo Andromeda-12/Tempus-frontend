@@ -56,7 +56,7 @@ export const ImageUpload = ({
     >
       <div
         className={clsx(
-          'flex flex-col z-10 items-center justify-center',
+          'h-full w-full flex flex-col z-10 items-center justify-center',
           preview && 'text-black dark:text-white'
         )}
       >
