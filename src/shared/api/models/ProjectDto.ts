@@ -12,10 +12,6 @@ export type ProjectDto = {
      */
     title: string;
     /**
-     * Project description
-     */
-    description: string;
-    /**
      * Whether to hide the project from visible
      */
     isHidden: boolean;

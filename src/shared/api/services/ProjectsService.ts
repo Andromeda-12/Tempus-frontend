@@ -14,16 +14,21 @@ export class ProjectsService {
 
     /**
      * Create project
+     * @param id 
      * @param requestBody 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerCreate(
+id: number,
 requestBody: CreateProjectDto,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/projects',
+            url: '/api/workspace/{id}/projects',
+            path: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -31,28 +36,68 @@ requestBody: CreateProjectDto,
 
     /**
      * Get projects by filter
+     * @param id 
      * @param offset Offset of projects
      * @param limit Limit of projects
-     * @param owner Project owner
+     * @param filter own|others|all
      * @param title Project title
      * @param isHidden Show hidden projects
      * @returns ProjectDto 
      * @throws ApiError
      */
-    public static projectControllerFindAll(
+    public static projectControllerGetProjects(
+id: number,
 offset?: number,
 limit?: number,
-owner?: string,
+filter?: string,
 title?: string,
 isHidden?: boolean,
 ): CancelablePromise<Array<ProjectDto>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/projects',
+            url: '/api/workspace/{id}/projects/getProjects',
+            path: {
+                'id': id,
+            },
             query: {
                 'offset': offset,
                 'limit': limit,
-                'owner': owner,
+                'filter': filter,
+                'title': title,
+                'isHidden': isHidden,
+            },
+        });
+    }
+
+    /**
+     * Get all projects by filter (for workspace owner|manager)
+     * @param id 
+     * @param offset Offset of projects
+     * @param limit Limit of projects
+     * @param filter own|others|all
+     * @param title Project title
+     * @param isHidden Show hidden projects
+     * @returns ProjectDto 
+     * @throws ApiError
+     */
+    public static projectControllerGetAllProjects(
+id: number,
+offset?: number,
+limit?: number,
+filter?: string,
+title?: string,
+isHidden?: boolean,
+): CancelablePromise<Array<ProjectDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{id}/projects/getAllProjects',
+            path: {
+                'id': id,
+            },
+            query: {
+                'offset': offset,
+                'limit': limit,
+                'filter': filter,
                 'title': title,
                 'isHidden': isHidden,
             },
@@ -61,38 +106,38 @@ isHidden?: boolean,
 
     /**
      * Get project by id
-     * @param id 
+     * @param projectId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerFindOne(
-id: number,
+projectId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/projects/{id}',
+            url: '/api/workspace/{id}/projects/{projectId}',
             path: {
-                'id': id,
+                'projectId': projectId,
             },
         });
     }
 
     /**
      * Update project
-     * @param id 
+     * @param projectId 
      * @param requestBody 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerUpdate(
-id: number,
+projectId: number,
 requestBody: UpdateProjectDto,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/projects/{id}',
+            url: '/api/workspace/{id}/projects/{projectId}',
             path: {
-                'id': id,
+                'projectId': projectId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -101,73 +146,73 @@ requestBody: UpdateProjectDto,
 
     /**
      * Delete project
-     * @param id 
+     * @param projectId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerRemove(
-id: number,
+projectId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/projects/{id}',
+            url: '/api/workspace/{id}/projects/{projectId}',
             path: {
-                'id': id,
+                'projectId': projectId,
             },
         });
     }
 
     /**
      * Add member to project
-     * @param id 
+     * @param projectId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerAddMember(
-id: number,
+projectId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/projects/{id}/addMember',
+            url: '/api/workspace/{id}/projects/{projectId}/addMember',
             path: {
-                'id': id,
+                'projectId': projectId,
             },
         });
     }
 
     /**
      * Remove member from project
-     * @param id 
+     * @param projectId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerRemoveMember(
-id: number,
+projectId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/projects/{id}/removeMember',
+            url: '/api/workspace/{id}/projects/{projectId}/removeMember',
             path: {
-                'id': id,
+                'projectId': projectId,
             },
         });
     }
 
     /**
-     * @param id 
+     * @param projectId 
      * @param requestBody 
      * @returns any 
      * @throws ApiError
      */
     public static projectControllerChangeProjectRole(
-id: number,
+projectId: number,
 requestBody: UpdateRoleDto,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/projects/{id}/changeProjectRole',
+            url: '/api/workspace/{id}/projects/{projectId}/changeProjectRole',
             path: {
-                'id': id,
+                'projectId': projectId,
             },
             body: requestBody,
             mediaType: 'application/json',
