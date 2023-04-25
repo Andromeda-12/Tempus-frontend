@@ -1,9 +1,5 @@
-import {
-  createEffect,
-  createEvent,
-  createStore,
-  sample
-} from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
+import { GetRequestQuery } from '@/shared/lib'
 import {
   ApiError,
   WorkspaceDto,
@@ -11,14 +7,15 @@ import {
   UpdateWorkspaceDto,
   WorkspaceService
 } from '@/shared/api'
-import { GetRequestQuery } from '@/shared/lib'
 
 export const createWorkspace = createEvent<CreateWorkspaceDto>()
 export const updateWorkspace = createEvent<{
-  id: number
+  workspaceId: number
   updateWorkspaceDto: UpdateWorkspaceDto
 }>()
-export const removeWorkspace = createEvent<number>()
+export const removeWorkspace = createEvent<{
+  workspaceId: number
+}>()
 
 export const resetWorkspaces = createEvent()
 
@@ -35,31 +32,6 @@ export const getWorkspacesFx = createEffect<
       filter
     )
 )
-
-export const getCurrentWorkspaceFx = createEffect<
-  {
-    workspaces: WorkspaceDto[]
-    param: number
-  },
-  WorkspaceDto | null,
-  ApiError
->(async ({ workspaces, param }) => {
-  const workspaceId = Number(param)
-  if (isNaN(workspaceId)) return null
-
-  const currentWorkspace = workspaces.find(
-    (workspace) => workspace.id === workspaceId
-  )
-
-  if (currentWorkspace) return currentWorkspace
-
-  const data = await WorkspaceService.workspaceControllerFindOne(workspaceId)
-
-  if (data) return data
-
-  return null
-})
-
 export const createWorkspaceFx = createEffect<
   CreateWorkspaceDto,
   WorkspaceDto,
@@ -70,17 +42,27 @@ export const createWorkspaceFx = createEffect<
 )
 export const updateWorkspaceFx = createEffect<
   {
-    id: number
+    workspaceId: number
     updateWorkspaceDto: UpdateWorkspaceDto
   },
   WorkspaceDto,
   ApiError
 >(
-  async ({ id, updateWorkspaceDto }) =>
-    await WorkspaceService.workspaceControllerUpdate(id, updateWorkspaceDto)
+  async ({ workspaceId, updateWorkspaceDto }) =>
+    await WorkspaceService.workspaceControllerUpdate(
+      workspaceId,
+      updateWorkspaceDto
+    )
 )
-export const removeWorkspaceFx = createEffect<number, WorkspaceDto, ApiError>(
-  async (id) => await WorkspaceService.workspaceControllerRemove(id)
+export const removeWorkspaceFx = createEffect<
+  {
+    workspaceId: number
+  },
+  WorkspaceDto,
+  ApiError
+>(
+  async ({ workspaceId }) =>
+    await WorkspaceService.workspaceControllerRemove(workspaceId)
 )
 
 export const $workspaces = createStore<WorkspaceDto[]>([])

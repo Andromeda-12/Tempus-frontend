@@ -50,6 +50,7 @@ export const WorkspacePage = () => {
               startIconName='search'
             />
           </div>
+
           <ProjectList />
         </ContentContainer>
       </div>

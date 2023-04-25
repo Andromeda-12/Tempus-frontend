@@ -1,12 +1,11 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
-import clsx from 'clsx'
 import { viewerModel } from '@/entities/viewer'
 import { Card, CardCover, IconButton, Show } from '@/shared/ui'
-import { WorkspaceDto } from '@/shared/api'
-import { API_URL } from '@/shared/config'
 import { getImageUrl } from '@/shared/lib'
-import * as Portal from '@radix-ui/react-portal'
+import { WorkspaceDto } from '@/shared/api'
+import { OwnMark } from './OwnMark'
+import { WorkspacePopover } from './WorkspacePopover'
 
 export interface WorkspaceProps {
   workspace: WorkspaceDto
@@ -14,12 +13,12 @@ export interface WorkspaceProps {
 }
 
 export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
-  const { title, cover, owner } = workspace
+  const { title, cover, owner, count } = workspace
 
   const viewer = useUnit(viewerModel.$viewer)
 
-  let own = false
-  if (viewer) own = owner.id === viewer.id
+  let isViewerOwner = false
+  if (viewer) isViewerOwner = owner.id === viewer.id
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
@@ -31,20 +30,10 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
     setIsPopoverOpen((isOpen) => !isOpen)
   }
 
-  const isViewerOwner = () => {
-    if (!viewer) return false
-    const viewerAsMember = workspace.members.find(
-      (member) => member.id === viewer.id
-    )
-
-    if (viewerAsMember) return viewerAsMember.role === 'Owner'
-    return false
-  }
-
   return (
     <div className='relative' ref={wrapperRef}>
       <Card className='relative' withHover>
-        {own && <OwnMark />}
+        {isViewerOwner && <OwnMark />}
 
         <CardCover cover={getImageUrl(cover)} />
 
@@ -55,12 +44,11 @@ export const Workspace = ({ workspace, actions }: WorkspaceProps) => {
             </div>
 
             <div className='font-light text-sm text-color-light/60 dark:text-color-dark/50'>
-              {/* Projects: {projects?.length} */}
-              Projects: {0}
+              Projects: {count.projects}
             </div>
           </div>
 
-          <Show when={isViewerOwner()}>
+          <Show when={isViewerOwner}>
             <div
               className='flex items-start relative'
               onClick={(e) => {
@@ -96,27 +84,3 @@ function useOutsideAlerter(ref: any, cb: () => void) {
     }
   }, [ref])
 }
-
-const WorkspacePopover = ({ actions }: { actions: ReactNode }) => {
-  return (
-    <div
-      className={clsx(
-        'rounded-lg flex overflow-hidden shadow-lg shadow-background-dark/20 dark:shadow-background-dark',
-        'bg-white dark:bg-neutral',
-        'absolute -bottom-11 right-0 z-50 w-32'
-      )}
-      onClick={(e) => {
-        e.stopPropagation()
-        e.preventDefault()
-      }}
-    >
-      {actions}
-    </div>
-  )
-}
-
-const OwnMark = () => (
-  <div className='absolute right-2 top-2 bg-background-light/60 dark:bg-background-dark/40 py-1 px-2 text-xs rounded-full'>
-    own
-  </div>
-)

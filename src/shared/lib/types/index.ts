@@ -14,3 +14,8 @@ export type GetRequestQuery = {
   title: string
   filter: string
 }
+
+export type ProjectRequesParams = {
+  workspaceId: number
+  projectId: number
+}

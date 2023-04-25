@@ -1,23 +1,15 @@
+import { ReactNode } from 'react'
 import { useEvent, useUnit } from 'effector-react'
 import { Controller, useForm } from 'react-hook-form'
-import {
-  Button,
-  FormField,
-  Modal,
-  ImageUpload,
-  Icon,
-  IconButton,
-  AddButton
-} from '@/shared/ui'
-import { UpdateWorkspaceDto } from '@/shared/api'
+import { Button, FormField, Modal, ImageUpload } from '@/shared/ui'
 import { getImageUrl } from '@/shared/lib'
+import { UpdateWorkspaceDto } from '@/shared/api'
 import { MAX_COVER_SIZE } from '@/shared/config'
 import {
   $currentWorkspace,
   updateWorkspace,
   updateWorkspaceModal
 } from '../model'
-import { ReactNode } from 'react'
 
 interface UpdateWorkspaceModalProps {
   deleteButton: ReactNode

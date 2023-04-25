@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { useEvent, useGate, useUnit } from 'effector-react'
+import { Link } from 'atomic-router-react'
 import { DeleteWorkspaceButton } from '@/features/workspace/delete-workspace'
 import { Workspace } from '@/entities/workspace'
-import { Spinner } from '@/shared/ui'
 import { workspaceModel } from '@/entities/workspace'
-import { Link } from 'atomic-router-react'
 import { workspaceRoute } from '@/shared/routing'
+import { Spinner } from '@/shared/ui'
 import {
   $isAllDataLoaded,
   $isLoading,

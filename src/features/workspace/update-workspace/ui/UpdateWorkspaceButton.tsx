@@ -1,10 +1,9 @@
+import { ReactNode } from 'react'
 import { useUnit } from 'effector-react'
-import clsx from 'clsx'
-import { Button, Icon, IconButton } from '@/shared/ui'
+import { IconButton } from '@/shared/ui'
 import { WorkspaceDto } from '@/shared/api'
 import { UpdateWorkspaceModal } from './UpdateWorkspaceModal'
 import { setCurrentWorkspace, updateWorkspaceModal } from '../model'
-import { ReactNode } from 'react'
 
 interface UpdateWorkspaceButtonProps {
   className?: string
@@ -31,7 +30,12 @@ export const UpdateWorkspaceButton = ({
     <>
       {isOpen && <UpdateWorkspaceModal deleteButton={deleteButton} />}
 
-      <IconButton icon='pencil' size='sm' variant='text' onClick={handleClick} />
+      <IconButton
+        icon='pencil'
+        size='sm'
+        variant='text'
+        onClick={handleClick}
+      />
     </>
   )
 }
