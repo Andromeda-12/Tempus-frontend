@@ -23,7 +23,7 @@ sample({
   clock: deleteWorkspace,
   source: $currentWorkspace,
   filter: Boolean,
-  fn: (currentWorkspace) => currentWorkspace.id,
+  fn: (currentWorkspace) => ({ workspaceId: currentWorkspace.id }),
   target: workspaceModel.removeWorkspace
 })
 
