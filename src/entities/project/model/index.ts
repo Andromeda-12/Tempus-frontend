@@ -1,4 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
+import { GetRequestQuery, ProjectRequesParams } from '@/shared/lib'
 import {
   ApiError,
   ProjectDto,
@@ -6,80 +7,84 @@ import {
   UpdateProjectDto,
   ProjectsService
 } from '@/shared/api'
-import { GetRequestQuery } from '@/shared/lib'
 
 export const createProject = createEvent<CreateProjectDto>()
 export const updateProject = createEvent<{
-  id: number
+  params: ProjectRequesParams
   updateProjectDto: UpdateProjectDto
 }>()
-export const removeProject = createEvent<number>()
-
+export const removeProject = createEvent<ProjectRequesParams>()
 export const resetProjects = createEvent()
 
-export const getProjectsFx = createEffect<
-  GetRequestQuery,
+export const getAllProjectsFx = createEffect<
+  {
+    workspaceId: number
+    query: GetRequestQuery
+  },
   ProjectDto[],
   ApiError
 >(
-  async ({ offset, limit, title, isOwned }) =>
-    await ProjectsService.projectControllerFindAll(
+  async ({ workspaceId, query: { offset, limit, title } }) =>
+    await ProjectsService.projectControllerGetAllProjects(
+      workspaceId,
       offset,
       limit,
       title
       // isOwned
     )
 )
-
-export const getCurrentProjectFx = createEffect<
+export const getProjectsFx = createEffect<
   {
-    projects: ProjectDto[]
-    param: number
+    workspaceId: number
+    query: GetRequestQuery
   },
-  ProjectDto | null,
+  ProjectDto[],
   ApiError
->(async ({ projects, param }) => {
-  const projectId = Number(param)
-  if (isNaN(projectId)) return null
-
-  const currentProject = projects.find((project) => project.id === projectId)
-
-  if (currentProject) return currentProject
-
-  const data = await ProjectsService.projectControllerFindOne(projectId)
-
-  if (data) return data
-
-  return null
-})
-
+>(
+  async ({ workspaceId, query: { offset, limit, title } }) =>
+    await ProjectsService.projectControllerGetProjects(
+      workspaceId,
+      offset,
+      limit,
+      title
+      // isOwned
+    )
+)
 export const createProjectFx = createEffect<
   CreateProjectDto,
   ProjectDto,
   ApiError
 >(
   async (createProjectDto) =>
-    await ProjectsService.projectControllerCreate(createProjectDto)
+    await ProjectsService.projectControllerCreate(1, createProjectDto)
 )
-
 export const updateProjectFx = createEffect<
   {
-    id: number
+    params: ProjectRequesParams
     updateProjectDto: UpdateProjectDto
   },
   ProjectDto,
   ApiError
 >(
-  async ({ id, updateProjectDto }) =>
-    await ProjectsService.projectControllerUpdate(id, updateProjectDto)
+  async ({ params: { projectId, workspaceId }, updateProjectDto }) =>
+    await ProjectsService.projectControllerUpdate(
+      projectId,
+      workspaceId,
+      updateProjectDto
+    )
 )
-
-export const removeProjectFx = createEffect<number, ProjectDto, ApiError>(
-  async (id) => await ProjectsService.projectControllerRemove(id)
+export const removeProjectFx = createEffect<
+  ProjectRequesParams,
+  ProjectDto,
+  ApiError
+>(
+  async ({ projectId, workspaceId }) =>
+    await ProjectsService.projectControllerRemove(projectId, workspaceId)
 )
 
 export const $projects = createStore<ProjectDto[]>([])
   .on(getProjectsFx.doneData, (_, projects) => [..._, ...projects])
+  .on(getAllProjectsFx.doneData, (_, projects) => [..._, ...projects])
   .on(createProjectFx.doneData, (_, project) => [..._, project])
   .on(removeProjectFx.doneData, (_, project) => [
     ..._.filter((p) => p.id !== project.id)
@@ -90,12 +95,10 @@ sample({
   clock: createProject,
   target: createProjectFx
 })
-
 sample({
   clock: updateProject,
   target: updateProjectFx
 })
-
 sample({
   clock: removeProject,
   target: removeProjectFx
