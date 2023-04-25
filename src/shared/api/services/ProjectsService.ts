@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateProjectDto } from '../models/CreateProjectDto';
+import type { GetRoleDto } from '../models/GetRoleDto';
 import type { ProjectDto } from '../models/ProjectDto';
 import type { UpdateProjectDto } from '../models/UpdateProjectDto';
 import type { UpdateRoleDto } from '../models/UpdateRoleDto';
@@ -14,20 +15,20 @@ export class ProjectsService {
 
     /**
      * Create project
-     * @param id 
+     * @param workspaceId 
      * @param requestBody 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerCreate(
-id: number,
+workspaceId: number,
 requestBody: CreateProjectDto,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/workspace/{id}/projects',
+            url: '/api/workspace/{workspaceId}/projects',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -36,7 +37,7 @@ requestBody: CreateProjectDto,
 
     /**
      * Get projects by filter
-     * @param id 
+     * @param workspaceId 
      * @param offset Offset of projects
      * @param limit Limit of projects
      * @param filter own|others|all
@@ -46,7 +47,7 @@ requestBody: CreateProjectDto,
      * @throws ApiError
      */
     public static projectControllerGetProjects(
-id: number,
+workspaceId: number,
 offset?: number,
 limit?: number,
 filter?: string,
@@ -55,9 +56,9 @@ isHidden?: boolean,
 ): CancelablePromise<Array<ProjectDto>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/workspace/{id}/projects/getProjects',
+            url: '/api/workspace/{workspaceId}/projects/getProjects',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
             query: {
                 'offset': offset,
@@ -71,7 +72,7 @@ isHidden?: boolean,
 
     /**
      * Get all projects by filter (for workspace owner|manager)
-     * @param id 
+     * @param workspaceId 
      * @param offset Offset of projects
      * @param limit Limit of projects
      * @param filter own|others|all
@@ -81,7 +82,7 @@ isHidden?: boolean,
      * @throws ApiError
      */
     public static projectControllerGetAllProjects(
-id: number,
+workspaceId: number,
 offset?: number,
 limit?: number,
 filter?: string,
@@ -90,9 +91,9 @@ isHidden?: boolean,
 ): CancelablePromise<Array<ProjectDto>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/workspace/{id}/projects/getAllProjects',
+            url: '/api/workspace/{workspaceId}/projects/getAllProjects',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
             query: {
                 'offset': offset,
@@ -107,17 +108,20 @@ isHidden?: boolean,
     /**
      * Get project by id
      * @param projectId 
+     * @param workspaceId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerFindOne(
 projectId: number,
+workspaceId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/workspace/{id}/projects/{projectId}',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}',
             path: {
                 'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
@@ -125,19 +129,22 @@ projectId: number,
     /**
      * Update project
      * @param projectId 
+     * @param workspaceId 
      * @param requestBody 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerUpdate(
 projectId: number,
+workspaceId: number,
 requestBody: UpdateProjectDto,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/workspace/{id}/projects/{projectId}',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}',
             path: {
                 'projectId': projectId,
+                'workspaceId': workspaceId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -147,17 +154,20 @@ requestBody: UpdateProjectDto,
     /**
      * Delete project
      * @param projectId 
+     * @param workspaceId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerRemove(
 projectId: number,
+workspaceId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/workspace/{id}/projects/{projectId}',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}',
             path: {
                 'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
@@ -165,17 +175,20 @@ projectId: number,
     /**
      * Add member to project
      * @param projectId 
+     * @param workspaceId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerAddMember(
 projectId: number,
+workspaceId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/workspace/{id}/projects/{projectId}/addMember',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}/addMember',
             path: {
                 'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
@@ -183,39 +196,67 @@ projectId: number,
     /**
      * Remove member from project
      * @param projectId 
+     * @param workspaceId 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerRemoveMember(
 projectId: number,
+workspaceId: number,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/workspace/{id}/projects/{projectId}/removeMember',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}/removeMember',
             path: {
                 'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
 
     /**
+     * Change member role
      * @param projectId 
+     * @param workspaceId 
      * @param requestBody 
      * @returns any 
      * @throws ApiError
      */
     public static projectControllerChangeProjectRole(
 projectId: number,
+workspaceId: number,
 requestBody: UpdateRoleDto,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/workspace/{id}/projects/{projectId}/changeProjectRole',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}/changeProjectRole',
             path: {
                 'projectId': projectId,
+                'workspaceId': workspaceId,
             },
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Get user role in project
+     * @param projectId 
+     * @param workspaceId 
+     * @returns GetRoleDto 
+     * @throws ApiError
+     */
+    public static projectControllerGetRole(
+projectId: number,
+workspaceId: number,
+): CancelablePromise<GetRoleDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{workspaceId}/projects/{projectId}/getRole',
+            path: {
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
         });
     }
 

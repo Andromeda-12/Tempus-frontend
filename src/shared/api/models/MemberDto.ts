@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { Roles } from './Roles';
+import type { Role } from './Role';
 
 export type MemberDto = {
     /**
@@ -28,5 +28,5 @@ export type MemberDto = {
     /**
      * Member role
      */
-    role: Roles;
+    role: Role;
 };

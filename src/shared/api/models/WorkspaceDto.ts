@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { CountDto } from './CountDto';
 import type { MemberDto } from './MemberDto';
 import type { UserDto } from './UserDto';
 
@@ -26,4 +27,8 @@ export type WorkspaceDto = {
      * Workspace members
      */
     members: Array<MemberDto>;
+    /**
+     * Count of members and projects
+     */
+    count: CountDto;
 };

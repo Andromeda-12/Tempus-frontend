@@ -2,4 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Roles = 'Owner' | 'Manager' | 'Member';
+export type Role = 'Owner' | 'Manager' | 'Member';

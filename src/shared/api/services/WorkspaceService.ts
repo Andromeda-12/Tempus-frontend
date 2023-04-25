@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateWorkspaceDto } from '../models/CreateWorkspaceDto';
+import type { GetRoleDto } from '../models/GetRoleDto';
 import type { UpdateRoleDto } from '../models/UpdateRoleDto';
 import type { UpdateWorkspaceDto } from '../models/UpdateWorkspaceDto';
 import type { WorkspaceDto } from '../models/WorkspaceDto';
@@ -58,38 +59,38 @@ filter?: string,
 
     /**
      * Get workspace by id
-     * @param id 
+     * @param workspaceId 
      * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerFindOne(
-id: number,
+workspaceId: number,
 ): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/workspace/{id}',
+            url: '/api/workspace/{workspaceId}',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
         });
     }
 
     /**
      * Update workspace by id
-     * @param id 
+     * @param workspaceId 
      * @param formData 
      * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerUpdate(
-id: number,
+workspaceId: number,
 formData: UpdateWorkspaceDto,
 ): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/workspace/{id}',
+            url: '/api/workspace/{workspaceId}',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
             formData: formData,
             mediaType: 'multipart/form-data',
@@ -98,76 +99,94 @@ formData: UpdateWorkspaceDto,
 
     /**
      * Delete workspace by id
-     * @param id 
+     * @param workspaceId 
      * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerRemove(
-id: number,
+workspaceId: number,
 ): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/workspace/{id}',
+            url: '/api/workspace/{workspaceId}',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
         });
     }
 
     /**
      * Add member to workspace
-     * @param id 
+     * @param workspaceId 
      * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerAddMember(
-id: number,
+workspaceId: number,
 ): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/workspace/{id}/addMember',
+            url: '/api/workspace/{workspaceId}/addMember',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
         });
     }
 
     /**
      * Remove member from workspace
-     * @param id 
+     * @param workspaceId 
      * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerRemoveMember(
-id: number,
+workspaceId: number,
 ): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/workspace/{id}/removeMember',
+            url: '/api/workspace/{workspaceId}/removeMember',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
         });
     }
 
     /**
-     * @param id 
+     * @param workspaceId 
      * @param requestBody 
      * @returns any 
      * @throws ApiError
      */
     public static workspaceControllerChangeWorkspaceRole(
-id: number,
+workspaceId: number,
 requestBody: UpdateRoleDto,
 ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/api/workspace/{id}/changeWorkspaceRole',
+            url: '/api/workspace/{workspaceId}/changeWorkspaceRole',
             path: {
-                'id': id,
+                'workspaceId': workspaceId,
             },
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Get user role in workspace
+     * @param workspaceId 
+     * @returns GetRoleDto 
+     * @throws ApiError
+     */
+    public static workspaceControllerGetRole(
+workspaceId: number,
+): CancelablePromise<GetRoleDto> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{workspaceId}/getRole',
+            path: {
+                'workspaceId': workspaceId,
+            },
         });
     }
 

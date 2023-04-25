@@ -4,13 +4,9 @@
 
 import type { Role } from './Role';
 
-export type UpdateRoleDto = {
+export type GetRoleDto = {
     /**
-     * New member role
+     * User role
      */
     role: Role;
-    /**
-     * Member id for change role
-     */
-    memberId: number;
 };

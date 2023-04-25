@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { MemberDto } from './MemberDto';
+
 export type ProjectDto = {
     /**
      * Whether to hide the project from visible
@@ -15,4 +17,8 @@ export type ProjectDto = {
      * Whether to hide the project from visible
      */
     isHidden: boolean;
+    /**
+     * Members list of project
+     */
+    members: Array<MemberDto>;
 };
