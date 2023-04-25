@@ -21,7 +21,7 @@ const routes = [
   { path: '/recovery-password', route: RecoveryPassword.route },
   { path: '/workspaces', route: Workspaces.route },
   { path: '/workspaces/:workspaceId', route: Workspace.route },
-  { path: '/projects/:projectId', route: Project.route },
+  { path: '/workspaces/:workspaceId/projects/:projectId', route: Project.route },
   { path: '/settings/:settingSection', route: Settings.route },
   { path: '/404', route: NotFound.route }
 ]
@@ -51,8 +51,8 @@ export const RoutesView = createRoutesView({
     },
     { route: Workspaces.route, view: Workspaces.view, layout: SidebarLayout },
     { route: Workspace.route, view: Workspace.view, layout: SidebarLayout },
-    { route: Settings.route, view: Settings.view, layout: SidebarLayout },
     { route: Project.route, view: Project.view, layout: SidebarLayout },
+    { route: Settings.route, view: Settings.view, layout: SidebarLayout },
     { route: NotFound.route, view: NotFound.view }
   ],
   otherwise() {
