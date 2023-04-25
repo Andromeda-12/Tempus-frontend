@@ -13,14 +13,6 @@ import {
   workspaceGate
 } from '../model'
 
-interface Workspace {
-  id: number
-  cover: string
-  title: string
-  projectsCount: number
-  own: boolean
-}
-
 export const WorkspaceList = () => {
   useGate(workspaceGate)
 
@@ -49,6 +41,20 @@ export const WorkspaceList = () => {
     }
   }, [isAllDataLoaded]) // иначе не обновляется isAllDataLoaded в обработчике скролла
 
+  if (isLoading)
+    return (
+      <div className='col-span-full justify-center flex flex-col space-y-3 items-center'>
+        <Spinner className='border-4' />
+      </div>
+    )
+
+  if (workspaces.length === 0)
+    return (
+      <div className='col-span-full justify-center flex flex-col space-y-3 items-center'>
+        <h3>No workspaces</h3>
+      </div>
+    )
+
   return (
     <div className='grid gap-6 grid-cols-[repeat(auto-fill,minmax(272px,1fr))] md:grid-cols-[repeat(auto-fill,minmax(340px,1fr))]'>
       {workspaces.map((workspace) => (
@@ -63,18 +69,6 @@ export const WorkspaceList = () => {
           />
         </Link>
       ))}
-
-      {isLoading && (
-        <div className='col-span-full justify-center flex flex-col space-y-3 items-center'>
-          <Spinner size='xl' className='border-4' />
-        </div>
-      )}
-
-      {!isLoading && workspaces.length === 0 && (
-        <div className='col-span-full justify-center flex flex-col space-y-3 items-center'>
-          <h3>No workspaces</h3>
-        </div>
-      )}
     </div>
   )
 }
