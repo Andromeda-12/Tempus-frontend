@@ -42,7 +42,6 @@ requestBody: CreateProjectDto,
      * @param limit Limit of projects
      * @param filter own|others|all
      * @param title Project title
-     * @param isHidden Show hidden projects
      * @returns ProjectDto 
      * @throws ApiError
      */
@@ -52,7 +51,6 @@ offset?: number,
 limit?: number,
 filter?: string,
 title?: string,
-isHidden?: boolean,
 ): CancelablePromise<Array<ProjectDto>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -65,7 +63,6 @@ isHidden?: boolean,
                 'limit': limit,
                 'filter': filter,
                 'title': title,
-                'isHidden': isHidden,
             },
         });
     }
@@ -77,7 +74,6 @@ isHidden?: boolean,
      * @param limit Limit of projects
      * @param filter own|others|all
      * @param title Project title
-     * @param isHidden Show hidden projects
      * @returns ProjectDto 
      * @throws ApiError
      */
@@ -87,7 +83,6 @@ offset?: number,
 limit?: number,
 filter?: string,
 title?: string,
-isHidden?: boolean,
 ): CancelablePromise<Array<ProjectDto>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -100,7 +95,6 @@ isHidden?: boolean,
                 'limit': limit,
                 'filter': filter,
                 'title': title,
-                'isHidden': isHidden,
             },
         });
     }

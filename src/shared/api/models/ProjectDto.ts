@@ -18,6 +18,10 @@ export type ProjectDto = {
      */
     isHidden: boolean;
     /**
+     * Workspace id
+     */
+    workspaceId: number;
+    /**
      * Members list of project
      */
     members: Array<MemberDto>;
