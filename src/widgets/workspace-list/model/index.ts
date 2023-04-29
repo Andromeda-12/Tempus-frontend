@@ -6,18 +6,18 @@ import { workspaceFilterModel } from '@/features/filter/workspace-filter'
 import { workspaceSearchModel } from '@/features/filter/workspace-search'
 import { workspaceModel } from '@/entities/workspace'
 import { GetRequestQuery } from '@/shared/lib'
+import { WORKSPACES_REQUEST_LIMIT } from '@/shared/config';
 
 export const workspaceGate = createGate()
 
 export const loadMoreWorkspaces = createEvent()
 const addOffset = createEvent<number>()
 const resetOffset = createEvent()
-
 const resetWorkspaces = createEvent()
 const setIsAllDataLoaded = createEvent<boolean>()
 
 const $filter = workspaceFilterModel.workspaceFilter.currentValue
-const $limit = createStore(20)
+const $limit = createStore(WORKSPACES_REQUEST_LIMIT)
 export const $offset = createStore(0)
   .on(addOffset, (currentOffset, addedOffset) => currentOffset + addedOffset)
   .reset(resetOffset)
@@ -54,19 +54,16 @@ sample({
   clock: workspaceGate.open,
   target: loadMoreWorkspaces
 })
-
 sample({
   clock: workspaceGate.close,
   fn: () => 0,
   target: $offset
 })
-
 sample({
   clock: workspaceGate.close,
   fn: () => false,
   target: $isAllDataLoaded
 })
-
 sample({
   clock: workspaceGate.close,
   target: resetWorkspaces

@@ -1,35 +1,24 @@
 import { redirect } from 'atomic-router'
-import { createEvent, createStore, sample } from 'effector'
+import { createEvent, sample } from 'effector'
 import { notificationModel } from '@/features/notification'
 import { workspaceModel } from '@/entities/workspace'
-import { viewerModel } from '@/entities/viewer'
 import { notFoundRoute, workspaceRoute } from '@/shared/routing'
-import { Roles, WorkspaceDto } from '@/shared/api'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { projectListModel } from '@/widgets/project-list'
+import { combineEvents } from 'patronum'
 
 const redirectToNotFoundPage = createEvent()
-const getCurrentWorkspace = createEvent<{
-  workspaces: WorkspaceDto[]
-  param: number
-}>()
-
-export const $currentWorkspace = createStore<WorkspaceDto | null>(null)
-export const $isLoadingCurrentWorkspace =
-  workspaceModel.getCurrentWorkspaceFx.pending
-
-export const $workspaceViewerRole = createStore<Roles | null>(null)
-
-sample({
-  clock: [$currentWorkspace, viewerModel.$viewer],
-  source: { workspace: $currentWorkspace, viewer: viewerModel.$viewer },
-  fn: ({ workspace, viewer }) => {
-    const currentMember = workspace?.members.find(
-      (member) => member.id === viewer?.id
-    )
-    if (currentMember) return currentMember.role
-    return null
-  },
-  target: $workspaceViewerRole
+const startLoadProjects = combineEvents({
+  events: [
+    currentWorkspaceModel.getCurrentWorkspaceFx.done,
+    currentWorkspaceModel.getWorkspaceRoleFx.done
+  ]
 })
+
+export const $currentWorkspace = currentWorkspaceModel.$currentWorkspace
+export const $workspaceViewerRole = currentWorkspaceModel.$workspaceViewerRole
+export const $isLoadingCurrentWorkspace =
+  currentWorkspaceModel.getCurrentWorkspaceFx.pending
 
 sample({
   clock: [workspaceRoute.opened, workspaceRoute.updated],
@@ -38,22 +27,28 @@ sample({
     workspaces,
     param: routeParamsAndQuery.params.workspaceId
   }),
-  target: getCurrentWorkspace
+  target: currentWorkspaceModel.getCurrentWorkspaceFx
+})
+sample({
+  clock: [workspaceRoute.opened, workspaceRoute.updated],
+  fn: (routeParamsAndQuery) => ({
+    workspaceId: routeParamsAndQuery.params.workspaceId
+  }),
+  target: currentWorkspaceModel.getWorkspaceRoleFx
 })
 
 sample({
-  clock: getCurrentWorkspace,
-  target: workspaceModel.getCurrentWorkspaceFx
+  clock: startLoadProjects,
+  target: projectListModel.loadMoreProjects
 })
 
 sample({
-  clock: workspaceModel.getCurrentWorkspaceFx.doneData,
-  filter: Boolean,
-  target: $currentWorkspace
+  clock: workspaceRoute.closed,
+  target: [projectListModel.resetProjects, projectListModel.resetOffset]
 })
 
 sample({
-  clock: workspaceModel.getCurrentWorkspaceFx.doneData,
+  clock: currentWorkspaceModel.getCurrentWorkspaceFx.doneData,
   filter: (res) => res === null,
   target: redirectToNotFoundPage
 })
@@ -65,7 +60,7 @@ redirect({
 
 sample({
   clock: workspaceModel.updateWorkspaceFx.doneData,
-  target: $currentWorkspace
+  target: currentWorkspaceModel.$currentWorkspace
 })
 
 sample({

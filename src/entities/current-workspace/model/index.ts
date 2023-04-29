@@ -49,7 +49,6 @@ sample({
   filter: Boolean,
   target: $currentWorkspace
 })
-
 sample({
   clock: getWorkspaceRoleFx.doneData,
   target: $workspaceViewerRole

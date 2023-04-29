@@ -1,8 +1,8 @@
-import { Roles } from "@/shared/api"
+import { Role } from "@/shared/api"
 
 export const hasAccess = (
-  role: Roles,
-  requiredRole: Roles
+  role: Role,
+  requiredRole: Role
 ) => {
   if (role === 'Owner') return true
   if (role === 'Manager' && requiredRole !== 'Owner') return true

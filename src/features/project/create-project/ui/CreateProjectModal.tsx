@@ -26,12 +26,14 @@ export const CreateProjectModal = () => {
     if (!currentWorkspace) return
 
     const createProjectDto: CreateProjectDto = {
-      title: formData.projectTitle,
-      workspaceId: currentWorkspace.id,
-      description: 's'
+      title: formData.projectTitle
     }
 
-    createProjectFn(createProjectDto)
+    createProjectFn({
+      workspaceId: currentWorkspace.id,
+      createProjectDto
+    })
+    
     handleCloseModal()
   }
 

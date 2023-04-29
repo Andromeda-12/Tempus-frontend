@@ -1,6 +1,19 @@
-import { Button, Card, ContentContainer, Icon, Tooltip } from '@/shared/ui'
-import { WorkspaceList } from '@/entities/workspace'
-import { Avatar } from '@/shared/ui'
+import { useUnit } from 'effector-react'
+import {
+  Avatar,
+  Card,
+  ContentContainer,
+  Icon,
+  Input,
+  Spinner,
+  Tooltip
+} from '@/shared/ui'
+import { WorkspaceCover } from './WorkspaceCover'
+import { $isLoadingCurrentProject } from '../model'
+import { WorkspaceTitle } from './WorkspaceTitle'
+import { ProjectTitle } from './ProjectTitle'
+import { HasAccess } from './HasAccess'
+import { ProjectMembers } from './ProjectMembers'
 
 const workspaces = {
   id: 1,
@@ -11,18 +24,47 @@ const workspaces = {
 }
 
 export const ProjectPage = ({}) => {
+  const isLoading = useUnit($isLoadingCurrentProject)
+
+  if (isLoading)
+    return (
+      <div className='h-screen flex justify-center items-center'>
+        <Spinner className='h-20 w-20 !border-4' />
+      </div>
+    )
+
   return (
     <div className='h-screen flex flex-col py-5 bg-cover bg-center relative'>
-      <div className='h-full !bg-neutral/0'>
-        <div
-          className='h-44 md:h-64 bg-cover bg-center rounded-xl'
-          style={{ backgroundImage: `url(/${workspaces.cover})` }}
-        ></div>
-        <ContentContainer className='mt-1'>
-          <h2 className='text-xl mb-2'>{workspaces.title}</h2>
-          <h3 className='text-sm '>Project 1</h3>
+      <div className='h-full'>
+        <WorkspaceCover />
 
-          <div className='mb-7 mt-2 text-xs'>3 members</div>
+        <ContentContainer className='mt-5'>
+          <div className='mb-5 flex justify-between'>
+            <div className='flex items-center space-x-2'>
+              <WorkspaceTitle />
+
+              {/* <HasAccess> */}
+              {/* <UpdateProject /> */}
+              {/* </HasAccess> */}
+            </div>
+
+            {/* <HasAccess> */}
+              {/* <CreateTaskButton workspace={currentWorkspace} /> */}
+            {/* </HasAccess> */}
+          </div>
+
+          <ProjectTitle />
+
+          <div className='mb-7 flex justify-between items-center'>
+            <ProjectMembers />
+            
+            <Input
+              notAccent
+              size='sm'
+              placeholder='Search title'
+              startIconName='search'
+            />
+          </div>
 
           <div className='py-0.5 mb-3 px-8 border rounded-xl w-fit'>
             Filters

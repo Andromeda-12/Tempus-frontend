@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react'
+import { ProjectList } from '@/widgets/project-list'
 import { CreateProjectButton } from '@/features/project/create-project'
-import { ProjectList } from '@/entities/project'
 import { ContentContainer, Spinner, Input } from '@/shared/ui'
 import { WorkspaceMembers } from './WorkspaceMembers'
 import { WorkspaceCover } from './WorkspaceCover'

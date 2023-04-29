@@ -8,7 +8,10 @@ import {
   ProjectsService
 } from '@/shared/api'
 
-export const createProject = createEvent<CreateProjectDto>()
+export const createProject = createEvent<{
+  workspaceId: number
+  createProjectDto: CreateProjectDto
+}>()
 export const updateProject = createEvent<{
   params: ProjectRequesParams
   updateProjectDto: UpdateProjectDto
@@ -33,7 +36,7 @@ export const getAllProjectsFx = createEffect<
       // isOwned
     )
 )
-export const getProjectsFx = createEffect<
+export const getMemberProjectsFx = createEffect<
   {
     workspaceId: number
     query: GetRequestQuery
@@ -51,12 +54,15 @@ export const getProjectsFx = createEffect<
     )
 )
 export const createProjectFx = createEffect<
-  CreateProjectDto,
+  {
+    workspaceId: number
+    createProjectDto: CreateProjectDto
+  },
   ProjectDto,
   ApiError
 >(
-  async (createProjectDto) =>
-    await ProjectsService.projectControllerCreate(1, createProjectDto)
+  async ({ workspaceId, createProjectDto }) =>
+    await ProjectsService.projectControllerCreate(workspaceId, createProjectDto)
 )
 export const updateProjectFx = createEffect<
   {
@@ -83,7 +89,7 @@ export const removeProjectFx = createEffect<
 )
 
 export const $projects = createStore<ProjectDto[]>([])
-  .on(getProjectsFx.doneData, (_, projects) => [..._, ...projects])
+  .on(getMemberProjectsFx.doneData, (_, projects) => [..._, ...projects])
   .on(getAllProjectsFx.doneData, (_, projects) => [..._, ...projects])
   .on(createProjectFx.doneData, (_, project) => [..._, project])
   .on(removeProjectFx.doneData, (_, project) => [
