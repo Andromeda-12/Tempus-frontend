@@ -20,8 +20,8 @@ export const getCurrentProjectFx = createEffect<
   if (currentProject) return currentProject
 
   const data = await ProjectsService.projectControllerFindOne(
-    workspaceId,
-    projectsId
+    projectsId,
+    workspaceId
   )
 
   if (data) return data
