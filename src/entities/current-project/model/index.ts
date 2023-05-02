@@ -1,6 +1,8 @@
-import { createEffect, createStore, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { ProjectRequesParams } from '@/shared/lib'
 import { ApiError, ProjectDto, ProjectsService, Role } from '@/shared/api'
+
+export const setCurrentProject = createEvent<ProjectDto>()
 
 export const getCurrentProjectFx = createEffect<
   {
@@ -56,4 +58,9 @@ sample({
 sample({
   clock: getProjectRoleFx.doneData,
   target: $projectViewerRole
+})
+
+sample({
+  clock: setCurrentProject,
+  target: $currentProject
 })
