@@ -7,3 +7,5 @@ export * from './types'
 export * from './create-modal'
 
 export * from './get-image-url'
+
+export * from './check-role'

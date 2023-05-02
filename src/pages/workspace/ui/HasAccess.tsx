@@ -1,21 +1,19 @@
 import { ReactNode } from 'react'
 import { useUnit } from 'effector-react'
 import { Show } from '@/shared/ui'
-import { Role } from '@/shared/api'
 import { $workspaceViewerRole } from '../model'
-import { hasAccess } from '../lib'
+import { hasWorkspaceAccess } from '@/shared/lib'
 
 interface HasAccessProps {
   children: ReactNode
-  role: Role
 }
 
-export const HasAccess = ({ children, role }: HasAccessProps) => {
+export const HasAccess = ({ children }: HasAccessProps) => {
   const workspaceViewerRole = useUnit($workspaceViewerRole)
 
   if (!workspaceViewerRole) return null
 
-  const isHasAccess = hasAccess(workspaceViewerRole, role)
+  const isHasAccess = hasWorkspaceAccess(workspaceViewerRole)
 
   return <Show when={isHasAccess}>{children}</Show>
 }

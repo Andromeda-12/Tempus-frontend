@@ -30,12 +30,12 @@ export const WorkspacePage = () => {
             <div className='flex items-center space-x-2'>
               <WorkspaceTitle />
 
-              <HasAccess role='Manager'>
+              <HasAccess>
                 <UpdateWorkspace />
               </HasAccess>
             </div>
 
-            <HasAccess role='Manager'>
+            <HasAccess>
               <CreateProjectButton workspace={currentWorkspace} />
             </HasAccess>
           </div>
