@@ -1,29 +1,32 @@
-import { createEvent, restore, sample } from 'effector'
+import { createEvent, sample } from 'effector'
 import { notificationModel } from '@/features/notification'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { currentProjectModel } from '@/entities/current-project'
 import { projectModel } from '@/entities/project'
-import { ProjectDto } from '@/shared/api'
 import { createModal } from '@/shared/lib'
+import { ProjectDto } from '@/shared/api'
 
 export const projectDeletionConfirme = createEvent()
-export const setCurrentProject = createEvent<ProjectDto>()
-const deleteProject = createEvent()
 
 export const confirmModal = createModal()
 
-export const $currentProject = restore(setCurrentProject, null).reset(
-  confirmModal.closeModal
-)
-
 sample({
-  clock: projectDeletionConfirme,
-  target: deleteProject
+  clock: confirmModal.closeModal,
+  target: currentProjectModel.resetCurrentProject
 })
 
 sample({
-  clock: deleteProject,
-  source: $currentProject,
-  filter: Boolean,
-  fn: (currentProject) => currentProject.id,
+  clock: projectDeletionConfirme,
+  source: {
+    currentWorkspace: currentWorkspaceModel.$currentWorkspace,
+    currentProject: currentProjectModel.$currentProject
+  },
+  filter: ({ currentWorkspace, currentProject }) =>
+    !!currentWorkspace && !!currentProject,
+  fn: ({ currentWorkspace, currentProject }) => ({
+    workspaceId: currentWorkspace!.id,
+    projectId: currentProject!.id
+  }),
   target: projectModel.removeProject
 })
 

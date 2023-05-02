@@ -1,15 +1,12 @@
 import { useUnit } from 'effector-react'
+import { currentProjectModel } from '@/entities/current-project'
 import { Button, Modal } from '@/shared/ui'
-import {
-  $currentProject,
-  confirmModal,
-  projectDeletionConfirme
-} from '../model'
+import { confirmModal, projectDeletionConfirme } from '../model'
 
 export const ConfirmDeletionProjectModal = () => {
   const isOpen = useUnit(confirmModal.$isOpen)
   const closeModal = useUnit(confirmModal.closeModal)
-  const currentProject = useUnit($currentProject)
+  const currentProject = useUnit(currentProjectModel.$currentProject)
   const projectDeletionConfirmeFn = useUnit(projectDeletionConfirme)
 
   const handleConfirm = () => {
