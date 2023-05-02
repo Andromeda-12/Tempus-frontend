@@ -1,13 +1,20 @@
-import { createEffect, createEvent, createStore, sample } from 'effector'
-import { ProjectRequesParams } from '@/shared/lib'
+import {
+  createEffect,
+  createEvent,
+  createStore,
+  restore,
+  sample
+} from 'effector'
+import { ProjectRequestParams } from '@/shared/lib'
 import { ApiError, ProjectDto, ProjectsService, Role } from '@/shared/api'
 
-export const setCurrentProject = createEvent<ProjectDto>()
+export const setCurrentProject = createEvent<ProjectDto | null>()
+export const resetCurrentProject = createEvent()
 
 export const getCurrentProjectFx = createEffect<
   {
     projects: ProjectDto[]
-    param: ProjectRequesParams
+    param: ProjectRequestParams
   },
   ProjectDto | null,
   ApiError
@@ -46,8 +53,13 @@ export const getProjectRoleFx = createEffect<
   return role
 })
 
-export const $currentProject = createStore<ProjectDto | null>(null)
-export const $projectViewerRole = createStore<Role | null>(null)
+export const $currentProject = restore<ProjectDto | null>(
+  setCurrentProject,
+  null
+).reset(resetCurrentProject)
+export const $projectViewerRole = createStore<Role | null>(null).reset(
+  resetCurrentProject
+)
 
 sample({
   clock: getCurrentProjectFx.doneData,
