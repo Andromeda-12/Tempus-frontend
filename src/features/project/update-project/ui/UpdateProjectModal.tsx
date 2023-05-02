@@ -44,7 +44,7 @@ export const UpdateProjectModal = () => {
   return (
     <Modal
       className='w-full max-w-xl'
-      title='Create project'
+      title='Update project'
       isOpen={isOpen}
       onClose={handleCloseModal}
     >
