@@ -15,7 +15,13 @@ export type GetRequestQuery = {
   filter: string
 }
 
-export type ProjectRequesParams = {
+export type ProjectRequestParams = {
   workspaceId: number
   projectId: number
+}
+
+export type TaskRequestParams = {
+  workspaceId: number
+  projectId: number
+  taskId: number
 }
