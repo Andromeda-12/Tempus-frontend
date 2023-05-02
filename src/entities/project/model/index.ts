@@ -1,5 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
-import { GetRequestQuery, ProjectRequesParams } from '@/shared/lib'
+import { GetRequestQuery, ProjectRequestParams } from '@/shared/lib'
 import {
   ApiError,
   ProjectDto,
@@ -13,10 +13,10 @@ export const createProject = createEvent<{
   createProjectDto: CreateProjectDto
 }>()
 export const updateProject = createEvent<{
-  params: ProjectRequesParams
+  params: ProjectRequestParams
   updateProjectDto: UpdateProjectDto
 }>()
-export const removeProject = createEvent<ProjectRequesParams>()
+export const removeProject = createEvent<ProjectRequestParams>()
 export const resetProjects = createEvent()
 
 export const getAllProjectsFx = createEffect<
@@ -66,7 +66,7 @@ export const createProjectFx = createEffect<
 )
 export const updateProjectFx = createEffect<
   {
-    params: ProjectRequesParams
+    params: ProjectRequestParams
     updateProjectDto: UpdateProjectDto
   },
   ProjectDto,
@@ -80,7 +80,7 @@ export const updateProjectFx = createEffect<
     )
 )
 export const removeProjectFx = createEffect<
-  ProjectRequesParams,
+  ProjectRequestParams,
   ProjectDto,
   ApiError
 >(
