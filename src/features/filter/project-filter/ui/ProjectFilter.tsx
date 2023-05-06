@@ -2,15 +2,19 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
 import { FilterToggleGroup, Icon, Popover } from '@/shared/ui'
-import { FilterValue, values, workspaceFilter } from '../model'
+import { FilterValue, values, projectFilter } from '../model'
 
-interface WorkspaceFilterProps {
+interface ProjectFilterProps {
   className?: string
 }
 
-export const WorkspaceFilter = ({ className }: WorkspaceFilterProps) => {
-  const currentFilter = useUnit(workspaceFilter.currentValue)
-  const changeValue = useUnit(workspaceFilter.changeValue)
+const filterLabels = {
+  showHidden: 'hidden'
+}
+
+export const ProjectFilter = ({ className }: ProjectFilterProps) => {
+  const currentFilter = useUnit(projectFilter.currentValue)
+  const changeValue = useUnit(projectFilter.changeValue)
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -25,20 +29,22 @@ export const WorkspaceFilter = ({ className }: WorkspaceFilterProps) => {
         currentValue={currentFilter}
         onValueChange={(value) => changeValue(value as FilterValue)}
         values={values}
+        labels={filterLabels}
       />
     </Popover>
   )
 }
 
 const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
-  const currentFilter = useUnit(workspaceFilter.currentValue)
+  const currentFilter = useUnit(projectFilter.currentValue)
+
+  const label = currentFilter === null ? 'none' : filterLabels[currentFilter]
 
   return (
     <div className='flex items-center space-x-3 text-sm'>
       <div className='select-none'>Filter:</div>
       <div className='select-none cursor-pointer flex items-center text-color-light/60 dark:text-color-dark/50'>
-        {currentFilter === null && 'none'}
-        {currentFilter}
+        {label}
         <Icon
           className={clsx(
             'ml-1 relative top-[1px] duration-100',

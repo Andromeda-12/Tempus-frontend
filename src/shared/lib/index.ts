@@ -9,3 +9,5 @@ export * from './create-modal'
 export * from './get-image-url'
 
 export * from './check-role'
+
+export * from './create-toggle-filter'

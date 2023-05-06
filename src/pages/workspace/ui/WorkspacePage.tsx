@@ -1,14 +1,15 @@
 import { useUnit } from 'effector-react'
 import { ProjectList } from '@/widgets/project-list'
+import { ProjectSearch } from '@/features/filter/projects-search'
+import { ProjectFilter } from '@/features/filter/project-filter'
 import { CreateProjectButton } from '@/features/project/create-project'
-import { ContentContainer, Spinner, Input } from '@/shared/ui'
+import { ContentContainer, Spinner } from '@/shared/ui'
 import { WorkspaceMembers } from './WorkspaceMembers'
 import { WorkspaceCover } from './WorkspaceCover'
 import { WorkspaceTitle } from './WorkspaceTitle'
 import { UpdateWorkspace } from './UpdateWorkspaceButton'
 import { HasAccess } from './HasAccess'
 import { $isLoadingCurrentWorkspace } from '../model'
-import { ProjectSearch } from '@/features/filter/projects-search'
 
 export const WorkspacePage = () => {
   const isLoading = useUnit($isLoadingCurrentWorkspace)
@@ -34,6 +35,10 @@ export const WorkspacePage = () => {
                 <UpdateWorkspace />
               </HasAccess>
             </div>
+          </div>
+
+          <div className='mb-3 flex justify-between items-center'>
+            <WorkspaceMembers />
 
             <HasAccess>
               <CreateProjectButton />
@@ -41,7 +46,7 @@ export const WorkspacePage = () => {
           </div>
 
           <div className='mb-7 flex justify-between items-center'>
-            <WorkspaceMembers />
+            <ProjectFilter />
 
             <ProjectSearch />
           </div>

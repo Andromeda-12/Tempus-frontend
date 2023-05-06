@@ -16,7 +16,9 @@ const resetOffset = createEvent()
 const resetWorkspaces = createEvent()
 const setIsAllDataLoaded = createEvent<boolean>()
 
-const $filter = workspaceFilterModel.workspaceFilter.currentValue
+console.log('test');
+
+
 const $limit = createStore(WORKSPACES_REQUEST_LIMIT)
 export const $offset = createStore(0)
   .on(addOffset, (currentOffset, addedOffset) => currentOffset + addedOffset)
@@ -35,7 +37,7 @@ sample({
   source: {
     offset: $offset,
     limit: $limit,
-    filter: $filter,
+    filter: workspaceFilterModel.workspaceFilter.currentValue,
     searchTitle: workspaceSearchModel.$searchWorkspaceTitle,
     isLoadign: $isLoading
   },

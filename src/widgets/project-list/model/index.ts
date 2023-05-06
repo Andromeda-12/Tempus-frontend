@@ -1,10 +1,11 @@
-import { debounce, pending } from 'patronum'
-import { projectModel } from '@/entities/project'
+import { pending } from 'patronum'
 import { createEvent, createStore, restore, sample } from 'effector'
+import { projectSearchModel } from '@/features/filter/projects-search'
+import { projectFilterModel } from '@/features/filter/project-filter'
+import { projectModel } from '@/entities/project'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { PROJECTS_REQUEST_LIMIT } from '@/shared/config'
 import { GetRequestQuery } from '@/shared/lib'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { projectSearchModel } from '@/features/filter/projects-search'
 
 export const loadMoreProjects = createEvent()
 export const resetOffset = createEvent()
@@ -17,7 +18,6 @@ const loadProjectsByUserRole = createEvent<{
   query: GetRequestQuery
 }>()
 
-const $filter = createStore('all') // showHidden
 const $limit = createStore(PROJECTS_REQUEST_LIMIT)
 export const $offset = createStore(0)
   .on(addOffset, (currentOffset, addedOffset) => currentOffset + addedOffset)
@@ -38,20 +38,24 @@ sample({
   source: {
     offset: $offset,
     limit: $limit,
-    filter: $filter,
+    filter: projectFilterModel.projectFilter.currentValue,
     searchTitle: projectSearchModel.$searchProjectTitle,
     isLoadign: $isLoading
   },
   filter: ({ isLoadign }) => !isLoadign,
-  fn: ({ offset, limit, searchTitle, filter }, { workspaceId }) => ({
-    workspaceId,
-    query: {
-      offset,
-      limit,
-      title: searchTitle || undefined,
-      filter
-    } as GetRequestQuery
-  }),
+  fn: ({ offset, limit, searchTitle, filter }, { workspaceId }) => {
+    console.log(filter)
+
+    return {
+      workspaceId,
+      query: {
+        offset,
+        limit,
+        title: searchTitle || undefined,
+        filter
+      } as GetRequestQuery
+    }
+  },
   target: loadProjectsByUserRole
 })
 
@@ -59,14 +63,14 @@ sample({
   clock: loadProjectsByUserRole,
   source: currentWorkspaceModel.$workspaceViewerRole,
   filter: (role) => role === 'Owner' || role === 'Manager',
-  fn: (_, parametr) => ({ ...parametr }),
+  fn: (_, params) => ({ ...params }),
   target: projectModel.getAllProjectsFx
 })
 sample({
   clock: loadProjectsByUserRole,
   source: currentWorkspaceModel.$workspaceViewerRole,
   filter: (role) => role === 'Member',
-  fn: (_, parametr) => ({ ...parametr }),
+  fn: (_, params) => ({ ...params }),
   target: projectModel.getMemberProjectsFx
 })
 
@@ -105,11 +109,10 @@ sample({
   target: setIsAllDataLoaded
 })
 
-// sample({
-//   clock: workspaceFilterModel.workspaceFilter.currentValue,
-//   target: [loadMoreProjects, resetOffset, resetProjects]
-// })
-
+sample({
+  clock: projectFilterModel.projectFilter.currentValue,
+  target: [loadMoreProjects, resetOffset, resetProjects]
+})
 sample({
   clock: projectSearchModel.debouncedSearchProject,
   target: [loadMoreProjects, resetOffset, resetProjects]
