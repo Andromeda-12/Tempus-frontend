@@ -31,3 +31,5 @@ export * from './UploadAvatar'
 export * from './AddButton'
 
 export * from './Show'
+
+export * from './Textarea'
