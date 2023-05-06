@@ -3,8 +3,8 @@ import { Input } from '@/shared/ui'
 import { $searchWorkspaceTitle, setSearchWorkspaceTitle } from '../model'
 
 export const WorkspaceSearch = () => {
-  const setSearchWorkspaceTitleFn = useUnit(setSearchWorkspaceTitle)
   const searchWorkspaceTitle = useUnit($searchWorkspaceTitle)
+  const setSearchWorkspaceTitleFn = useUnit(setSearchWorkspaceTitle)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchWorkspaceTitleFn(e.target.value)

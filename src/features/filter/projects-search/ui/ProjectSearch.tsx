@@ -3,8 +3,8 @@ import { Input } from '@/shared/ui'
 import { $searchProjectTitle, setSearchProjectTitle } from '../model'
 
 export const ProjectSearch = () => {
-  const setSearchProjectTitleFn = useUnit(setSearchProjectTitle)
   const searchProjectTitle = useUnit($searchProjectTitle)
+  const setSearchProjectTitleFn = useUnit(setSearchProjectTitle)
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchProjectTitleFn(e.target.value)

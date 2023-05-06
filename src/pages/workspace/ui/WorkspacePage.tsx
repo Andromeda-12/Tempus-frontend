@@ -7,10 +7,10 @@ import { WorkspaceCover } from './WorkspaceCover'
 import { WorkspaceTitle } from './WorkspaceTitle'
 import { UpdateWorkspace } from './UpdateWorkspaceButton'
 import { HasAccess } from './HasAccess'
-import { $currentWorkspace, $isLoadingCurrentWorkspace } from '../model'
+import { $isLoadingCurrentWorkspace } from '../model'
+import { ProjectSearch } from '@/features/filter/projects-search'
 
 export const WorkspacePage = () => {
-  const currentWorkspace = useUnit($currentWorkspace)
   const isLoading = useUnit($isLoadingCurrentWorkspace)
 
   if (isLoading)
@@ -36,19 +36,14 @@ export const WorkspacePage = () => {
             </div>
 
             <HasAccess>
-              <CreateProjectButton workspace={currentWorkspace} />
+              <CreateProjectButton />
             </HasAccess>
           </div>
 
           <div className='mb-7 flex justify-between items-center'>
             <WorkspaceMembers />
-            
-            <Input
-              notAccent
-              size='sm'
-              placeholder='Search title'
-              startIconName='search'
-            />
+
+            <ProjectSearch />
           </div>
 
           <ProjectList />

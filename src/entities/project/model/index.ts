@@ -27,13 +27,13 @@ export const getAllProjectsFx = createEffect<
   ProjectDto[],
   ApiError
 >(
-  async ({ workspaceId, query: { offset, limit, title } }) =>
+  async ({ workspaceId, query: { offset, limit, filter, title } }) =>
     await ProjectsService.projectControllerGetAllProjects(
       workspaceId,
       offset,
       limit,
+      filter,
       title
-      // isOwned
     )
 )
 export const getMemberProjectsFx = createEffect<
@@ -44,13 +44,13 @@ export const getMemberProjectsFx = createEffect<
   ProjectDto[],
   ApiError
 >(
-  async ({ workspaceId, query: { offset, limit, title } }) =>
+  async ({ workspaceId, query: { offset, limit, filter, title } }) =>
     await ProjectsService.projectControllerGetProjects(
       workspaceId,
       offset,
       limit,
+      filter,
       title
-      // isOwned
     )
 )
 export const createProjectFx = createEffect<

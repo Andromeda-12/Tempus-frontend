@@ -7,6 +7,7 @@ import {
 } from 'effector'
 import { ProjectRequestParams } from '@/shared/lib'
 import { ApiError, ProjectDto, ProjectsService, Role } from '@/shared/api'
+import { addMemberFx, removeMemberFx } from './projectManagerModel'
 
 export const setCurrentProject = createEvent<ProjectDto | null>()
 export const resetCurrentProject = createEvent()
@@ -37,7 +38,6 @@ export const getCurrentProjectFx = createEffect<
 
   return null
 })
-
 export const getProjectRoleFx = createEffect<
   {
     projectId: number
@@ -60,19 +60,22 @@ export const $currentProject = restore<ProjectDto | null>(
 export const $projectViewerRole = createStore<Role | null>(null).reset(
   resetCurrentProject
 )
+export const $members = $currentProject.map((p) => p?.members)
 
 sample({
   clock: getCurrentProjectFx.doneData,
   filter: Boolean,
   target: $currentProject
 })
-
 sample({
   clock: getProjectRoleFx.doneData,
   target: $projectViewerRole
 })
-
 sample({
   clock: setCurrentProject,
   target: $currentProject
+})
+sample({
+  clock: [addMemberFx.doneData, removeMemberFx.doneData],
+  target: setCurrentProject
 })

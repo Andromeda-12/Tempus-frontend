@@ -35,9 +35,17 @@ export const getTasksFx = createEffect<
   ApiError
 >(
   async ({
-    params: { workspaceId, projectId },
+    params: { projectId, workspaceId },
     query: { offset, limit, title, filter }
-  }) => await TasksService.taskControllerGetAll()
+  }) =>
+    await TasksService.taskControllerGetAll(
+      projectId,
+      workspaceId,
+      title,
+      offset,
+      limit,
+      filter
+    )
 )
 export const createTaskFx = createEffect<
   {
@@ -50,8 +58,12 @@ export const createTaskFx = createEffect<
   TaskDto,
   ApiError
 >(
-  async ({ params: { workspaceId, projectId }, createTaskDto }) =>
-    await TasksService.taskControllerCreate(createTaskDto)
+  async ({ params: { projectId, workspaceId }, createTaskDto }) =>
+    await TasksService.taskControllerCreate(
+      projectId,
+      workspaceId,
+      createTaskDto
+    )
 )
 export const updateTaskFx = createEffect<
   {
@@ -61,19 +73,20 @@ export const updateTaskFx = createEffect<
   TaskDto,
   ApiError
 >(
-  async ({ params: { projectId, workspaceId, taskId }, updateTaskDto }) =>
-    await TasksService.taskControllerUpdate(taskId, updateTaskDto)
+  async ({ params: { taskId, projectId, workspaceId }, updateTaskDto }) =>
+    await TasksService.taskControllerUpdate(
+      taskId,
+      projectId,
+      workspaceId,
+      updateTaskDto
+    )
 )
-export const removeTaskFx = createEffect<
-  ProjectRequestParams,
-  TaskDto,
-  ApiError
->(
-  async ({ projectId, workspaceId }) =>
-    await TasksService.taskControllerRemove(projectId)
+export const removeTaskFx = createEffect<TaskRequestParams, TaskDto, ApiError>(
+  async ({ taskId, projectId, workspaceId }) =>
+    await TasksService.taskControllerRemove(taskId, projectId, workspaceId)
 )
 
-export const $projects = createStore<TaskDto[]>([])
+export const $tasks = createStore<TaskDto[]>([])
   .on(getTasksFx.doneData, (_, tasks) => [..._, ...tasks])
   .on(createTaskFx.doneData, (_, tasks) => [..._, tasks])
   .on(removeTaskFx.doneData, (_, tasks) => [

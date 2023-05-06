@@ -1,6 +1,13 @@
 import { Avatar, Card, ContentContainer, Icon, Tooltip } from '@/shared/ui'
+import { TaskDto } from '@/shared/api'
 
-export const Task = () => {
+interface TaskProps {
+  task: TaskDto
+}
+
+export const Task = ({ task }: TaskProps) => {
+  const { title, description, workers } = task
+
   return (
     <Card>
       <ContentContainer py={false} className='py-5'>

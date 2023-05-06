@@ -2,7 +2,8 @@ import { useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
 import { Button, FormField, Modal } from '@/shared/ui'
 import { CreateProjectDto } from '@/shared/api'
-import { $currentWorkspace, createProjectModal, createProject } from '../model'
+import { createProjectModal, createProject } from '../model'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
 
 interface IFormData {
   projectTitle: string
@@ -17,7 +18,7 @@ export const CreateProjectModal = () => {
     defaultValues
   })
 
-  const currentWorkspace = useUnit($currentWorkspace)
+  const currentWorkspace = useUnit(currentWorkspaceModel.$currentWorkspace)
   const isOpen = useUnit(createProjectModal.$isOpen)
   const closeModal = useUnit(createProjectModal.closeModal)
   const createProjectFn = useUnit(createProject)
@@ -29,11 +30,8 @@ export const CreateProjectModal = () => {
       title: formData.projectTitle
     }
 
-    createProjectFn({
-      workspaceId: currentWorkspace.id,
-      createProjectDto
-    })
-    
+    createProjectFn(createProjectDto)
+
     handleCloseModal()
   }
 

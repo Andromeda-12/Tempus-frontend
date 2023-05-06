@@ -1,28 +1,25 @@
-import { createEvent, restore, sample } from 'effector'
+import { createEvent, sample } from 'effector'
 import { notificationModel } from '@/features/notification'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { projectModel } from '@/entities/project'
 import { createModal } from '@/shared/lib'
-import { WorkspaceDto } from '@/shared/api'
+import { CreateProjectDto } from '@/shared/api'
 
-export const setCurrentWorkspace = createEvent<WorkspaceDto | null>()
-const resetCurrentWorkspace = createEvent()
-export const createProject = projectModel.createProject
+export const createProject = createEvent<CreateProjectDto>()
 
 export const createProjectModal = createModal()
 
-export const $currentWorkspace = restore<WorkspaceDto | null>(
-  setCurrentWorkspace,
-  null
-).reset(resetCurrentWorkspace)
-
 sample({
-  clock: setCurrentWorkspace,
-  target: $currentWorkspace
-})
-
-sample({
-  clock: createProjectModal.closeModal,
-  target: resetCurrentWorkspace
+  clock: createProject,
+  source: {
+    currentWorkspace: currentWorkspaceModel.$currentWorkspace
+  },
+  filter: ({ currentWorkspace }) => !!currentWorkspace,
+  fn: ({ currentWorkspace }, createProjectDto) => ({
+    workspaceId: currentWorkspace!.id,
+    createProjectDto
+  }),
+  target: projectModel.createProject
 })
 
 sample({

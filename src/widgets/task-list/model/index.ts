@@ -1,45 +1,41 @@
-import { debounce, pending } from 'patronum'
+import { pending } from 'patronum'
 import { projectModel } from '@/entities/project'
 import { createEvent, createStore, restore, sample } from 'effector'
 import { PROJECTS_REQUEST_LIMIT } from '@/shared/config'
 import { GetRequestQuery } from '@/shared/lib'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { projectSearchModel } from '@/features/filter/projects-search'
+import { projectRoute } from '@/shared/routing'
+import { taskModel } from '@/entities/task'
 
-export const loadMoreProjects = createEvent()
+export const loadMoreTasks = createEvent()
 export const resetOffset = createEvent()
-export const resetProjects = createEvent()
-const loadProjects = createEvent<{ workspaceId: number }>()
+export const resetTasks = createEvent()
+const loadTasks = createEvent<{ workspaceId: number }>()
 const addOffset = createEvent<number>()
 const setIsAllDataLoaded = createEvent<boolean>()
-const loadProjectsByUserRole = createEvent<{
-  workspaceId: number
-  query: GetRequestQuery
-}>()
 
+const searchTitle = createStore('')
 const $filter = createStore('all') // showHidden
 const $limit = createStore(PROJECTS_REQUEST_LIMIT)
 export const $offset = createStore(0)
   .on(addOffset, (currentOffset, addedOffset) => currentOffset + addedOffset)
   .reset(resetOffset)
-export const $isLoading = pending({
-  effects: [projectModel.getMemberProjectsFx, projectModel.getAllProjectsFx]
-})
+export const $isLoading = taskModel.getTasksFx.pending
 export const $isAllDataLoaded = restore(setIsAllDataLoaded, false).reset(
   resetOffset
 )
 
 sample({
-  clock: resetProjects,
-  target: projectModel.resetProjects
+  clock: resetTasks,
+  target: taskModel.resetTasks
 })
 sample({
-  clock: loadProjects,
+  clock: loadMoreTasks,
   source: {
     offset: $offset,
     limit: $limit,
     filter: $filter,
-    searchTitle: projectSearchModel.$searchProjectTitle,
+    searchTitle: searchTitle,
     isLoadign: $isLoading
   },
   filter: ({ isLoadign }) => !isLoadign,
@@ -52,23 +48,9 @@ sample({
       filter
     } as GetRequestQuery
   }),
-  target: loadProjectsByUserRole
+  target: taskModel.getTasksFx
 })
 
-sample({
-  clock: loadProjectsByUserRole,
-  source: currentWorkspaceModel.$workspaceViewerRole,
-  filter: (role) => role === 'Owner' || role === 'Manager',
-  fn: (_, parametr) => ({ ...parametr }),
-  target: projectModel.getAllProjectsFx
-})
-sample({
-  clock: loadProjectsByUserRole,
-  source: currentWorkspaceModel.$workspaceViewerRole,
-  filter: (role) => role === 'Member',
-  fn: (_, parametr) => ({ ...parametr }),
-  target: projectModel.getMemberProjectsFx
-})
 
 sample({
   clock: loadMoreProjects,
@@ -96,21 +78,17 @@ sample({
   source: $limit,
   target: addOffset
 })
-sample({
-  clock: [
-    projectModel.getAllProjectsFx.fail,
-    projectModel.getMemberProjectsFx.fail
-  ],
-  fn: () => true,
-  target: setIsAllDataLoaded
-})
 
 // sample({
 //   clock: workspaceFilterModel.workspaceFilter.currentValue,
 //   target: [loadMoreProjects, resetOffset, resetProjects]
 // })
+// const debouncedSearchWorkspace = debounce({
+//     source: workspaceSearchModel.setSearchWorkspaceTitle,
+//     timeout: 300,
+//   });
 
-sample({
-  clock: projectSearchModel.debouncedSearchProject,
-  target: [loadMoreProjects, resetOffset, resetProjects]
-})
+//   sample({
+//     clock: debouncedSearchWorkspace,
+//     target: [loadMoreWorkspaces, resetOffset, resetWorkspaces]
+//   })

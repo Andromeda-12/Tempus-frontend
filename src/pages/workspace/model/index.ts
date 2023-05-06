@@ -1,11 +1,11 @@
 import { redirect } from 'atomic-router'
 import { createEvent, sample } from 'effector'
+import { combineEvents } from 'patronum'
+import { projectListModel } from '@/widgets/project-list'
 import { notificationModel } from '@/features/notification'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { workspaceModel } from '@/entities/workspace'
 import { notFoundRoute, workspaceRoute } from '@/shared/routing'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { projectListModel } from '@/widgets/project-list'
-import { combineEvents } from 'patronum'
 
 const redirectToNotFoundPage = createEvent()
 const startLoadProjects = combineEvents({
@@ -21,7 +21,7 @@ export const $isLoadingCurrentWorkspace =
   currentWorkspaceModel.getCurrentWorkspaceFx.pending
 
 sample({
-  clock: [workspaceRoute.opened, workspaceRoute.updated],
+  clock: [workspaceRoute.opened],
   source: workspaceModel.$workspaces,
   fn: (workspaces, routeParamsAndQuery) => ({
     workspaces,
@@ -30,7 +30,7 @@ sample({
   target: currentWorkspaceModel.getCurrentWorkspaceFx
 })
 sample({
-  clock: [workspaceRoute.opened, workspaceRoute.updated],
+  clock: [workspaceRoute.opened],
   fn: (routeParamsAndQuery) => ({
     workspaceId: routeParamsAndQuery.params.workspaceId
   }),
