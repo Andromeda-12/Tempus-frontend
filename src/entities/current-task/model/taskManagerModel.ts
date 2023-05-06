@@ -15,9 +15,11 @@ export const assignMemberFx = createEffect<
   async ({ params: { taskId, projectId, workspaceId }, userId }) =>
     await TasksService.taskControllerAssignUser(
       taskId,
-      userId,
       projectId,
-      workspaceId
+      workspaceId,
+      {
+        userId
+      }
     )
 )
 export const removeMemberFx = createEffect<
@@ -28,8 +30,10 @@ export const removeMemberFx = createEffect<
   async ({ params: { taskId, projectId, workspaceId }, userId }) =>
     await TasksService.taskControllerRemoveUser(
       taskId,
-      userId,
       projectId,
-      workspaceId
+      workspaceId,
+      {
+        userId
+      }
     )
 )
