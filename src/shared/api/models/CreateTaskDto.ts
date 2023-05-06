@@ -8,11 +8,7 @@ export type CreateTaskDto = {
      */
     title: string;
     /**
-     * Task description (Optional)
+     * Task description
      */
     description?: string;
-    /**
-     * Creator id
-     */
-    creatorId: number;
 };

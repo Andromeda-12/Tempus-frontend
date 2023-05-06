@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { MemberDto } from './MemberDto';
 import type { TimeLineDto } from './TimeLineDto';
 
 export type AssignedTaskDto = {
@@ -14,9 +15,9 @@ export type AssignedTaskDto = {
      */
     taskId: number;
     /**
-     * Worker id
+     * Member id
      */
-    workerId: number;
+    memberId: number;
     /**
      * Task started?
      */
@@ -33,4 +34,8 @@ export type AssignedTaskDto = {
      * Time lines
      */
     TimeLines: Array<TimeLineDto>;
+    /**
+     * Member info
+     */
+    member: Array<MemberDto>;
 };

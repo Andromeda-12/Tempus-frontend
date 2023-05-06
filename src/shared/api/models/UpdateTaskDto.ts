@@ -4,11 +4,11 @@
 
 export type UpdateTaskDto = {
     /**
-     * Task title (Optional)
+     * Task title
      */
-    title: string;
+    title?: string;
     /**
-     * Task description (Optional)
+     * Task description
      */
-    description: string;
+    description?: string;
 };

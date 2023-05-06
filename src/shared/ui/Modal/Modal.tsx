@@ -32,9 +32,9 @@ export const Modal = ({
           <DialogPrimitive.Content
             onClick={(e) => e.stopPropagation()}
             onOpenAutoFocus={(e) => e.preventDefault()}
-            className={clsx(' outline-none px-2 py-4 z-[100]', className)}
+            className={clsx('outline-none px-2 py-4 z-[100]', className)}
           >
-            <Card className={clsx('p-5 sm:p-8 ', cardClassName)}>
+            <Card className={clsx('p-5 sm:p-8 w-full h-full', cardClassName)}>
               <div
                 className={clsx(
                   'flex',

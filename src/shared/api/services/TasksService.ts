@@ -2,12 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AssignedTaskDto } from '../models/AssignedTaskDto';
-import type { BadRequestAssignedTaskDto } from '../models/BadRequestAssignedTaskDto';
 import type { CreateTaskDto } from '../models/CreateTaskDto';
 import type { ReportDto } from '../models/ReportDto';
 import type { TaskDto } from '../models/TaskDto';
 import type { UpdateTaskDto } from '../models/UpdateTaskDto';
-import type { ValidationUserId } from '../models/ValidationUserId';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -16,102 +14,106 @@ import { request as __request } from '../core/request';
 export class TasksService {
 
     /**
-     * Get all assigned tasks by user
-     * @param userId User id
-     * @param title Task title
-     * @returns BadRequestAssignedTaskDto 
-     * @throws ApiError
-     */
-    public static taskControllerGetAssignedTasks(
-userId?: number,
-title?: string,
-): CancelablePromise<Array<BadRequestAssignedTaskDto>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/tasks/getAssignedTasks',
-            query: {
-                'userId': userId,
-                'title': title,
-            },
-        });
-    }
-
-    /**
      * Get report about work for user
+     * @param projectId 
+     * @param workspaceId 
      * @returns ReportDto 
      * @throws ApiError
      */
-    public static taskControllerGetReport(): CancelablePromise<Array<ReportDto>> {
+    public static taskControllerGetReport(
+projectId: number,
+workspaceId: number,
+): CancelablePromise<Array<ReportDto>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/tasks/getReport',
-        });
-    }
-
-    /**
-     * Get all created tasks by user
-     * @param userId User id
-     * @param title Task title
-     * @returns TaskDto 
-     * @throws ApiError
-     */
-    public static taskControllerGetByCreatorId(
-userId?: number,
-title?: string,
-): CancelablePromise<Array<TaskDto>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/tasks/getUserTasks',
-            query: {
-                'userId': userId,
-                'title': title,
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/getReport',
+            path: {
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
 
     /**
-     * Get all tasks and them workers
+     * Get tasks by filter
+     * @param projectId 
+     * @param workspaceId 
+     * @param title Task title
+     * @param offset Offset of tasks
+     * @param limit Limit of tasks
+     * @param filter Workspace title
      * @returns TaskDto 
      * @throws ApiError
      */
-    public static taskControllerGetAll(): CancelablePromise<Array<TaskDto>> {
+    public static taskControllerGetAll(
+projectId: number,
+workspaceId: number,
+title?: string,
+offset?: number,
+limit?: number,
+filter?: string,
+): CancelablePromise<Array<TaskDto>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/tasks',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task',
+            path: {
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
+            query: {
+                'title': title,
+                'offset': offset,
+                'limit': limit,
+                'filter': filter,
+            },
         });
     }
 
     /**
      * Create task
+     * @param projectId 
+     * @param workspaceId 
      * @param requestBody 
      * @returns TaskDto 
      * @throws ApiError
      */
     public static taskControllerCreate(
+projectId: number,
+workspaceId: number,
 requestBody: CreateTaskDto,
 ): CancelablePromise<TaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/tasks',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task',
+            path: {
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
             body: requestBody,
             mediaType: 'application/json',
         });
     }
 
     /**
-     * Get first task
+     * Get task by id
      * @param id 
+     * @param projectId 
+     * @param workspaceId 
      * @returns TaskDto 
      * @throws ApiError
      */
-    public static taskControllerGetFirst(
+    public static taskControllerGetById(
 id: number,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<Array<TaskDto>> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/tasks/{id}',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
@@ -119,17 +121,23 @@ id: number,
     /**
      * Delete task
      * @param id 
+     * @param projectId 
+     * @param workspaceId 
      * @returns TaskDto 
      * @throws ApiError
      */
     public static taskControllerRemove(
 id: number,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<TaskDto> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/api/tasks/{id}',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
@@ -137,37 +145,26 @@ id: number,
     /**
      * Update task
      * @param id 
+     * @param projectId 
+     * @param workspaceId 
      * @param requestBody 
      * @returns TaskDto 
      * @throws ApiError
      */
     public static taskControllerUpdate(
 id: number,
+projectId: number,
+workspaceId: number,
 requestBody: UpdateTaskDto,
 ): CancelablePromise<TaskDto> {
         return __request(OpenAPI, {
             method: 'PUT',
-            url: '/api/tasks/{id}',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
-        });
-    }
-
-    /**
-     * Create task for one user
-     * @param requestBody 
-     * @returns BadRequestAssignedTaskDto 
-     * @throws ApiError
-     */
-    public static taskControllerCreateForCreator(
-requestBody: CreateTaskDto,
-): CancelablePromise<BadRequestAssignedTaskDto> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/tasks/createUserTask',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -176,83 +173,105 @@ requestBody: CreateTaskDto,
     /**
      * Assign worker to task
      * @param id 
-     * @param requestBody 
+     * @param userId 
+     * @param projectId 
+     * @param workspaceId 
      * @returns AssignedTaskDto 
      * @throws ApiError
      */
     public static taskControllerAssignUser(
 id: number,
-requestBody: ValidationUserId,
+userId: number,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<AssignedTaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/tasks/{id}/assignWorker',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}/assignWorker',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            query: {
+                'userId': userId,
+            },
         });
     }
 
     /**
      * Unassign user from task
      * @param id 
-     * @param requestBody 
+     * @param userId 
+     * @param projectId 
+     * @param workspaceId 
      * @returns AssignedTaskDto 
      * @throws ApiError
      */
     public static taskControllerRemoveUser(
 id: number,
-requestBody: ValidationUserId,
+userId: number,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<AssignedTaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/tasks/{id}/unassignWorker',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}/unassignWorker',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
+            query: {
+                'userId': userId,
+            },
         });
     }
 
     /**
      * Start track task
      * @param id 
-     * @param requestBody 
+     * @param projectId 
+     * @param workspaceId 
      * @returns AssignedTaskDto 
      * @throws ApiError
      */
     public static taskControllerStarTimeLine(
 id: number,
-requestBody: ValidationUserId,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<AssignedTaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/tasks/{id}/startTimeLine',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}/startTimeLine',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
-            body: requestBody,
-            mediaType: 'application/json',
         });
     }
 
     /**
      * Finish track task
      * @param id 
+     * @param projectId 
+     * @param workspaceId 
      * @returns AssignedTaskDto 
      * @throws ApiError
      */
     public static taskControllerEndTimeLine(
 id: number,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<AssignedTaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/tasks/{id}/endTimeLine',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}/endTimeLine',
             path: {
                 'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
             },
         });
     }
@@ -260,15 +279,38 @@ id: number,
     /**
      * Complete task
      * @param id 
+     * @param projectId 
+     * @param workspaceId 
      * @returns AssignedTaskDto 
      * @throws ApiError
      */
     public static taskControllerCompleteTask(
 id: number,
+projectId: number,
+workspaceId: number,
 ): CancelablePromise<AssignedTaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/api/tasks/{id}/completeTask',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}/completeTask',
+            path: {
+                'id': id,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * @param id 
+     * @returns any 
+     * @throws ApiError
+     */
+    public static taskControllerGetMemberProgress(
+id: number,
+): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{id}/getMemberProgress',
             path: {
                 'id': id,
             },

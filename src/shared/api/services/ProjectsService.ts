@@ -40,7 +40,7 @@ requestBody: CreateProjectDto,
      * @param workspaceId 
      * @param offset Offset of projects
      * @param limit Limit of projects
-     * @param filter own|others|all
+     * @param filter Send showHidden or null
      * @param title Project title
      * @returns ProjectDto 
      * @throws ApiError
@@ -72,7 +72,7 @@ title?: string,
      * @param workspaceId 
      * @param offset Offset of projects
      * @param limit Limit of projects
-     * @param filter own|others|all
+     * @param filter Send showHidden or null
      * @param title Project title
      * @returns ProjectDto 
      * @throws ApiError

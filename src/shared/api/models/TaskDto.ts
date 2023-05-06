@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { AssignedTaskDto } from './AssignedTaskDto';
+import type { UserDto } from './UserDto';
 
 export type TaskDto = {
     /**
@@ -16,13 +16,13 @@ export type TaskDto = {
     /**
      * Task description
      */
-    description: string;
+    description?: string;
     /**
-     * Creator id
+     * Creator
      */
-    creatorId: number;
+    creator: UserDto;
     /**
-     * Array workers are assigned to task
+     * Members assigned to task
      */
-    workers: Array<AssignedTaskDto>;
+    members: Array<string>;
 };

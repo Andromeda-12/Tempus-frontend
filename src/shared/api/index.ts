@@ -8,7 +8,6 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AssignedTaskDto } from './models/AssignedTaskDto';
 export type { AuthUserDto } from './models/AuthUserDto';
-export type { BadRequestAssignedTaskDto } from './models/BadRequestAssignedTaskDto';
 export type { ChangeUserMailDto } from './models/ChangeUserMailDto';
 export type { ChangeUserPasswordDto } from './models/ChangeUserPasswordDto';
 export type { CountDto } from './models/CountDto';
@@ -32,7 +31,6 @@ export type { UpdateTaskDto } from './models/UpdateTaskDto';
 export type { UpdateUserDto } from './models/UpdateUserDto';
 export type { UpdateWorkspaceDto } from './models/UpdateWorkspaceDto';
 export type { UserDto } from './models/UserDto';
-export type { ValidationUserId } from './models/ValidationUserId';
 export type { WorkspaceDto } from './models/WorkspaceDto';
 
 export { AuthService } from './services/AuthService';
