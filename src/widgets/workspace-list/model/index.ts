@@ -1,12 +1,12 @@
 import { createEvent, createStore, restore, sample } from 'effector'
 import { createGate } from 'effector-react'
-import { debounce } from 'patronum';
+import { debounce } from 'patronum'
 import { deleteWorkspaceModel } from '@/features/workspace/delete-workspace'
 import { workspaceFilterModel } from '@/features/filter/workspace-filter'
 import { workspaceSearchModel } from '@/features/filter/workspace-search'
 import { workspaceModel } from '@/entities/workspace'
 import { GetRequestQuery } from '@/shared/lib'
-import { WORKSPACES_REQUEST_LIMIT } from '@/shared/config';
+import { WORKSPACES_REQUEST_LIMIT } from '@/shared/config'
 
 export const workspaceGate = createGate()
 
@@ -15,9 +15,6 @@ const addOffset = createEvent<number>()
 const resetOffset = createEvent()
 const resetWorkspaces = createEvent()
 const setIsAllDataLoaded = createEvent<boolean>()
-
-console.log('test');
-
 
 const $limit = createStore(WORKSPACES_REQUEST_LIMIT)
 export const $offset = createStore(0)
@@ -97,8 +94,8 @@ sample({
 
 const debouncedSearchWorkspace = debounce({
   source: workspaceSearchModel.setSearchWorkspaceTitle,
-  timeout: 300,
-});
+  timeout: 300
+})
 
 sample({
   clock: debouncedSearchWorkspace,

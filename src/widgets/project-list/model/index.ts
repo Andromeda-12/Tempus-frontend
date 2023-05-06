@@ -43,19 +43,15 @@ sample({
     isLoadign: $isLoading
   },
   filter: ({ isLoadign }) => !isLoadign,
-  fn: ({ offset, limit, searchTitle, filter }, { workspaceId }) => {
-    console.log(filter)
-
-    return {
-      workspaceId,
-      query: {
-        offset,
-        limit,
-        title: searchTitle || undefined,
-        filter
-      } as GetRequestQuery
-    }
-  },
+  fn: ({ offset, limit, searchTitle, filter }, { workspaceId }) => ({
+    workspaceId,
+    query: {
+      offset,
+      limit,
+      title: searchTitle || undefined,
+      filter
+    } as GetRequestQuery
+  }),
   target: loadProjectsByUserRole
 })
 
