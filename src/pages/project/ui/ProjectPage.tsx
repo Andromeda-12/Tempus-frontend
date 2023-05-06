@@ -20,6 +20,7 @@ import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { TaskList } from '@/widgets/task-list'
 import { TaskDto } from '@/shared/api'
 import { TaskModal, taskModalModel } from '@/widgets/task-modal'
+import { CreateTaskButton } from '@/features/task/create-task'
 
 const workspaces = {
   id: 1,
@@ -68,7 +69,7 @@ export const ProjectPage = ({}) => {
             </div>
 
             <HasAccess>
-              <CreateProjectButton />
+              <CreateTaskButton />
             </HasAccess>
           </div>
 

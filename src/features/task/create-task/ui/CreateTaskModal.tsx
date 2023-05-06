@@ -1,6 +1,6 @@
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
-import { Button, FormField, Modal } from '@/shared/ui'
+import { Button, FormField, Modal, Textarea } from '@/shared/ui'
 import { CreateTaskDto } from '@/shared/api'
 import { createTask, createTaskModal } from '../model'
 
@@ -56,10 +56,12 @@ export const CreateTaskModal = () => {
           }}
         />
 
-        <FormField
-          placeholder='Description'
-          name='taskDescription'
+        <Controller
           control={control}
+          name='taskDescription'
+          render={({ field }) => (
+            <Textarea placeholder='Desctiption' {...field} />
+          )}
         />
 
         <div className='flex justify-end'>
