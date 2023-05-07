@@ -12,6 +12,7 @@ import { ProjectTitle } from './ProjectTitle'
 import { HasAccess } from './HasAccess'
 import { ProjectMembers } from './ProjectMembers'
 import { $isLoadingCurrentProject } from '../model'
+import { TaskSearch } from '@/features/filter/task-search'
 
 export const ProjectPage = ({}) => {
   const isLoading = useUnit($isLoadingCurrentProject)
@@ -55,12 +56,7 @@ export const ProjectPage = ({}) => {
           <div className='mb-7 flex justify-between items-center'>
             <ProjectMembers />
 
-            <Input
-              notAccent
-              size='sm'
-              placeholder='Search title'
-              startIconName='search'
-            />
+            <TaskSearch />
           </div>
 
           <div className='py-0.5 mb-3 px-8 border rounded-xl w-fit'>

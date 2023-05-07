@@ -1,7 +1,7 @@
 import { querySync } from 'atomic-router'
+import { debounce } from 'patronum'
 import { createEvent, restore } from 'effector'
 import { controls } from '@/shared/routing'
-import { debounce } from 'patronum'
 
 export const setSearchProjectTitle = createEvent<string | null>()
 
