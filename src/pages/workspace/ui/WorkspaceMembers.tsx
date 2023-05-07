@@ -12,7 +12,7 @@ export const WorkspaceMembers = () => {
       <div>{currentWorkspace?.members.length} members</div>
       <AvatarGroup members={currentWorkspace?.members || []} />
 
-      <HasAccess role='Manager'>
+      <HasAccess>
         <MembersModalButton members={currentWorkspace?.members || []} />
       </HasAccess>
     </div>
