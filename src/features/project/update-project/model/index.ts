@@ -1,10 +1,12 @@
+import { redirect } from 'atomic-router'
 import { createEvent, sample } from 'effector'
 import { notificationModel } from '@/features/notification'
+import { projectModel } from '@/entities/project'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
-import { projectModel } from '@/entities/project'
 import { createModal } from '@/shared/lib'
 import { UpdateProjectDto } from '@/shared/api'
+import { workspaceRoute } from '@/shared/routing'
 
 export const updateProject = createEvent<UpdateProjectDto>()
 
@@ -31,6 +33,19 @@ sample({
 sample({
   clock: projectModel.updateProjectFx.doneData,
   target: currentProjectModel.setCurrentProject
+})
+
+sample({
+  clock: projectModel.removeProjectFx.doneData,
+  target: updateProjectModal.closeModal
+})
+
+redirect({
+  clock: projectModel.removeProjectFx.doneData,
+  params: ({ workspaceId }) => ({
+    workspaceId
+  }),
+  route: workspaceRoute
 })
 
 sample({
