@@ -1,34 +1,17 @@
 import { useUnit } from 'effector-react'
-import {
-  Avatar,
-  Card,
-  ContentContainer,
-  Icon,
-  Input,
-  Spinner,
-  Tooltip
-} from '@/shared/ui'
+import { TaskList } from '@/widgets/task-list'
+import { TaskModal, taskModalModel } from '@/widgets/task-modal'
+import { CreateTaskButton } from '@/features/task/create-task'
+import { UpdateProjectButton } from '@/features/project/update-project'
+import { DeleteProjectButton } from '@/features/project/delete-project'
+import { ContentContainer, Input, Spinner } from '@/shared/ui'
+import { TaskDto } from '@/shared/api'
 import { WorkspaceCover } from './WorkspaceCover'
-import { $isLoadingCurrentProject } from '../model'
 import { WorkspaceTitle } from './WorkspaceTitle'
 import { ProjectTitle } from './ProjectTitle'
 import { HasAccess } from './HasAccess'
 import { ProjectMembers } from './ProjectMembers'
-import { UpdateProjectButton } from '@/features/project/update-project'
-import { CreateProjectButton } from '@/features/project/create-project'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { TaskList } from '@/widgets/task-list'
-import { TaskDto } from '@/shared/api'
-import { TaskModal, taskModalModel } from '@/widgets/task-modal'
-import { CreateTaskButton } from '@/features/task/create-task'
-
-const workspaces = {
-  id: 1,
-  cover: 'photo.jpg',
-  title: 'My first workspace',
-  projectsCount: 1,
-  own: true
-}
+import { $isLoadingCurrentProject } from '../model'
 
 export const ProjectPage = ({}) => {
   const isLoading = useUnit($isLoadingCurrentProject)
@@ -53,10 +36,6 @@ export const ProjectPage = ({}) => {
         <ContentContainer className='mt-5'>
           <div className='mb-5 flex justify-between'>
             <WorkspaceTitle />
-
-            {/* <HasAccess> */}
-            {/* <CreateTaskButton workspace={currentWorkspace} /> */}
-            {/* </HasAccess> */}
           </div>
 
           <div className='mb-2 flex justify-between items-center'>
@@ -64,7 +43,7 @@ export const ProjectPage = ({}) => {
               <ProjectTitle />
 
               <HasAccess>
-                <UpdateProjectButton />
+                <UpdateProjectButton deleteButton={<DeleteProjectButton />} />
               </HasAccess>
             </div>
 

@@ -4,13 +4,20 @@ import { currentProjectModel } from '@/entities/current-project'
 import { Button, Checkbox, FormField, Modal } from '@/shared/ui'
 import { UpdateProjectDto } from '@/shared/api'
 import { updateProjectModal, updateProject } from '../model'
+import { ReactNode } from 'react'
+
+interface UpdateProjectModalProps {
+  deleteButton: ReactNode
+}
 
 interface IFormData {
   projectTitle: string
   isHidden: boolean
 }
 
-export const UpdateProjectModal = () => {
+export const UpdateProjectModal = ({
+  deleteButton
+}: UpdateProjectModalProps) => {
   const isOpen = useUnit(updateProjectModal.$isOpen)
   const closeModal = useUnit(updateProjectModal.closeModal)
   const updateProjectFn = useUnit(updateProject)
@@ -66,7 +73,16 @@ export const UpdateProjectModal = () => {
           )}
         />
 
-        <div className='flex justify-end'>
+        <div className='flex justify-between'>
+          <div
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+          >
+            {deleteButton}
+          </div>
+
           <div className='sm:w-2/5 flex space-x-3'>
             <Button
               className='w-full'
