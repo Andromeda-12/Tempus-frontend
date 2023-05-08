@@ -53,6 +53,7 @@ a {
 
 .scrollbar-dense::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
