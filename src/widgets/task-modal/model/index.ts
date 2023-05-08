@@ -30,22 +30,5 @@ sample({
     projectId: currentProject!.id,
     taskId
   }),
-  target: currentTaskModel.getCurrentTask
-})
-
-sample({
-  clock: currentTaskModel.getCurrentTaskFx.done,
-  source: {
-    currentWorkspace: currentWorkspaceModel.$currentWorkspace,
-    currentProject: currentProjectModel.$currentProject,
-    currentTask: currentTaskModel.$currentTask
-  },
-  filter: ({ currentWorkspace, currentProject, currentTask }) =>
-    !!currentWorkspace && !!currentProject && !currentTask,
-  fn: ({ currentWorkspace, currentProject, currentTask }) => ({
-    workspaceId: currentWorkspace!.id,
-    projectId: currentProject!.id,
-    taskId: currentTask!.id
-  }),
-  target: currentTaskModel.getCurrentTask
+  target: [currentTaskModel.getCurrentTask, currentTaskModel.getMemberProgress]
 })
