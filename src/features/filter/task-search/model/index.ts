@@ -7,7 +7,7 @@ export const setSearchTaskTitle = createEvent<string | null>()
 
 export const $searchTaskTitle = restore<string | null>(setSearchTaskTitle, null)
 
-export const debouncedSearchProject = debounce({
+export const debouncedSearchTask = debounce({
   source: setSearchTaskTitle,
   timeout: 300
 })
