@@ -16,13 +16,12 @@ export const TaskModalContainer = ({ children }: TaskModalContainerProps) => {
 
   return (
     <Modal
-      className='w-full max-w-4xl h-[500px]'
-      title={currentTask?.title}
+      className='w-full max-w-3xl'
       isOpen={isOpen}
       onClose={closeModal}
     >
       {isLoading ? (
-        <div className='flex h-full justify-center items-center'>
+        <div className='flex h-full justify-center items-center min-h-[450px]'>
           <Spinner className='!w-14 !h-14 border-4' />
         </div>
       ) : (
