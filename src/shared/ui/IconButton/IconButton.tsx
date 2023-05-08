@@ -11,7 +11,8 @@ interface ButtonProps {
   className?: string
   variant?: 'contained' | 'outline' | 'text'
   shape?: 'square' | 'rounded'
-  size?: sizes
+  size?: sizes,
+  iconSize?: sizes,
   accent?: boolean
   icon?: string
   withGlow?: boolean
@@ -27,6 +28,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       variant = 'contained',
       size = 'base',
+      iconSize,
       accent = false,
       shape = 'square',
       icon,
@@ -57,7 +59,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading && <Spinner size={spinnerSizes[size] as sizes} />}
 
-        {!loading && icon && <Icon size={size} name={icon} />}
+        {!loading && icon && <Icon size={iconSize || size} name={icon} />}
 
         {children}
       </button>

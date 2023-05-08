@@ -11,7 +11,7 @@ const sizeMap = {
   sm: 'w-5 h-5',
   base: 'w-6 h-6',
   lg: 'w-7 h-7',
-  xl: 'w-8 h-8'
+  xl: 'w-10 h-10'
 }
 
 export const Icon = ({
