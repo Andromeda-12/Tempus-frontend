@@ -93,6 +93,7 @@ export const $tasks = createStore<TaskDto[]>([])
     ..._.filter((t) => t.id !== tasks.id)
   ])
   .reset(resetTasks)
+export const $reversedTasks = $tasks.map(tasks => structuredClone(tasks).reverse())
 
 sample({
   clock: createTask,
