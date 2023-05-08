@@ -45,7 +45,7 @@ export const WorkspacePage = () => {
             </HasAccess>
           </div>
 
-          <div className='mb-7 flex justify-between items-center'>
+          <div className='mb-5 flex justify-between items-center'>
             <ProjectFilter />
 
             <ProjectSearch />

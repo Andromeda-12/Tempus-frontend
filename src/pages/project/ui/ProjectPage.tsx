@@ -4,7 +4,9 @@ import { TaskModal, taskModalModel } from '@/widgets/task-modal'
 import { CreateTaskButton } from '@/features/task/create-task'
 import { UpdateProjectButton } from '@/features/project/update-project'
 import { DeleteProjectButton } from '@/features/project/delete-project'
-import { ContentContainer, Input, Spinner } from '@/shared/ui'
+import { TaskSearch } from '@/features/filter/task-search'
+import { TaskFilter } from '@/features/filter/task-filter'
+import { ContentContainer, Spinner } from '@/shared/ui'
 import { TaskDto } from '@/shared/api'
 import { WorkspaceCover } from './WorkspaceCover'
 import { WorkspaceTitle } from './WorkspaceTitle'
@@ -12,7 +14,6 @@ import { ProjectTitle } from './ProjectTitle'
 import { HasAccess } from './HasAccess'
 import { ProjectMembers } from './ProjectMembers'
 import { $isLoadingCurrentProject } from '../model'
-import { TaskSearch } from '@/features/filter/task-search'
 
 export const ProjectPage = ({}) => {
   const isLoading = useUnit($isLoadingCurrentProject)
@@ -47,20 +48,20 @@ export const ProjectPage = ({}) => {
                 <UpdateProjectButton deleteButton={<DeleteProjectButton />} />
               </HasAccess>
             </div>
+          </div>
 
+          <div className='mb-3 flex justify-between items-center'>
+            <ProjectMembers />
+            
             <HasAccess>
               <CreateTaskButton />
             </HasAccess>
           </div>
 
-          <div className='mb-7 flex justify-between items-center'>
-            <ProjectMembers />
+          <div className='mb-5 flex justify-between items-center'>
+            <TaskFilter />
 
             <TaskSearch />
-          </div>
-
-          <div className='py-0.5 mb-3 px-8 border rounded-xl w-fit'>
-            Filters
           </div>
 
           <TaskList onSelectTask={openTaskModal} />
