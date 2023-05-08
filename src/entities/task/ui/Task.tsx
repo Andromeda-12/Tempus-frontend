@@ -1,40 +1,38 @@
 import { Avatar, Card, ContentContainer, Icon, Tooltip } from '@/shared/ui'
 import { TaskDto } from '@/shared/api'
+import { AvatarGroup } from '@/features/users/avatar-group'
+import { ViewerAvatar } from '@/entities/viewer'
+import clsx from 'clsx'
 
 interface TaskProps {
   task: TaskDto
 }
 
+function truncateString(str: string, length: number) {
+  if (str.length > length) return str.substring(0, length - 3) + '...'
+
+  return str
+}
+
 export const Task = ({ task }: TaskProps) => {
-  const { title, description, workers } = task
+  const { title, description, members } = task
 
   return (
     <Card>
-      <ContentContainer py={false} className='py-5'>
-        <div>Task 1</div>
-        <div className='text-sm mt-1 opacity-60'>
-          Some description: you shoud get some work and do this bla bla...{' '}
+      <ContentContainer py={false} className='py-5  flex flex-col space-y-2'>
+        <div className='font-medium'>{title}</div>
+
+        <div
+          className={clsx(
+            'text-sm opacity-70 h-[2.7em] text-ellipsis whitespace-normal overflow-hidden',
+            !description && 'text-gray-500 dark:text-gray-400'
+          )}
+        >
+          {description ? truncateString(description, 90) : 'no description'}
         </div>
 
-        <div className='flex -space-x-3 mb-2 mt-2'>
-          <Tooltip text='Andrey Froshgaizer'>
-            <Avatar className='ring-[2px] ring-gray-600' />
-          </Tooltip>
-          <Avatar className='ring-[2px] ring-gray-600' />
-          <Avatar className='ring-[2px] ring-gray-600' />
-        </div>
-
-        <div>
-          <div className='text-gray-300 dark:text-gray-500'>
-            <div className='text-2xl text-center mt-2'>00:21:43</div>
-            <div className='text-center'>
-              <button className='cursor-pointer outline-none focus-visible:ring-4 rounded-full w-fit hover:bg-primary/15 duration-150'>
-                <Icon name='play' className='w-8 h-8 relative -right-1' />
-              </button>
-              {/* <Icon name='pause' className='w-12 h-12' /> */}
-            </div>
-          </div>
-        </div>
+        {/* <AvatarGroup members={members} /> */}
+        <ViewerAvatar />
       </ContentContainer>
     </Card>
   )
