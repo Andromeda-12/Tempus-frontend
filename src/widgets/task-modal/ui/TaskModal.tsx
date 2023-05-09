@@ -2,7 +2,7 @@ import { useUnit } from 'effector-react'
 import { Timer } from '@/features/task/timer'
 import { ToggleTaskState } from '@/features/task/toggle-task-state'
 import { ManageTaskMembersButton } from '@/features/task/task-assign-members-modal'
-import { Button } from '@/shared/ui'
+import { Button, Divider } from '@/shared/ui'
 import { TaskTitle } from './TaskTitle'
 import { TaskCreator } from './TaskCreator'
 import { TaskMembersList } from './TaskMembersList'
@@ -26,43 +26,47 @@ export const TaskModal = () => {
 
   return (
     <TaskModalContainer>
-      <div className='flex items-center justify-between mb-5 mt-2'>
-        <TaskTitle />
+      <div className='space-y-5'>
+        <div className='flex items-center justify-between mt-2 '>
+          <TaskTitle />
 
-        <div className='flex items-center space-x-3 '>
-          <Timer disabled={!isAssignedOnTask} />
-          <ToggleTaskState disabled={!isAssignedOnTask} />
+          <div className='flex items-center space-x-3'>
+            <Timer disabled={!isAssignedOnTask} />
+            <ToggleTaskState disabled={!isAssignedOnTask} />
+          </div>
         </div>
-      </div>
 
-      <TaskDescription className='mb-5' />
+        <TaskDescription />
 
-      <div className='flex justify-between'>
-        <span className='text-sm mr-14'>Creator</span>
-        <TaskCreator className='mb-5' />
-      </div>
+        <Divider />
 
-      <div className='flex items-start justify-between mb-4'>
-        <span className='text-sm '>Assignee</span>
-        <TaskMembersList />
-      </div>
-
-      {isCanManage && (
-        <div className='flex justify-end mb-4'>
-          <ManageTaskMembersButton />
+        <div className='flex justify-between'>
+          <span className='text-sm mr-14'>Creator</span>
+          <TaskCreator />
         </div>
-      )}
 
-      <div className='flex justify-end space-x-3'>
+        <div className='flex items-start justify-between'>
+          <span className='text-sm '>Assignee</span>
+          <TaskMembersList />
+        </div>
+
         {isCanManage && (
-          <UpdateTaskButton deleteButton={<DeleteTaskButton />} />
+          <div className='flex justify-end'>
+            <ManageTaskMembersButton />
+          </div>
         )}
 
-        {isCanManage ? (
-          <Button accent>Complete</Button>
-        ) : (
-          <Button accent>Complete</Button>
-        )}
+        <div className='flex justify-end space-x-3'>
+          {isCanManage && (
+            <UpdateTaskButton deleteButton={<DeleteTaskButton />} />
+          )}
+
+          {isCanManage ? (
+            <Button accent>Complete</Button>
+          ) : (
+            <Button accent>Complete</Button>
+          )}
+        </div>
       </div>
     </TaskModalContainer>
   )

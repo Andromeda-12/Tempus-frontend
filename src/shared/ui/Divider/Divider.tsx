@@ -5,5 +5,5 @@ interface DividerProps {
 }
 
 export const Divider = ({ className }: DividerProps) => {
-  return <hr className={clsx('border-primary/30', className)} />
+  return <hr className={clsx('border-primary/30 dark:border-gray-500/40', className)} />
 }
