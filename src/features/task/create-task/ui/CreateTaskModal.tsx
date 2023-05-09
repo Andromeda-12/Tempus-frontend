@@ -60,7 +60,7 @@ export const CreateTaskModal = () => {
           control={control}
           name='taskDescription'
           render={({ field }) => (
-            <Textarea placeholder='Desctiption' {...field} />
+            <Textarea placeholder='Desctiption' rows={6} {...field} />
           )}
         />
 
