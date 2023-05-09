@@ -14,10 +14,11 @@ export const MembersList = ({
   onChangeMemberParticipation
 }: MembersListProps) => {
   return (
-    <div className='border rounded-lg flex flex-col flex-1  h-[200px] pr-2 py-2'>
-      <div className='scrollbar scrollbar-dense overflow-y-auto pr-1'>
+    <div className='border rounded-lg flex flex-col p-3 pr-1 h-full w-full'>
+      <div className='scrollbar scrollbar-dense overflow-y-auto pr-2'>
         {allMembers.map((member) => (
           <Member
+            key={member.id}
             member={member}
             isAssigned={checkAssigned(allMembers, assignedMembers)}
             onChangeMemberParticipation={onChangeMemberParticipation}

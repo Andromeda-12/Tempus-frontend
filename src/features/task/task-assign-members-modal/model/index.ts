@@ -1,14 +1,23 @@
-import { createModal } from '@/shared/lib'
 import { createEvent, sample } from 'effector'
-import { MembersListAction } from '../lib'
-import { condition } from 'patronum'
-import { currentTaskModel, taskManagerModel } from '@/entities/current-task'
+import { pending } from 'patronum'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
+import { currentTaskModel, taskManagerModel } from '@/entities/current-task'
+import { createModal } from '@/shared/lib'
+import { MembersListAction } from '../lib'
 
 export const changeMemberParticipation = createEvent<MembersListAction>()
 
-export const taskAssignMembersModal = createModal()
+export const manageTaskMembersModal = createModal()
+
+export const $isTaskManagePending = pending({
+  effects: [taskManagerModel.assignMemberFx, taskManagerModel.removeMemberFx]
+})
+
+sample({
+  clock: [taskManagerModel.assignMemberFx.doneData, taskManagerModel.removeMemberFx.doneData],
+  target: currentTaskModel.setCurrentTask
+})
 
 sample({
   clock: changeMemberParticipation,
