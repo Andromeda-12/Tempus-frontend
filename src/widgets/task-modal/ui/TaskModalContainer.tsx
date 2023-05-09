@@ -16,7 +16,7 @@ export const TaskModalContainer = ({ children }: TaskModalContainerProps) => {
 
   return (
     <Modal
-      className='w-full max-w-xl overflow-hidden'
+      className='w-full max-w-2xl overflow-hidden'
       isOpen={isOpen}
       onClose={closeModal}
     >
