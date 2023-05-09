@@ -92,8 +92,18 @@ export const $tasks = createStore<TaskDto[]>([])
   .on(removeTaskFx.doneData, (_, tasks) => [
     ..._.filter((t) => t.id !== tasks.id)
   ])
+  .on(updateTaskFx.doneData, (tasks, updatedTask) => {
+    const updatedTaskIndex = tasks.findIndex(
+      (task) => task.id === updatedTask.id
+    )
+    if (updatedTaskIndex === -1) return tasks
+    tasks[updatedTaskIndex] = updatedTask
+    return [...tasks]
+  })
   .reset(resetTasks)
-export const $reversedTasks = $tasks.map(tasks => structuredClone(tasks).reverse())
+export const $reversedTasks = $tasks.map((tasks) =>
+  structuredClone(tasks).reverse()
+)
 
 sample({
   clock: createTask,
