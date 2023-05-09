@@ -18,7 +18,7 @@ export const Task = ({ task }: TaskProps) => {
   const { title, description, members } = task
 
   return (
-    <Card>
+    <Card withHover>
       <ContentContainer py={false} className='py-5  flex flex-col space-y-2'>
         <div className='font-medium'>{title}</div>
 
