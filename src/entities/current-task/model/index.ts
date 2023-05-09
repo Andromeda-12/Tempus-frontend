@@ -1,5 +1,4 @@
 import { createEffect, createEvent, restore, sample } from 'effector'
-import { condition } from 'patronum'
 import { TaskRequestParams } from '@/shared/lib'
 import {
   ApiError,
@@ -13,11 +12,6 @@ export const setMemberProgress = createEvent<MemberProgressDto | null>()
 export const resetCurrentTask = createEvent()
 export const resetMemberProgress = createEvent()
 export const getCurrentTask = createEvent<TaskRequestParams>()
-export const completeTask = createEvent()
-const runTask = createEvent()
-const pauseTask = createEvent()
-export const toggleTaskState = createEvent()
-const toggleTaskStateWithValue = createEvent<{ isRunning: boolean }>()
 
 export const getCurrentTaskFx = createEffect<
   TaskRequestParams,
@@ -27,7 +21,7 @@ export const getCurrentTaskFx = createEffect<
   async ({ taskId, workspaceId, projectId }) =>
     await TasksService.taskControllerGetById(taskId, projectId, workspaceId)
 )
-export const getMemberProgress = createEffect<
+export const getMemberProgressFx = createEffect<
   TaskRequestParams,
   MemberProgressDto,
   ApiError
@@ -39,25 +33,50 @@ export const getMemberProgress = createEffect<
       workspaceId
     )
 )
-export const completeTaskFx = createEffect<TaskDto, TaskDto, ApiError>()
-export const runTaskFx = createEffect<TaskDto, TaskDto, ApiError>()
-export const pauseTaskFx = createEffect<TaskDto, TaskDto, ApiError>()
+export const completeTaskFx = createEffect<
+  TaskRequestParams,
+  TaskDto,
+  ApiError
+>(
+  async ({ taskId, projectId, workspaceId }) =>
+    await TasksService.taskControllerCompleteTask(
+      taskId,
+      projectId,
+      workspaceId
+    )
+)
+export const runTaskFx = createEffect<TaskRequestParams, TaskDto, ApiError>(
+  async ({ taskId, projectId, workspaceId }) =>
+    await TasksService.taskControllerStarTimeLine(
+      taskId,
+      projectId,
+      workspaceId
+    )
+)
+export const pauseTaskFx = createEffect<TaskRequestParams, TaskDto, ApiError>(
+  async ({ taskId, projectId, workspaceId }) =>
+    await TasksService.taskControllerEndTimeLine(taskId, projectId, workspaceId)
+)
 
 export const $currentTask = restore<TaskDto | null>(setCurrentTask, null).reset(
   resetCurrentTask
 )
-export const $members = $currentTask.map((t) => t?.members.map(m => m.member))
+export const $members = $currentTask.map((t) => t?.members.map((m) => m.member))
 export const $memberProgress = restore<MemberProgressDto | null>(
   setMemberProgress,
   null
 ).reset(resetMemberProgress)
 export const $taskCreator = $currentTask.map((task) => task?.creator)
-export const $isRunnign = $memberProgress.map((progress) => progress?.isRunning)
+export const $isRunnign = $memberProgress.map<boolean | null>((progress) => {
+  if (!progress) return null
+  return progress.isRunning
+})
 
 sample({
   clock: getCurrentTask,
   target: getCurrentTaskFx
 })
+
 sample({
   clock: [
     getCurrentTaskFx.doneData,
@@ -68,36 +87,7 @@ sample({
   filter: Boolean,
   target: setCurrentTask
 })
-
 sample({
-  clock: runTask,
-  filter: Boolean,
-  source: $currentTask,
-  target: runTaskFx
-})
-sample({
-  clock: pauseTask,
-  filter: Boolean,
-  source: $currentTask,
-  target: pauseTaskFx
-})
-sample({
-  clock: completeTask,
-  filter: Boolean,
-  source: $currentTask,
-  target: completeTaskFx
-})
-
-sample({
-  clock: toggleTaskState,
-  source: $memberProgress,
-  filter: Boolean,
-  fn: ({ isRunning }) => ({ isRunning }),
-  target: toggleTaskStateWithValue
-})
-condition({
-  source: toggleTaskStateWithValue,
-  if: ({ isRunning }) => isRunning,
-  then: pauseTask,
-  else: runTask
+  clock: getMemberProgressFx.doneData,
+  target: setMemberProgress
 })
