@@ -11,3 +11,5 @@ export * from './get-image-url'
 export * from './check-role'
 
 export * from './create-toggle-filter'
+
+export * from './format-time'
