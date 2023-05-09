@@ -11,7 +11,7 @@ const stopTimer = createEvent()
 export const $isLoading = pending({
   effects: [
     currentTaskModel.getCurrentTaskFx,
-    currentTaskModel.getMemberProgress
+    currentTaskModel.getMemberProgressFx
   ]
 })
 
@@ -28,9 +28,15 @@ $timer.on(tick, (time) => time + second)
 
 sample({
   clock: currentTaskModel.$memberProgress,
-  filter: Boolean,
-  fn: ({ lastTimeLineStartTime, trackedTime }) =>
-    Date.now() - new Date(lastTimeLineStartTime).getTime() + trackedTime,
+  fn: (memberProgress) => {
+    if (!memberProgress) return 0
+    const { isRunning, trackedTime, lastTimeLineStartTime } = memberProgress
+    if (isRunning)
+      return (
+        Date.now() - new Date(lastTimeLineStartTime).getTime() + trackedTime
+      )
+    return trackedTime
+  },
   target: setTimer
 })
 
