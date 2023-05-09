@@ -1,4 +1,4 @@
-import { createEffect } from 'effector'
+import { createEffect, createEvent, sample } from 'effector'
 import { TaskRequestParams } from '@/shared/lib'
 import { ApiError, TaskDto, TasksService } from '@/shared/api'
 
@@ -6,6 +6,9 @@ type TaskMembersParams = {
   params: TaskRequestParams
   userId: number
 }
+
+export const assignMember = createEvent<TaskMembersParams>()
+export const removeMember = createEvent<TaskMembersParams>()
 
 export const assignMemberFx = createEffect<
   TaskMembersParams,
@@ -37,3 +40,12 @@ export const removeMemberFx = createEffect<
       }
     )
 )
+
+sample({
+  clock: assignMember,
+  target: assignMemberFx
+})
+sample({
+  clock: removeMember,
+  target: removeMemberFx
+})

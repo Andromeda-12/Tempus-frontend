@@ -1,5 +1,5 @@
 import { createEvent, createStore, sample } from 'effector'
-import { condition, interval } from 'patronum'
+import { condition, interval, pending } from 'patronum'
 import { currentTaskModel } from '@/entities/current-task'
 
 const second = 1000
@@ -7,6 +7,13 @@ const second = 1000
 const setTimer = createEvent<number>()
 const startTimer = createEvent()
 const stopTimer = createEvent()
+
+export const $isLoading = pending({
+  effects: [
+    currentTaskModel.getCurrentTaskFx,
+    currentTaskModel.getMemberProgress
+  ]
+})
 
 export const $timer = createStore(0)
 

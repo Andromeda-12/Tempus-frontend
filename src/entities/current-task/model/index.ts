@@ -46,6 +46,7 @@ export const pauseTaskFx = createEffect<TaskDto, TaskDto, ApiError>()
 export const $currentTask = restore<TaskDto | null>(setCurrentTask, null).reset(
   resetCurrentTask
 )
+export const $members = $currentTask.map((t) => t?.members.map(m => m.member))
 export const $memberProgress = restore<MemberProgressDto | null>(
   setMemberProgress,
   null

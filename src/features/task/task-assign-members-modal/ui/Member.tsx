@@ -1,0 +1,37 @@
+import { Avatar, Checkbox } from '@/shared/ui'
+import { getImageUrl } from '@/shared/lib'
+import { MemberDto } from '@/shared/api'
+import { MembersListAction } from '../lib'
+
+interface MemberProps {
+  member: MemberDto
+  isAssigned: boolean
+  onChangeMemberParticipation: (action: MembersListAction) => void
+}
+
+export const Member = ({
+  member,
+  isAssigned,
+  onChangeMemberParticipation
+}: MemberProps) => {
+  const { avatar, firstName, lastName, email } = member
+
+  const handleCheckboxChange = () => {
+    onChangeMemberParticipation({
+      member,
+      action: isAssigned ? 'exclude' : 'assign'
+    })
+  }
+
+  return (
+    <div className='flex items-center py-2 px-4 text-sm space-x-5 border-secondary/40'>
+      <Avatar src={getImageUrl(avatar)} />
+      <div className='flex justify-between w-full'>
+        <div>{lastName}</div>
+        <div>{firstName}</div>
+        <div>{email}</div>
+        <Checkbox checked={isAssigned} onChange={handleCheckboxChange} />
+      </div>
+    </div>
+  )
+}

@@ -13,7 +13,6 @@ export const TaskCreator = ({ className }: { className?: string }) => {
 
   return (
     <div className={clsx('flex items-center', className)}>
-      <span className='text-sm mr-5'>Creator</span>
 
       <div className='flex items-center space-x-3'>
         <Avatar src={getImageUrl(taskCreator?.avatar)} fallback={fallback} />
