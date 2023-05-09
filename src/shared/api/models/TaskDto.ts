@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { MembersInfo } from './MembersInfo';
 import type { UserDto } from './UserDto';
 
 export type TaskDto = {
@@ -24,5 +25,5 @@ export type TaskDto = {
     /**
      * Members assigned to task
      */
-    members: Array<string>;
+    members: Array<MembersInfo>;
 };

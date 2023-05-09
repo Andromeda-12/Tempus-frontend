@@ -18,6 +18,7 @@ export type { ForgetPasswordDto } from './models/ForgetPasswordDto';
 export type { GetRoleDto } from './models/GetRoleDto';
 export type { MemberDto } from './models/MemberDto';
 export type { MemberProgressDto } from './models/MemberProgressDto';
+export type { MembersInfo } from './models/MembersInfo';
 export type { ProjectDto } from './models/ProjectDto';
 export type { RecoveryPasswordDto } from './models/RecoveryPasswordDto';
 export type { ReportDto } from './models/ReportDto';
