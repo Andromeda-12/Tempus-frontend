@@ -1,16 +1,28 @@
 import { useUnit } from 'effector-react'
-import { ToggleTaskState } from '@/features/task/toggle-task-state'
 import { Timer } from '@/features/task/timer'
+import { ToggleTaskState } from '@/features/task/toggle-task-state'
+import { ManageTaskMembersButton } from '@/features/task/task-assign-members-modal'
 import { Button } from '@/shared/ui'
 import { TaskTitle } from './TaskTitle'
 import { TaskCreator } from './TaskCreator'
-import { WorkersList } from './WorkersList'
+import { TaskMembersList } from './TaskMembersList'
 import { TaskDescription } from './TaskDescription'
 import { TaskModalContainer } from './TaskModalContainer'
 import { $isAssignedOnTask } from '../model'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { currentProjectModel } from '@/entities/current-project'
+import { UpdateTaskButton } from '@/features/task/update-task'
+import { DeleteTaskButton } from '@/features/task/delete-task'
 
 export const TaskModal = () => {
   const isAssignedOnTask = useUnit($isAssignedOnTask)
+  const workspaceRole = useUnit(currentWorkspaceModel.$workspaceViewerRole)
+  const projectRole = useUnit(currentProjectModel.$projectViewerRole)
+
+  const isCanManage =
+    workspaceRole === 'Owner' ||
+    projectRole === 'Owner' ||
+    projectRole === 'Manager'
 
   return (
     <TaskModalContainer>
@@ -30,17 +42,27 @@ export const TaskModal = () => {
         <TaskCreator className='mb-5' />
       </div>
 
-      <div className='flex items-start justify-between'>
-        <span className='text-sm mr-5'>Assignee</span>
-
-        <div className='h-[200px] w-[400px]'>
-          <WorkersList />
-        </div>
+      <div className='flex items-start justify-between mb-4'>
+        <span className='text-sm '>Assignee</span>
+        <TaskMembersList />
       </div>
 
-      <div className='mt-4 flex justify-end space-x-3'>
-        <Button>Edit</Button>
-        <Button accent>Complete</Button>
+      {isCanManage && (
+        <div className='flex justify-end mb-4'>
+          <ManageTaskMembersButton />
+        </div>
+      )}
+
+      <div className='flex justify-end space-x-3'>
+        {isCanManage && (
+          <UpdateTaskButton deleteButton={<DeleteTaskButton />} />
+        )}
+
+        {isCanManage ? (
+          <Button accent>Complete</Button>
+        ) : (
+          <Button accent>Complete</Button>
+        )}
       </div>
     </TaskModalContainer>
   )
