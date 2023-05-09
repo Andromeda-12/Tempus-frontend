@@ -3,7 +3,7 @@ import { notificationModel } from '@/features/notification'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
 import { currentTaskModel } from '@/entities/current-task'
-import { taskModal } from '@/entities/task'
+import { taskModel } from '@/entities/task'
 import { createModal } from '@/shared/lib'
 import { UpdateTaskDto } from '@/shared/api'
 
@@ -28,11 +28,16 @@ sample({
     },
     updateTaskDto
   }),
-  target: taskModal.updateTask
+  target: taskModel.updateTask
 })
 
 sample({
-  clock: taskModal.updateTaskFx.failData,
+  clock: taskModel.removeTaskFx.doneData,
+  target: updateTaskModal.closeModal
+})
+
+sample({
+  clock: taskModel.updateTaskFx.failData,
   fn: (error) =>
     notificationModel.createNotificationBody({
       type: 'error',

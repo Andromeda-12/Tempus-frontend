@@ -1,17 +1,22 @@
+import { ReactNode } from 'react'
 import { useUnit } from 'effector-react'
-import { IconButton } from '@/shared/ui'
+import { Button } from '@/shared/ui'
 import { UpdateTaskModal } from './UpdateTaskModal'
 import { updateTaskModal } from '../model'
 
-export const UpdateTaskButton = () => {
+interface UpdateTaskButtonProps {
+  deleteButton: ReactNode
+}
+
+export const UpdateTaskButton = ({ deleteButton }: UpdateTaskButtonProps) => {
   const isOpen = useUnit(updateTaskModal.$isOpen)
   const openModal = useUnit(updateTaskModal.openModal)
 
   return (
     <>
-      {isOpen && <UpdateTaskModal />}
+      {isOpen && <UpdateTaskModal deleteButton={deleteButton} />}
 
-      <IconButton icon='pencil' size='sm' variant='text' onClick={openModal} />
+      <Button variant='text' onClick={openModal}>Edit</Button>
     </>
   )
 }

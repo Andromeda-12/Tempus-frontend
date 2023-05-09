@@ -1,23 +1,30 @@
-import { useForm } from 'react-hook-form'
+import { ReactNode } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { useUnit } from 'effector-react'
-import { Button, FormField, Modal } from '@/shared/ui'
+import { Button, FormField, Modal, Textarea } from '@/shared/ui'
 import { UpdateTaskDto } from '@/shared/api'
 import { updateTask, updateTaskModal } from '../model'
+import { currentTaskModel } from '@/entities/current-task'
+
+interface UpdateTaskModalProps {
+  deleteButton: ReactNode
+}
 
 interface IFormData {
   taskTitle: string
   taskDescription: string
 }
 
-const defaultValues = {
-  taskTitle: '',
-  taskDescription: ''
-}
-
-export const UpdateTaskModal = () => {
+export const UpdateTaskModal = ({ deleteButton }: UpdateTaskModalProps) => {
   const isOpen = useUnit(updateTaskModal.$isOpen)
   const closeModal = useUnit(updateTaskModal.closeModal)
   const updateTaskFn = useUnit(updateTask)
+  const currentTask = useUnit(currentTaskModel.$currentTask)
+
+  const defaultValues = {
+    taskTitle: currentTask?.title,
+    taskDescription: currentTask?.description
+  }
 
   const { handleSubmit, control, reset } = useForm<IFormData>({
     defaultValues
@@ -56,26 +63,39 @@ export const UpdateTaskModal = () => {
           }}
         />
 
-        <FormField
-          placeholder='Description'
-          name='taskDescription'
+        <Controller
           control={control}
+          name='taskDescription'
+          render={({ field }) => (
+            <Textarea placeholder='Desctiption' rows={6} {...field} />
+          )}
         />
 
-        <div className='flex justify-end'>
-          <div className='sm:w-2/5 flex space-x-3'>
-            <Button
-              className='w-full'
-              variant='text'
-              type='button'
-              onClick={handleCloseModal}
-            >
-              Cancel
-            </Button>
+        <div className='flex justify-between'>
+          <div
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+          >
+            {deleteButton}
+          </div>
 
-            <Button className='w-full' accent>
-              Update
-            </Button>
+          <div className='sm:w-2/5 flex space-x-3'>
+            <div className='sm:w-2/5 flex space-x-3'>
+              <Button
+                className='w-full'
+                variant='text'
+                type='button'
+                onClick={handleCloseModal}
+              >
+                Cancel
+              </Button>
+
+              <Button className='w-full' accent>
+                Update
+              </Button>
+            </div>
           </div>
         </div>
       </form>
