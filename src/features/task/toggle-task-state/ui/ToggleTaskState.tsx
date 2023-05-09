@@ -1,23 +1,29 @@
 import { useUnit } from 'effector-react'
 import { currentTaskModel } from '@/entities/current-task'
 import { IconButton } from '@/shared/ui'
-import { toggleTaskState } from '../model'
+import { $isLoading, toggleTaskState } from '../model'
 
 interface ToggleTaskStateProps {
   disabled?: boolean
 }
 
 export const ToggleTaskState = ({ disabled }: ToggleTaskStateProps) => {
-  const isTaskRunnign = useUnit(currentTaskModel.$isRunnign)
+  const isTaskRunning = useUnit(currentTaskModel.$isRunning)
   const toggleTaskStateFn = useUnit(toggleTaskState)
+  const isLoading = useUnit($isLoading)
 
-  let iconName = isTaskRunnign ? 'pause' : 'play'
+  if (isLoading)
+    return (
+      <div className='bg-secondary/10 animate-pulse h-[40px] w-[40px] rounded-lg'></div>
+    )
+
+  let iconName = isTaskRunning ? 'pause' : 'play'
 
   return (
     <IconButton
       disabled={disabled}
       icon={iconName}
-      accent={!isTaskRunnign}
+      accent={!isTaskRunning}
       onClick={toggleTaskStateFn}
     />
   )

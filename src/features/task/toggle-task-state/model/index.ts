@@ -1,10 +1,18 @@
 import { createEvent, sample } from 'effector'
+import { pending } from 'patronum'
 import { currentTaskModel } from '@/entities/current-task'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
 
 export const toggleTaskState = createEvent()
 const toggleTaskStateWithValue = createEvent<{ isRunning: boolean }>()
+
+export const $isLoading = pending({
+  effects: [
+    currentTaskModel.getCurrentTaskFx,
+    currentTaskModel.getMemberProgressFx
+  ]
+})
 
 sample({
   clock: toggleTaskState,

@@ -9,6 +9,7 @@ import {
 
 export const setCurrentTask = createEvent<TaskDto | null>()
 export const setMemberProgress = createEvent<MemberProgressDto | null>()
+export const setIsRunning = createEvent<boolean | null>()
 export const resetCurrentTask = createEvent()
 export const resetMemberProgress = createEvent()
 export const getCurrentTask = createEvent<TaskRequestParams>()
@@ -67,9 +68,21 @@ export const $memberProgress = restore<MemberProgressDto | null>(
   null
 ).reset(resetMemberProgress)
 export const $taskCreator = $currentTask.map((task) => task?.creator)
-export const $isRunnign = $memberProgress.map<boolean | null>((progress) => {
-  if (!progress) return null
-  return progress.isRunning
+export const $isRunning = restore<boolean | null>(setIsRunning, null).reset(
+  resetCurrentTask
+)
+
+sample({
+  source: {
+    progress: $memberProgress,
+    task: $currentTask
+  },
+  fn: ({ progress, task }) => {
+    if (!task) return null
+    if (!progress) return false
+    return progress.isRunning
+  },
+  target: setIsRunning
 })
 
 sample({
