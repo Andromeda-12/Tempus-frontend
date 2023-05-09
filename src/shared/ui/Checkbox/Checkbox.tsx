@@ -22,6 +22,7 @@ const CheckIcon = ({ className }: { className: string }) => (
 
 interface CheckboxProps {
   className?: string
+  checkboxClassName?: string
   name?: string
   label?: string
   checked?: boolean
@@ -30,7 +31,19 @@ interface CheckboxProps {
 }
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ className, name, label, checked, disabled, onChange, ...rest }, ref) => {
+  (
+    {
+      className,
+      checkboxClassName,
+      name,
+      label,
+      checked,
+      disabled,
+      onChange,
+      ...rest
+    },
+    ref
+  ) => {
     return (
       <div className={clsx('flex', className)}>
         <CheckboxRoot
@@ -43,12 +56,12 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             'flex h-5 w-5 items-center justify-center rounded',
             'border-2',
             'focus:outline-none focus-visible:ring ring-primary dark:ring-secondary ring-offset-2 dark:ring-offset-neutral focus-visible:ring-opacity-75',
-            'disabled:radix-state-checked:bg-primary/50 disabled:cursor-not-allowed'
+            'disabled:radix-state-checked:bg-primary/50 disabled:cursor-not-allowed',
+            checkboxClassName
           )}
         >
           <Indicator>
             <CheckIcon className='h-4 w-4 self-center text-slate-800 dark:text-white' />
-            {/* <Icon name='eye' /> */}
           </Indicator>
         </CheckboxRoot>
 
