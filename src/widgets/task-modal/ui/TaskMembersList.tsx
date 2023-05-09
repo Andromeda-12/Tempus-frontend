@@ -18,7 +18,7 @@ export const TaskMembersList = () => {
     )
 
   return (
-    <div className=' w-[280px] relative overflow-hidden'>
+    <div className='w-[286px] relative overflow-hidden'>
       {isLoading && (
         <div className='absolute inset-0 bg-neutral/90 z-20  flex justify-center items-center'>
           <Spinner className='!w-10 !h-10 border-4' />
@@ -46,7 +46,7 @@ const Member = ({ memberInfo }: { memberInfo: MembersInfo }) => {
         text={`${lastName} ${firstName}`}
       />
 
-      <div className='w-[40px] flex justify-end mr-2'>
+      <div className='w-[40px] flex justify-end mr-3'>
         {formatTime(workTime)}
       </div>
 
