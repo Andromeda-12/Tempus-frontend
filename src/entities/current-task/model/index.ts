@@ -36,7 +36,7 @@ export const getMemberProgressFx = createEffect<
 )
 export const completeTaskFx = createEffect<
   TaskRequestParams,
-  TaskDto,
+  MemberProgressDto,
   ApiError
 >(
   async ({ taskId, projectId, workspaceId }) =>
@@ -46,7 +46,11 @@ export const completeTaskFx = createEffect<
       workspaceId
     )
 )
-export const runTaskFx = createEffect<TaskRequestParams, TaskDto, ApiError>(
+export const runTaskFx = createEffect<
+  TaskRequestParams,
+  MemberProgressDto,
+  ApiError
+>(
   async ({ taskId, projectId, workspaceId }) =>
     await TasksService.taskControllerStarTimeLine(
       taskId,
@@ -54,7 +58,11 @@ export const runTaskFx = createEffect<TaskRequestParams, TaskDto, ApiError>(
       workspaceId
     )
 )
-export const pauseTaskFx = createEffect<TaskRequestParams, TaskDto, ApiError>(
+export const pauseTaskFx = createEffect<
+  TaskRequestParams,
+  MemberProgressDto,
+  ApiError
+>(
   async ({ taskId, projectId, workspaceId }) =>
     await TasksService.taskControllerEndTimeLine(taskId, projectId, workspaceId)
 )
@@ -91,16 +99,16 @@ sample({
 })
 
 sample({
-  clock: [
-    getCurrentTaskFx.doneData,
-    runTaskFx.doneData,
-    pauseTaskFx.doneData,
-    completeTaskFx.doneData
-  ],
+  clock: getCurrentTaskFx.doneData,
   filter: Boolean,
   target: setCurrentTask
 })
 sample({
-  clock: getMemberProgressFx.doneData,
+  clock: [
+    getMemberProgressFx.doneData,
+    runTaskFx.doneData,
+    pauseTaskFx.doneData,
+    completeTaskFx.doneData
+  ],
   target: setMemberProgress
 })
