@@ -1,26 +1,32 @@
-import { createEvent, sample } from 'effector'
+import { sample } from 'effector'
 import { pending } from 'patronum'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
 import { currentTaskModel, taskManagerModel } from '@/entities/current-task'
 import { createModal } from '@/shared/lib'
-import { MembersListAction } from '../lib'
-
-export const changeMemberParticipation = createEvent<MembersListAction>()
+import { manageMembersModel } from '../../manage-members-modal'
 
 export const manageTaskMembersModal = createModal()
 
-export const $isTaskManagePending = pending({
+sample({
+  clock: manageTaskMembersModal.closeModal,
+  target: manageMembersModel.resetStores
+})
+
+export const $isLoading = pending({
   effects: [taskManagerModel.assignMemberFx, taskManagerModel.removeMemberFx]
 })
 
 sample({
-  clock: [taskManagerModel.assignMemberFx.doneData, taskManagerModel.removeMemberFx.doneData],
+  clock: [
+    taskManagerModel.assignMemberFx.doneData,
+    taskManagerModel.removeMemberFx.doneData
+  ],
   target: currentTaskModel.setCurrentTask
 })
 
 sample({
-  clock: changeMemberParticipation,
+  clock: manageMembersModel.changeParticipation,
   source: {
     currentWorkspace: currentWorkspaceModel.$currentWorkspace,
     currentProject: currentProjectModel.$currentProject,
@@ -42,7 +48,7 @@ sample({
   target: taskManagerModel.assignMember
 })
 sample({
-  clock: changeMemberParticipation,
+  clock: manageMembersModel.changeParticipation,
   source: {
     currentWorkspace: currentWorkspaceModel.$currentWorkspace,
     currentProject: currentProjectModel.$currentProject,

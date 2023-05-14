@@ -1,7 +1,6 @@
 import { useUnit } from 'effector-react'
 import { Timer } from '@/features/task/timer'
 import { ToggleTaskState } from '@/features/task/toggle-task-state'
-import { ManageTaskMembersButton } from '@/features/task/task-assign-members-modal'
 import { Button, Divider } from '@/shared/ui'
 import { TaskTitle } from './TaskTitle'
 import { TaskCreator } from './TaskCreator'
@@ -13,6 +12,7 @@ import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
 import { UpdateTaskButton } from '@/features/task/update-task'
 import { DeleteTaskButton } from '@/features/task/delete-task'
+import { ManageTaskMembersButton } from '@/features/manage-members/manage-task-members-modal'
 
 export const TaskModal = () => {
   const isAssignedOnTask = useUnit($isAssignedOnTask)

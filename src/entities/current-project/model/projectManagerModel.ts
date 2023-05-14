@@ -1,4 +1,4 @@
-import { createEffect } from 'effector'
+import { createEffect, createEvent, sample } from 'effector'
 import { ProjectRequestParams } from '@/shared/lib'
 import { ApiError, ProjectDto, ProjectsService } from '@/shared/api'
 
@@ -6,6 +6,9 @@ type ProjectMembersParams = {
   params: ProjectRequestParams
   userId: number
 }
+
+export const addMember = createEvent<ProjectMembersParams>()
+export const removeMember = createEvent<ProjectMembersParams>()
 
 export const addMemberFx = createEffect<
   ProjectMembersParams,
@@ -23,3 +26,12 @@ export const removeMemberFx = createEffect<
   async ({ params: { projectId, workspaceId }, userId }) =>
     await ProjectsService.projectControllerRemoveMember(projectId, workspaceId)
 )
+
+sample({
+  clock: addMember,
+  target: addMemberFx
+})
+sample({
+  clock: removeMember,
+  target: removeMemberFx
+})
