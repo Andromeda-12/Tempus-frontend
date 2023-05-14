@@ -43,6 +43,7 @@ export const $currentWorkspace = createStore<WorkspaceDto | null>(null).reset(
 export const $workspaceViewerRole = createStore<Role | null>(null).reset(
   resetCurrentWorkspace
 )
+export const $members = $currentWorkspace.map((w) => w?.members)
 
 sample({
   clock: getCurrentWorkspaceFx.doneData,
