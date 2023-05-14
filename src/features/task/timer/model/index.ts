@@ -14,15 +14,17 @@ export const $isLoading = pending({
 })
 
 export const $timer = createStore(0)
-
-const { tick } = interval({
-  timeout: 1000,
-  start: startTimer,
-  stop: stopTimer
-})
+const $startTime = createStore<number | null>(null)
 
 $timer.on(setTimer, (_, time) => time)
-$timer.on(tick, (time) => time + 1)
+
+sample({
+  clock: currentTaskModel.$memberProgress,
+  filter: Boolean,
+  fn: ({ trackedTime, lastTimeLineStartTime }) =>
+    new Date(lastTimeLineStartTime).getTime() / 1000 - trackedTime,
+  target: $startTime
+})
 
 sample({
   clock: currentTaskModel.$memberProgress,
@@ -36,10 +38,27 @@ sample({
       const currentTimeInSeconds = Math.floor(Date.now() / 1000)
       return currentTimeInSeconds - lastTimeLineStartTimeInSeconds + trackedTime
     }
-
     return trackedTime
   },
   target: setTimer
+})
+
+const { tick } = interval({
+  timeout: 1000,
+  start: startTimer,
+  stop: stopTimer
+})
+
+sample({
+  clock: tick,
+  source: $startTime,
+  filter: Boolean,
+  fn: (startTime) => {
+    const currentTime = Date.now() / 1000
+    const elapsedSeconds = Math.floor(currentTime - startTime)
+    return elapsedSeconds
+  },
+  target: $timer
 })
 
 condition({
