@@ -232,14 +232,14 @@ requestBody: ValidationUserIdDto,
      * @param taskId 
      * @param projectId 
      * @param workspaceId 
-     * @returns TaskDto 
+     * @returns MemberProgressDto 
      * @throws ApiError
      */
     public static taskControllerStarTimeLine(
 taskId: number,
 projectId: number,
 workspaceId: number,
-): CancelablePromise<TaskDto> {
+): CancelablePromise<MemberProgressDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/startTimeLine',
@@ -256,14 +256,14 @@ workspaceId: number,
      * @param taskId 
      * @param projectId 
      * @param workspaceId 
-     * @returns TaskDto 
+     * @returns MemberProgressDto 
      * @throws ApiError
      */
     public static taskControllerEndTimeLine(
 taskId: number,
 projectId: number,
 workspaceId: number,
-): CancelablePromise<TaskDto> {
+): CancelablePromise<MemberProgressDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/endTimeLine',
@@ -280,14 +280,14 @@ workspaceId: number,
      * @param taskId 
      * @param projectId 
      * @param workspaceId 
-     * @returns TaskDto 
+     * @returns MemberProgressDto 
      * @throws ApiError
      */
     public static taskControllerCompleteTask(
 taskId: number,
 projectId: number,
 workspaceId: number,
-): CancelablePromise<TaskDto> {
+): CancelablePromise<MemberProgressDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/completeTask',
