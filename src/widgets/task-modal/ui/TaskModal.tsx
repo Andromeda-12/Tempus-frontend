@@ -41,12 +41,12 @@ export const TaskModal = () => {
         <Divider />
 
         <div className='flex justify-between'>
-          <span className='text-sm mr-14'>Creator</span>
+          <span className='text-xs sm:text-sm mr-14'>Creator</span>
           <TaskCreator />
         </div>
 
         <div className='flex items-start justify-between'>
-          <span className='text-sm '>Assignee</span>
+          <span className='text-xs sm:text-sm mr-3'>Assignee</span>
           <TaskMembersList />
         </div>
 

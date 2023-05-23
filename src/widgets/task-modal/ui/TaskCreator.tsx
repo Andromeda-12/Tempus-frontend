@@ -13,10 +13,11 @@ export const TaskCreator = ({ className }: { className?: string }) => {
 
   return (
     <div className={clsx('flex items-center', className)}>
-
       <div className='flex items-center space-x-3'>
-        <Avatar src={getImageUrl(taskCreator?.avatar)} fallback={fallback} />
-        <span className='text-sm'>{`${taskCreator?.lastName} ${taskCreator?.firstName} `}</span>
+        <div>
+          <Avatar src={getImageUrl(taskCreator?.avatar)} fallback={fallback} />
+        </div>
+        <span className='text-xs sm:text-sm'>{`${taskCreator?.lastName} ${taskCreator?.firstName} `}</span>
       </div>
     </div>
   )

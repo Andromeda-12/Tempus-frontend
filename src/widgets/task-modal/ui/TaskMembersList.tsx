@@ -18,7 +18,7 @@ export const TaskMembersList = () => {
     )
 
   return (
-    <div className='w-[286px] relative overflow-hidden'>
+    <div className='w-[276px] relative overflow-hidden'>
       {isLoading && (
         <div className='absolute inset-0 bg-neutral/90 z-20  flex justify-center items-center'>
           <Spinner className='!w-10 !h-10 border-4' />
@@ -39,10 +39,12 @@ const Member = ({ memberInfo }: { memberInfo: MembersInfo }) => {
   const { avatar, firstName, lastName } = member
   return (
     <div className='flex items-center py-1.5 text-xs md:text-sm w-full'>
-      <Avatar className='mr-3' size='sm' src={getImageUrl(avatar)} />
+      <div className='flex justify-center items-center mr-3'>
+        <Avatar size='sm' src={getImageUrl(avatar)} />
+      </div>
 
       <Column
-        className='w-[170px] min-w-[170px] mr-2'
+        className='w-[160px] min-w-[160px] mr-2'
         text={`${lastName} ${firstName}`}
       />
 
