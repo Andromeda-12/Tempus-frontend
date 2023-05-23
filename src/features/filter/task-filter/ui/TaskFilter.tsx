@@ -14,6 +14,11 @@ export const TaskFilter = ({ className }: ProjectFilterProps) => {
 
   const [isOpen, setIsOpen] = useState(false)
 
+  const hanldeFilterChanged = (value: string) => {
+    if (values.includes(value as FilterValue)) changeValue(value as FilterValue)
+    else changeValue('all')
+  }
+
   return (
     <Popover
       onOpenChange={setIsOpen}
@@ -23,7 +28,7 @@ export const TaskFilter = ({ className }: ProjectFilterProps) => {
     >
       <FilterToggleGroup
         currentValue={currentFilter}
-        onValueChange={(value) => changeValue(value as FilterValue)}
+        onValueChange={hanldeFilterChanged}
         values={values}
       />
     </Popover>
