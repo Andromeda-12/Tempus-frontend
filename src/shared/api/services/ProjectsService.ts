@@ -6,6 +6,7 @@ import type { GetRoleDto } from '../models/GetRoleDto';
 import type { ProjectDto } from '../models/ProjectDto';
 import type { UpdateProjectDto } from '../models/UpdateProjectDto';
 import type { UpdateRoleDto } from '../models/UpdateRoleDto';
+import type { ValidationUserIdDto } from '../models/ValidationUserIdDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -170,12 +171,14 @@ workspaceId: number,
      * Add member to project
      * @param projectId 
      * @param workspaceId 
+     * @param requestBody 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerAddMember(
 projectId: number,
 workspaceId: number,
+requestBody: ValidationUserIdDto,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -184,6 +187,8 @@ workspaceId: number,
                 'projectId': projectId,
                 'workspaceId': workspaceId,
             },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
@@ -191,12 +196,14 @@ workspaceId: number,
      * Remove member from project
      * @param projectId 
      * @param workspaceId 
+     * @param requestBody 
      * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerRemoveMember(
 projectId: number,
 workspaceId: number,
+requestBody: ValidationUserIdDto,
 ): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -205,6 +212,8 @@ workspaceId: number,
                 'projectId': projectId,
                 'workspaceId': workspaceId,
             },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 

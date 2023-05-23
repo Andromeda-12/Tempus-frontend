@@ -116,24 +116,6 @@ workspaceId: number,
     }
 
     /**
-     * Add member to workspace
-     * @param workspaceId 
-     * @returns WorkspaceDto 
-     * @throws ApiError
-     */
-    public static workspaceControllerAddMember(
-workspaceId: number,
-): CancelablePromise<WorkspaceDto> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/api/workspace/{workspaceId}/addMember',
-            path: {
-                'workspaceId': workspaceId,
-            },
-        });
-    }
-
-    /**
      * Remove member from workspace
      * @param workspaceId 
      * @returns WorkspaceDto 
@@ -186,6 +168,78 @@ workspaceId: number,
             url: '/api/workspace/{workspaceId}/getRole',
             path: {
                 'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * Generate invite url for workspace
+     * @param workspaceId 
+     * @returns string 
+     * @throws ApiError
+     */
+    public static workspaceControllerGenerateInviteUrl(
+workspaceId: number,
+): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/workspace/{workspaceId}/generateInviteUrl',
+            path: {
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * Remove invite url from workspace
+     * @param workspaceId 
+     * @returns string 
+     * @throws ApiError
+     */
+    public static workspaceControllerRemoveInviteUrl(
+workspaceId: number,
+): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/workspace/{workspaceId}/removeInviteUrl',
+            path: {
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * Check invite url valid
+     * @param code 
+     * @returns string 
+     * @throws ApiError
+     */
+    public static workspaceControllerCheckInviteUrl(
+code: string,
+): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/checkInviteUrl/{code}',
+            path: {
+                'code': code,
+            },
+        });
+    }
+
+    /**
+     * Accept invite from url
+     * @param code 
+     * @returns WorkspaceDto 
+     * @throws ApiError
+     */
+    public static workspaceControllerAcceptInvite(
+code: string,
+): CancelablePromise<WorkspaceDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/workspace/acceptInvite/{code}',
+            path: {
+                'code': code,
             },
         });
     }

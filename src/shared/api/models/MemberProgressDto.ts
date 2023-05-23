@@ -8,6 +8,10 @@ export type MemberProgressDto = {
      */
     isRunning: boolean;
     /**
+     * Task is complete?
+     */
+    isComplete: boolean;
+    /**
      * How much time are tracked
      */
     trackedTime: number;

@@ -42,7 +42,8 @@ workspaceId: number,
      * @param title Task title
      * @param offset Offset of tasks
      * @param limit Limit of tasks
-     * @param filter Workspace title
+     * @param filter Assigned filter
+     * @param completedFilter Completed filter
      * @returns TaskDto 
      * @throws ApiError
      */
@@ -53,6 +54,7 @@ title?: string,
 offset?: number,
 limit?: number,
 filter?: string,
+completedFilter?: string,
 ): CancelablePromise<Array<TaskDto>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -66,6 +68,7 @@ filter?: string,
                 'offset': offset,
                 'limit': limit,
                 'filter': filter,
+                'completedFilter': completedFilter,
             },
         });
     }
@@ -291,6 +294,30 @@ workspaceId: number,
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/completeTask',
+            path: {
+                'taskId': taskId,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * Uncomplete task
+     * @param taskId 
+     * @param projectId 
+     * @param workspaceId 
+     * @returns MemberProgressDto 
+     * @throws ApiError
+     */
+    public static taskControllerUnCompleteTask(
+taskId: number,
+projectId: number,
+workspaceId: number,
+): CancelablePromise<MemberProgressDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/unCompleteTask',
             path: {
                 'taskId': taskId,
                 'projectId': projectId,
