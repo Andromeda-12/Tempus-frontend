@@ -27,7 +27,7 @@ export const Member = ({
   return (
     <div
       className={clsx(
-        'flex items-center py-2 px-4 text-sm space-x-5 hover:bg-secondary/10 duration-75',
+        'flex items-center py-2 px-4 text-sm space-x-5 hover:bg-secondary dark:hover:bg-secondary/10 duration-75',
         isAssigned && 'bg-secondary/5'
       )}
     >

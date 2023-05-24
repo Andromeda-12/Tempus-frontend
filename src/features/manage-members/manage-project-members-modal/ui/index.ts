@@ -1,1 +1,1 @@
-export * from './ManageMembersButton'
+export * from './ManageProjectMembersButton'

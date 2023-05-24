@@ -1,3 +1,3 @@
-import { changeParticipation, resetStores } from './model'
-export const manageMembersModel = { resetStores, changeParticipation }
+import { resetStores } from './model'
+export const manageMembersModel = { resetStores }
 export * from './ui'

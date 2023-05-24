@@ -1,4 +1,4 @@
-import { sample } from 'effector'
+import { createEvent, sample } from 'effector'
 import { pending } from 'patronum'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
 import {
@@ -8,8 +8,10 @@ import {
 import { currentTaskModel } from '@/entities/current-task'
 import { createModal } from '@/shared/lib'
 import { manageMembersModel } from '../../manage-members-modal'
+import { MembersListAction } from '../../manage-members-modal/lib'
 
 export const manageProjectMembersModal = createModal()
+export const projectChangeParticipation = createEvent<MembersListAction>()
 
 sample({
   clock: manageProjectMembersModal.closeModal,
@@ -29,7 +31,7 @@ sample({
 })
 
 sample({
-  clock: manageMembersModel.changeParticipation,
+  clock: projectChangeParticipation,
   source: {
     currentWorkspace: currentWorkspaceModel.$currentWorkspace,
     currentProject: currentProjectModel.$currentProject,
@@ -51,7 +53,7 @@ sample({
   target: projectManagerModel.addMember
 })
 sample({
-  clock: manageMembersModel.changeParticipation,
+  clock: projectChangeParticipation,
   source: {
     currentWorkspace: currentWorkspaceModel.$currentWorkspace,
     currentProject: currentProjectModel.$currentProject,

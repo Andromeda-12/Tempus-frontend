@@ -15,7 +15,8 @@ function truncateString(str: string, length: number) {
 }
 
 export const Task = ({ task }: TaskProps) => {
-  const { title, description, members } = task
+  const { title, description, members: membersInfo } = task
+  const members = membersInfo.map((memberInfo) => memberInfo.member)
 
   return (
     <Card withHover>
@@ -31,8 +32,13 @@ export const Task = ({ task }: TaskProps) => {
           {description ? truncateString(description, 90) : 'no description'}
         </div>
 
-        {/* <AvatarGroup members={members} /> */}
-        <ViewerAvatar />
+        {members.length ? (
+          <AvatarGroup members={members} />
+        ) : (
+          <div className='text-sm opacity-70 h-[2.7em] text-gray-500 dark:text-gray-400'>
+            no assigned
+          </div>
+        )}
       </ContentContainer>
     </Card>
   )

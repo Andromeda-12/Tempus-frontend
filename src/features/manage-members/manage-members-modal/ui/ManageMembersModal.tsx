@@ -3,13 +3,15 @@ import { Modal, Spinner } from '@/shared/ui'
 import { MemberDto } from '@/shared/api'
 import { SearchMember } from './SearchMember'
 import { MembersList } from './MembersList'
-import { gate, $filteredMembers, changeParticipation } from '../model'
+import { gate, $filteredMembers } from '../model'
+import { MembersListAction } from '../lib'
 
 interface ManageMembersModalProps {
   isLoading: boolean
   title: string
   allMembers: MemberDto[]
   assignedMembers: MemberDto[]
+  onChangeMemberParticipation: (action: MembersListAction) => void
   onClose: () => void
 }
 
@@ -18,6 +20,7 @@ export const ManageMembersModal = ({
   title,
   allMembers,
   assignedMembers,
+  onChangeMemberParticipation,
   onClose
 }: ManageMembersModalProps) => {
   useGate(gate, {
@@ -25,12 +28,11 @@ export const ManageMembersModal = ({
     assignedMembers
   })
   const filteredMembers = useUnit($filteredMembers)
-  const changeParticipationFn = useUnit(changeParticipation)
   return (
     <Modal isOpen className='w-full max-w-3xl' title={title} onClose={onClose}>
       <div className='relative'>
         {isLoading && (
-          <div className='absolute inset-0 bg-neutral/90 z-20 flex justify-center items-center'>
+          <div className='absolute inset-0 bg-white/70 dark:bg-neutral/90 z-30 flex justify-center items-center'>
             <Spinner className='!w-10 !h-10 border-4' />
           </div>
         )}
@@ -43,7 +45,7 @@ export const ManageMembersModal = ({
           <MembersList
             allMembers={filteredMembers}
             assignedMembers={assignedMembers}
-            onChangeMemberParticipation={changeParticipationFn}
+            onChangeMemberParticipation={onChangeMemberParticipation}
           />
         </div>
       </div>

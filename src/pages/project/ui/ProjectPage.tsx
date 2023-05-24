@@ -14,6 +14,7 @@ import { ProjectTitle } from './ProjectTitle'
 import { HasAccess } from './HasAccess'
 import { ProjectMembers } from './ProjectMembers'
 import { $isLoadingCurrentProject } from '../model'
+import { ManageProjectMembersButton } from '@/features/manage-members/manage-project-members-modal'
 
 export const ProjectPage = ({}) => {
   const isLoading = useUnit($isLoadingCurrentProject)
@@ -52,7 +53,7 @@ export const ProjectPage = ({}) => {
 
           <div className='mb-3 flex justify-between items-center'>
             <ProjectMembers />
-            
+
             <HasAccess>
               <CreateTaskButton />
             </HasAccess>

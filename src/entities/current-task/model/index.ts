@@ -76,9 +76,10 @@ export const $memberProgress = restore<MemberProgressDto | null>(
   null
 ).reset(resetMemberProgress)
 export const $taskCreator = $currentTask.map((task) => task?.creator)
-export const $isRunning = restore<boolean | null>(setIsRunning, null).reset(
+export const $isRunning = restore<boolean | null>(setIsRunning, null).reset([
+  resetMemberProgress,
   resetCurrentTask
-)
+])
 
 sample({
   source: {

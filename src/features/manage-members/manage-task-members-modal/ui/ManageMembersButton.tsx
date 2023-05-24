@@ -2,13 +2,18 @@ import { useUnit } from 'effector-react'
 import { currentProjectModel } from '@/entities/current-project'
 import { currentTaskModel } from '@/entities/current-task'
 import { Button } from '@/shared/ui'
-import { $isLoading, manageTaskMembersModal } from '../model'
+import {
+  $isLoading,
+  manageTaskMembersModal,
+  taskChangeParticipation
+} from '../model'
 import { ManageMembersModal } from '../../manage-members-modal'
 
 export const ManageTaskMembersButton = () => {
   const isOpen = useUnit(manageTaskMembersModal.$isOpen)
   const openModal = useUnit(manageTaskMembersModal.openModal)
   const closeModal = useUnit(manageTaskMembersModal.closeModal)
+  const taskChangeParticipationFn = useUnit(taskChangeParticipation)
 
   const projectMembers = useUnit(currentProjectModel.$members)
   const taskMembers = useUnit(currentTaskModel.$members)
@@ -23,6 +28,7 @@ export const ManageTaskMembersButton = () => {
           isLoading={isLoading}
           allMembers={projectMembers!}
           assignedMembers={taskMembers!}
+          onChangeMemberParticipation={taskChangeParticipationFn}
           onClose={closeModal}
         />
       )}

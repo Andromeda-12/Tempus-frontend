@@ -2,7 +2,6 @@ import { createEvent, createStore, restore, sample } from 'effector'
 import { debounce } from 'patronum'
 import { createGate } from 'effector-react'
 import { MemberDto } from '@/shared/api'
-import { MembersListAction } from '../lib'
 
 export const setSearchedName = createEvent<string>()
 export const debouncedSearchedName = debounce({
@@ -10,7 +9,6 @@ export const debouncedSearchedName = debounce({
   timeout: 300
 })
 export const resetStores = createEvent()
-export const changeParticipation = createEvent<MembersListAction>()
 
 export const gate = createGate<{
   allMembers: MemberDto[]

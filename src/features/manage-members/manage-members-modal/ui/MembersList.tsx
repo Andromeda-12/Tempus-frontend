@@ -14,7 +14,7 @@ export const MembersList = ({
   onChangeMemberParticipation
 }: MembersListProps) => {
   return (
-    <div className='border border-secondary/50 rounded-lg flex flex-col p-3 pr-1 h-full w-full'>
+    <div className='border-2 dark:border-secondary/50 rounded-lg flex flex-col p-3 pr-1 h-full w-full'>
       <div className='scrollbar scrollbar-dense overflow-y-auto pr-2'>
         {allMembers.length === 0 && <div className='text-center opacity-50'>member not found</div>}
         {allMembers.map((member) => (

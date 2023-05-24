@@ -3,6 +3,7 @@ import { MembersModalButton } from '@/widgets/members-modal'
 import { AvatarGroup } from '@/features/users/avatar-group'
 import { currentProjectModel } from '@/entities/current-project'
 import { HasAccess } from './HasAccess'
+import { ManageProjectMembersButton } from '@/features/manage-members/manage-project-members-modal'
 
 export const ProjectMembers = () => {
   const currentProject = useUnit(currentProjectModel.$currentProject)
@@ -13,7 +14,7 @@ export const ProjectMembers = () => {
       <AvatarGroup members={currentProject?.members || []} />
 
       <HasAccess>
-        <MembersModalButton members={currentProject?.members || []} />
+        <ManageProjectMembersButton />
       </HasAccess>
     </div>
   )
