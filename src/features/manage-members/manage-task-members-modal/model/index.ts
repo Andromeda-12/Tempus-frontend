@@ -1,13 +1,13 @@
 import { createEvent, sample } from 'effector'
 import { pending } from 'patronum'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { currentProjectModel } from '@/entities/current-project'
-import { currentTaskModel, taskManagerModel } from '@/entities/current-task'
-import { createModal } from '@/shared/lib'
+import { viewerModel } from '@/entities/viewer'
 import { taskModel } from '@/entities/task'
+import { currentTaskModel, taskManagerModel } from '@/entities/current-task'
+import { currentProjectModel } from '@/entities/current-project'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { createModal } from '@/shared/lib'
 import { manageMembersModel } from '../../manage-members-modal'
 import { MembersListAction } from '../../manage-members-modal/lib'
-import { viewerModel } from '@/entities/viewer'
 
 export const manageTaskMembersModal = createModal()
 export const taskChangeParticipation = createEvent<MembersListAction>()
@@ -79,16 +79,7 @@ sample({
     taskManagerModel.assignMemberFx.doneData,
     taskManagerModel.removeMemberFx.doneData
   ],
-  source: taskModel.$tasks,
-  fn: (tasks, updatedTask) => {
-    const updatedTaskIndex = tasks.findIndex(
-      (task) => task.id === updatedTask.id
-    )
-    if (updatedTaskIndex === -1) return tasks
-    tasks[updatedTaskIndex] = updatedTask
-    return [...tasks]
-  },
-  target: taskModel.$tasks
+  target: taskModel.updateLoadedTask
 })
 
 sample({
@@ -96,7 +87,9 @@ sample({
   source: viewerModel.$viewer,
   filter: (viewer, task) => {
     if (!viewer) return false
-    const index = task.members.findIndex(member => member.member.id === viewer.id)
+    const index = task.members.findIndex(
+      (member) => member.member.id === viewer.id
+    )
     return index === -1
   },
   target: currentTaskModel.resetMemberProgress
