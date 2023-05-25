@@ -5,7 +5,6 @@ import { Button, Card, Checkbox, FormField } from '@/shared/ui'
 import { emailRegexp } from '@/shared/lib'
 import { forgetPasswordRoute, signupRoute } from '@/shared/routing'
 import { $isLoading, signIn } from '../model'
-import { notificationModel } from '@/features/notification'
 
 const defaultValues = {
   email: '',
