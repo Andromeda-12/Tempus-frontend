@@ -23,6 +23,7 @@ export const updateTask = createEvent<{
   params: TaskRequestParams
   updateTaskDto: UpdateTaskDto
 }>()
+export const updateLoadedTask = createEvent<TaskDto>()
 export const removeTask = createEvent<TaskRequestParams>()
 export const resetTasks = createEvent()
 
@@ -116,4 +117,17 @@ sample({
 sample({
   clock: removeTask,
   target: removeTaskFx
+})
+sample({
+  clock: updateLoadedTask,
+  source: $tasks,
+  fn: (tasks, updatedTask) => {
+    const updatedTaskIndex = tasks.findIndex(
+      (task) => task.id === updatedTask.id
+    )
+    if (updatedTaskIndex === -1) return tasks
+    tasks[updatedTaskIndex] = updatedTask
+    return [...tasks]
+  },
+  target: $tasks
 })
