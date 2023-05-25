@@ -1,38 +1,54 @@
 import { useUnit } from 'effector-react'
+import clsx from 'clsx'
 import { Timer } from '@/features/task/timer'
-import { ToggleTaskState } from '@/features/task/toggle-task-state'
-import { Button, Divider } from '@/shared/ui'
-import { TaskTitle } from './TaskTitle'
-import { TaskCreator } from './TaskCreator'
-import { TaskMembersList } from './TaskMembersList'
-import { TaskDescription } from './TaskDescription'
-import { TaskModalContainer } from './TaskModalContainer'
-import { $isAssignedOnTask } from '../model'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { currentProjectModel } from '@/entities/current-project'
 import { UpdateTaskButton } from '@/features/task/update-task'
 import { DeleteTaskButton } from '@/features/task/delete-task'
+import { CompleteTaskButton } from '@/features/task/complete-task'
+import { MemberToggleCompleteButton } from '@/features/task/member-toggle-complete'
 import { ManageTaskMembersButton } from '@/features/manage-members/manage-task-members-modal'
+import { ToggleTaskState } from '@/features/task/toggle-task-state'
+import { currentTaskModel } from '@/entities/current-task'
+import { currentProjectModel } from '@/entities/current-project'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { Divider, Show } from '@/shared/ui'
+import { TaskTitle } from './TaskTitle'
+import { TaskCreator } from './TaskCreator'
+import { TaskDescription } from './TaskDescription'
+import { TaskMembersList } from './TaskMembersList'
+import { TaskModalContainer } from './TaskModalContainer'
+import { $isAssignedOnTask } from '../model'
+import { CompleteMark } from './CompleteMark'
 
 export const TaskModal = () => {
   const isAssignedOnTask = useUnit($isAssignedOnTask)
   const workspaceRole = useUnit(currentWorkspaceModel.$workspaceViewerRole)
   const projectRole = useUnit(currentProjectModel.$projectViewerRole)
+  const currentTask = useUnit(currentTaskModel.$currentTask)
+  const memberProgress = useUnit(currentTaskModel.$memberProgress)
 
   const isCanManage =
     workspaceRole === 'Owner' ||
     projectRole === 'Owner' ||
     projectRole === 'Manager'
+  const isTaskCompleted = !!currentTask?.isComplete
 
   return (
     <TaskModalContainer>
       <div className='space-y-5'>
         <div className='flex items-center justify-between mt-2 '>
-          <TaskTitle />
+          <div className='flex items-center space-x-3'>
+            <TaskTitle />
+
+            <Show when={isTaskCompleted}>
+              <CompleteMark />
+            </Show>
+          </div>
 
           <div className='flex items-center space-x-3'>
-            <Timer disabled={!isAssignedOnTask} />
-            <ToggleTaskState disabled={!isAssignedOnTask} />
+            <Timer disabled={!isAssignedOnTask || memberProgress?.isComplete} />
+            <ToggleTaskState
+              disabled={!isAssignedOnTask || memberProgress?.isComplete}
+            />
           </div>
         </div>
 
@@ -50,22 +66,33 @@ export const TaskModal = () => {
           <TaskMembersList />
         </div>
 
-        {isCanManage && (
+        <Show when={isCanManage && !isTaskCompleted}>
           <div className='flex justify-end'>
             <ManageTaskMembersButton />
           </div>
-        )}
+        </Show>
 
-        <div className='flex justify-end space-x-3'>
-          {isCanManage && (
+        <div
+          className={clsx(
+            'flex',
+            isCanManage ? 'justify-between' : 'justify-end'
+          )}
+        >
+          <Show when={isCanManage}>
             <UpdateTaskButton deleteButton={<DeleteTaskButton />} />
-          )}
+          </Show>
 
-          {isCanManage ? (
-            <Button accent>Complete</Button>
-          ) : (
-            <Button accent>Complete</Button>
-          )}
+          <Show when={!isTaskCompleted}>
+            <div className='flex justify-end space-x-3'>
+              <Show when={isAssignedOnTask}>
+                <MemberToggleCompleteButton />
+              </Show>
+
+              <Show when={isCanManage}>
+                <CompleteTaskButton />
+              </Show>
+            </div>
+          </Show>
         </div>
       </div>
     </TaskModalContainer>
