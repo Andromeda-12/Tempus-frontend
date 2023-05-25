@@ -46,6 +46,18 @@ export const completeTaskFx = createEffect<
       workspaceId
     )
 )
+export const uncompleteTaskFx = createEffect<
+  TaskRequestParams,
+  MemberProgressDto,
+  ApiError
+>(
+  async ({ taskId, projectId, workspaceId }) =>
+    await TasksService.taskControllerUnCompleteTask(
+      taskId,
+      projectId,
+      workspaceId
+    )
+)
 export const runTaskFx = createEffect<
   TaskRequestParams,
   MemberProgressDto,
@@ -109,7 +121,8 @@ sample({
     getMemberProgressFx.doneData,
     runTaskFx.doneData,
     pauseTaskFx.doneData,
-    completeTaskFx.doneData
+    completeTaskFx.doneData,
+    uncompleteTaskFx.doneData
   ],
   target: setMemberProgress
 })
