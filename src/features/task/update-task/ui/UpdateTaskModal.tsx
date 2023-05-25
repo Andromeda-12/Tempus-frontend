@@ -81,21 +81,19 @@ export const UpdateTaskModal = ({ deleteButton }: UpdateTaskModalProps) => {
             {deleteButton}
           </div>
 
-          <div className='sm:w-2/5 flex space-x-3'>
-            <div className='sm:w-2/5 flex space-x-3'>
-              <Button
-                className='w-full'
-                variant='text'
-                type='button'
-                onClick={handleCloseModal}
-              >
-                Cancel
-              </Button>
+          <div className='sm:w-2/5 space-x-3 flex'>
+            <Button
+              className='w-full'
+              variant='text'
+              type='button'
+              onClick={handleCloseModal}
+            >
+              Cancel
+            </Button>
 
-              <Button className='w-full' accent>
-                Update
-              </Button>
-            </div>
+            <Button className='w-full' accent>
+              Update
+            </Button>
           </div>
         </div>
       </form>
