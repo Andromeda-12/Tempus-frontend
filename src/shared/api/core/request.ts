@@ -22,11 +22,6 @@ const axiosErrorHandler = async (error: any) => {
 
   // Если запрос отклонен из-за истечения срока действия токена
   if (error.response.status === 401) {
-    // Если запрос на выход пользователя из системы
-    if (isSignOutRequest(originalRequest)) {
-      return;
-    }
-
     // Если запрос на обновление токена
     if (isRefreshTokenRequest(originalRequest)) {
       await handleRefreshTokenRequestError(originalRequest, error);
@@ -54,9 +49,6 @@ const axiosErrorHandler = async (error: any) => {
   return Promise.reject(error);
 };
 
-// Проверяет, является ли запрос запросом на выход пользователя из системы
-const isSignOutRequest = (request: any) => request.url.includes('/auth/signOut');
-
 // Проверяет, является ли запрос запросом на обновление токена
 const isRefreshTokenRequest = (request: any) => request.url.includes('/auth/refresh');
 
@@ -79,48 +71,6 @@ const handleRetryWithNewToken = async (request: any) => {
 };
 
 axios.interceptors.response.use((config) => config, axiosErrorHandler);
-// Подключаем обработчик ошибок к Axios
-
-// let refreshRequest: Promise<any> | null = null
-
-// axios.interceptors.response.use(
-//   (config) => config,
-//   async (error) => {
-//     const originalRequest = error.config
-
-//     if (
-//       error.response.status === 401 &&
-//       originalRequest.url.includes('/auth/signOut')
-//     )
-//       return
-
-//     if (
-//       error.response.status === 401 &&
-//       originalRequest.url.includes('/auth/refresh')
-//     ) {
-//       viewerModel.signOut()
-//       return Promise.reject(error)
-//     } else if (
-//       error.response.status === 400 &&
-//       originalRequest.url.includes('/auth/refresh')
-//     ) {
-//       if (!originalRequest._retry) return Promise.reject(error)
-//       else return axios(originalRequest)
-//     } else if (error.response.status === 401 && !originalRequest._retry) {
-//       originalRequest._retry = true
-
-//       if (!refreshRequest) {
-//         refreshRequest = AuthService.authControllerRefresh()
-//       }
-
-//       await refreshRequest
-//       refreshRequest = null
-
-//       return axios(originalRequest)
-//     }
-//     return Promise.reject(error)
-//   }
-// )
 
 const isDefined = <T>(
   value: T | null | undefined
