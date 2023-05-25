@@ -1,23 +1,21 @@
-import clsx from 'clsx'
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
+import clsx from 'clsx'
 import { FilterToggleGroup, Icon, Popover } from '@/shared/ui'
-import { FilterValue, values, taskFilter } from '../model'
+import { FilterValue, values, completeTaskFilter } from '../model'
 
-interface ProjectFilterProps {
+interface CompleteTaskFilterProps {
   className?: string
 }
 
-export const TaskFilter = ({ className }: ProjectFilterProps) => {
-  const currentFilter = useUnit(taskFilter.currentValue)
-  const changeValue = useUnit(taskFilter.changeValue)
+export const CompleteTaskFilter = ({ className }: CompleteTaskFilterProps) => {
+  const currentFilter = useUnit(completeTaskFilter.currentValue)
+  const changeValue = useUnit(completeTaskFilter.changeValue)
 
   const [isOpen, setIsOpen] = useState(false)
 
-  const hanldeFilterChanged = (value: string) => {
-    if (values.includes(value as FilterValue)) changeValue(value as FilterValue)
-    else changeValue('all')
-  }
+  const hanldeFilterChanged = (value: string) =>
+    changeValue(value as FilterValue)
 
   return (
     <Popover
@@ -36,13 +34,13 @@ export const TaskFilter = ({ className }: ProjectFilterProps) => {
 }
 
 const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
-  const currentFilter = useUnit(taskFilter.currentValue)
+  const currentFilter = useUnit(completeTaskFilter.currentValue)
 
-  const label = currentFilter === null ? 'none' : currentFilter
+  const label = currentFilter === null ? 'all' : currentFilter
 
   return (
     <div className='flex items-center space-x-3 text-sm'>
-      <div className='select-none'>Assign filter:</div>
+      <div className='select-none'>Complete filter:</div>
       <div className='select-none cursor-pointer flex items-center text-color-light/60 dark:text-color-dark/50'>
         {label}
         <Icon

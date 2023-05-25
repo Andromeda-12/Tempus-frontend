@@ -1,6 +1,6 @@
 import { createEffect, createEvent, createStore, sample } from 'effector'
 import {
-  GetRequestQuery,
+  GetTasksRequestQuery,
   ProjectRequestParams,
   TaskRequestParams
 } from '@/shared/lib'
@@ -30,14 +30,14 @@ export const resetTasks = createEvent()
 export const getTasksFx = createEffect<
   {
     params: ProjectRequestParams
-    query: GetRequestQuery
+    query: GetTasksRequestQuery
   },
   TaskDto[],
   ApiError
 >(
   async ({
     params: { projectId, workspaceId },
-    query: { offset, limit, title, filter }
+    query: { offset, limit, title, filter, completedFilter }
   }) =>
     await TasksService.taskControllerGetAll(
       projectId,
@@ -45,7 +45,8 @@ export const getTasksFx = createEffect<
       title,
       offset,
       limit,
-      filter
+      filter,
+      completedFilter
     )
 )
 export const createTaskFx = createEffect<
