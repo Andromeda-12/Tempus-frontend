@@ -15,6 +15,10 @@ export type TaskDto = {
      */
     title: string;
     /**
+     * Task is complete?
+     */
+    isComplete: boolean;
+    /**
      * Task description
      */
     description?: string;

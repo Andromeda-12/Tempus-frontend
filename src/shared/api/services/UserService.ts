@@ -92,12 +92,12 @@ requestBody: ChangeUserPasswordDto,
     /**
      * Change mail by token
      * @param token 
-     * @returns any 
+     * @returns void 
      * @throws ApiError
      */
     public static userControllerConfirmChangeMail(
 token: string,
-): CancelablePromise<any> {
+): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/user/confirmChangeMail/{token}',
@@ -108,13 +108,14 @@ token: string,
     }
 
     /**
+     * Send change mail message
      * @param requestBody 
-     * @returns any 
+     * @returns void 
      * @throws ApiError
      */
     public static userControllerChangeMail(
 requestBody: ChangeUserMailDto,
-): CancelablePromise<any> {
+): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/user/changeMail',

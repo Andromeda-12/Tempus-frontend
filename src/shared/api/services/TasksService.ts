@@ -279,18 +279,66 @@ workspaceId: number,
     }
 
     /**
-     * Complete task
+     * Complete work
      * @param taskId 
      * @param projectId 
      * @param workspaceId 
      * @returns MemberProgressDto 
      * @throws ApiError
      */
-    public static taskControllerCompleteTask(
+    public static taskControllerCompleteWork(
 taskId: number,
 projectId: number,
 workspaceId: number,
 ): CancelablePromise<MemberProgressDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/completeWork',
+            path: {
+                'taskId': taskId,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * Uncomplete work
+     * @param taskId 
+     * @param projectId 
+     * @param workspaceId 
+     * @returns MemberProgressDto 
+     * @throws ApiError
+     */
+    public static taskControllerUnCompleteWork(
+taskId: number,
+projectId: number,
+workspaceId: number,
+): CancelablePromise<MemberProgressDto> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/unCompleteWork',
+            path: {
+                'taskId': taskId,
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
+     * Complete task
+     * @param taskId 
+     * @param projectId 
+     * @param workspaceId 
+     * @returns TaskDto 
+     * @throws ApiError
+     */
+    public static taskControllerCompleteTask(
+taskId: number,
+projectId: number,
+workspaceId: number,
+): CancelablePromise<TaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/completeTask',
@@ -307,14 +355,14 @@ workspaceId: number,
      * @param taskId 
      * @param projectId 
      * @param workspaceId 
-     * @returns MemberProgressDto 
+     * @returns TaskDto 
      * @throws ApiError
      */
     public static taskControllerUnCompleteTask(
 taskId: number,
 projectId: number,
 workspaceId: number,
-): CancelablePromise<MemberProgressDto> {
+): CancelablePromise<TaskDto> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/api/workspace/{workspaceId}/project/{projectId}/task/{taskId}/unCompleteTask',
