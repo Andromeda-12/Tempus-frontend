@@ -40,7 +40,7 @@ export const completeTaskFx = createEffect<
   ApiError
 >(
   async ({ taskId, projectId, workspaceId }) =>
-    await TasksService.taskControllerCompleteTask(
+    await TasksService.taskControllerCompleteWork(
       taskId,
       projectId,
       workspaceId
@@ -52,7 +52,7 @@ export const uncompleteTaskFx = createEffect<
   ApiError
 >(
   async ({ taskId, projectId, workspaceId }) =>
-    await TasksService.taskControllerUnCompleteTask(
+    await TasksService.taskControllerUnCompleteWork(
       taskId,
       projectId,
       workspaceId
