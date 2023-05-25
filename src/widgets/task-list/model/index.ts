@@ -2,8 +2,9 @@ import { createEvent, createStore, restore, sample } from 'effector'
 import { taskSearchModel } from '@/features/filter/task-search'
 import { taskFilterModel } from '@/features/filter/task-filter'
 import { taskModel } from '@/entities/task'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { taskManagerModel } from '@/entities/current-task'
 import { currentProjectModel } from '@/entities/current-project'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { GetRequestQuery } from '@/shared/lib'
 import { PROJECTS_REQUEST_LIMIT } from '@/shared/config'
 
@@ -91,5 +92,10 @@ sample({
 })
 sample({
   clock: taskSearchModel.debouncedSearchTask,
+  target: [loadMoreTasks, resetOffset, resetTasks]
+})
+
+sample({
+  clock: taskManagerModel.completeTaskFx.doneData,
   target: [loadMoreTasks, resetOffset, resetTasks]
 })
