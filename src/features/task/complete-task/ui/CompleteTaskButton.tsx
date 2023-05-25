@@ -1,12 +1,25 @@
 import { useUnit } from 'effector-react'
-import { currentTaskModel } from '@/entities/current-task'
 import { Button } from '@/shared/ui'
+import { ConfirmCompleteTaskModal } from './ConfirmCompleteTaskModal'
+import { $isCanComplete, confirmModal } from '../model'
 
 export const CompleteTaskButton = () => {
-  const completeTask = useUnit(currentTaskModel.completeTask)
+  const isOpen = useUnit(confirmModal.$isOpen)
+  const openModal = useUnit(confirmModal.openModal)
+  const isCanComplete = useUnit($isCanComplete)
+
   return (
-    <Button onClick={completeTask} variant='contained' accent>
-      Complete
-    </Button>
+    <>
+      {isOpen && <ConfirmCompleteTaskModal />}
+
+      <Button
+        onClick={openModal}
+        variant='contained'
+        disabled={!isCanComplete}
+        accent
+      >
+        Complete task
+      </Button>
+    </>
   )
 }

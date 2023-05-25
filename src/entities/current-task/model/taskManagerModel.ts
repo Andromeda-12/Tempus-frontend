@@ -40,6 +40,18 @@ export const removeMemberFx = createEffect<
       }
     )
 )
+export const completeTaskFx = createEffect<
+  TaskRequestParams,
+  TaskDto,
+  ApiError
+>(
+  async ({ taskId, projectId, workspaceId }) =>
+    await TasksService.taskControllerCompleteTask(
+      taskId,
+      projectId,
+      workspaceId
+    )
+)
 
 sample({
   clock: assignMember,
