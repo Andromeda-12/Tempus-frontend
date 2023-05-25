@@ -1,7 +1,7 @@
+import { sample } from 'effector'
 import { querySync } from 'atomic-router'
 import { controls, projectRoute } from '@/shared/routing'
 import { createToggleFilter } from '@/shared/lib'
-import { sample } from 'effector'
 
 export type FilterValue = 'all' | 'assigned' | 'unassigned'
 
