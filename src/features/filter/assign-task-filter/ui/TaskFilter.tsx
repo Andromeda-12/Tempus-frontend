@@ -4,11 +4,11 @@ import { useUnit } from 'effector-react'
 import { FilterToggleGroup, Icon, Popover } from '@/shared/ui'
 import { FilterValue, values, taskFilter } from '../model'
 
-interface ProjectFilterProps {
+interface AssignTaskFilterProps {
   className?: string
 }
 
-export const TaskFilter = ({ className }: ProjectFilterProps) => {
+export const AssignTaskFilter = ({ className }: AssignTaskFilterProps) => {
   const currentFilter = useUnit(taskFilter.currentValue)
   const changeValue = useUnit(taskFilter.changeValue)
 
@@ -41,7 +41,7 @@ const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
   const label = currentFilter === null ? 'none' : currentFilter
 
   return (
-    <div className='flex items-center space-x-3 text-sm'>
+    <div className='flex items-center space-x-3 text-xs sm:text-sm'>
       <div className='select-none'>Assign filter:</div>
       <div className='select-none cursor-pointer flex items-center text-color-light/60 dark:text-color-dark/50'>
         {label}

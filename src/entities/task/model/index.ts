@@ -37,7 +37,7 @@ export const getTasksFx = createEffect<
 >(
   async ({
     params: { projectId, workspaceId },
-    query: { offset, limit, title, filter, completedFilter }
+    query: { offset, limit, title, assignFilter, completedFilter }
   }) =>
     await TasksService.taskControllerGetAll(
       projectId,
@@ -45,7 +45,7 @@ export const getTasksFx = createEffect<
       title,
       offset,
       limit,
-      filter,
+      assignFilter,
       completedFilter
     )
 )

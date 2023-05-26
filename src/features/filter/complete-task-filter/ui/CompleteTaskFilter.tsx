@@ -39,7 +39,7 @@ const FilterTrigger = ({ isOpen }: { isOpen: boolean }) => {
   const label = currentFilter === null ? 'all' : currentFilter
 
   return (
-    <div className='flex items-center space-x-3 text-sm'>
+    <div className='flex items-center space-x-3 text-xs sm:text-sm'>
       <div className='select-none'>Complete filter:</div>
       <div className='select-none cursor-pointer flex items-center text-color-light/60 dark:text-color-dark/50'>
         {label}
