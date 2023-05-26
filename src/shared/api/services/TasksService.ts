@@ -42,7 +42,7 @@ workspaceId: number,
      * @param title Task title
      * @param offset Offset of tasks
      * @param limit Limit of tasks
-     * @param filter Assigned filter
+     * @param assignedFilter Assigned filter
      * @param completedFilter Completed filter
      * @returns TaskDto 
      * @throws ApiError
@@ -53,7 +53,7 @@ workspaceId: number,
 title?: string,
 offset?: number,
 limit?: number,
-filter?: string,
+assignedFilter?: string,
 completedFilter?: string,
 ): CancelablePromise<Array<TaskDto>> {
         return __request(OpenAPI, {
@@ -67,7 +67,7 @@ completedFilter?: string,
                 'title': title,
                 'offset': offset,
                 'limit': limit,
-                'filter': filter,
+                'assignedFilter': assignedFilter,
                 'completedFilter': completedFilter,
             },
         });
