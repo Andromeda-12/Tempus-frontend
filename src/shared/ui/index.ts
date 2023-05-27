@@ -33,3 +33,4 @@ export * from './AddButton'
 export * from './Show'
 
 export * from './Textarea'
+export * from './Select'
