@@ -17,11 +17,16 @@ export const AuthLayout = ({ children }: AuthLayoutProps) => (
 
         <div className='text-3xl text-gray-500'>
           Tempus nihil aliud est quam numerus motus secundum prioribus et
-          posterioribus...
+          posterioribus...*
         </div>
       </div>
 
       {children}
+
+      <div className='text-sm absolute left-2 bottom-2 text-gray-500 mt-5'>
+        *Time is nothing but the number of movements according to previous and
+        subsequent...
+      </div>
     </div>
   </div>
 )
