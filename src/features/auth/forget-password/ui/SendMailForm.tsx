@@ -1,10 +1,10 @@
 import { useEvent, useUnit } from 'effector-react'
+import { Link } from 'atomic-router-react'
 import { useForm } from 'react-hook-form'
 import { Button, Card, FormField } from '@/shared/ui'
 import { emailRegexp } from '@/shared/lib'
-import { sendEmail, $isEmailSending, $isEmailSended } from '../model'
-import { Link } from 'atomic-router-react'
 import { signinRoute } from '@/shared/routing'
+import { sendEmail, $isEmailSending, $isEmailSended } from '../model'
 
 const defaultValues = {
   email: ''
@@ -76,7 +76,7 @@ export const SendMailForm = () => {
               disabled={isEmailSending || !isValid}
               className='w-full'
             >
-              {isEmailSending ? 'Loading...' : 'Send email'}
+              {isEmailSending ? 'Sending...' : 'Send email'}
             </Button>
 
             <div className='text-center mt-3'>
