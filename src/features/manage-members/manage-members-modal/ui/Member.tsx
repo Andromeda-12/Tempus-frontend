@@ -31,7 +31,12 @@ export const Member = ({
         isAssigned && 'bg-secondary/5'
       )}
     >
-      <Avatar src={getImageUrl(avatar)} />
+      <div>
+        <Avatar
+          src={getImageUrl(avatar)}
+          fallback={`${firstName[0]}${lastName[0]}`}
+        />
+      </div>
       <div className='flex justify-between w-full'>
         <div>{lastName}</div>
         <div>{firstName}</div>

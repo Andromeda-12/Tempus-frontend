@@ -1,6 +1,10 @@
 import { createEffect, createEvent, sample } from 'effector'
 import { TaskRequestParams } from '@/shared/lib'
-import { ApiError, TaskDto, TasksService } from '@/shared/api'
+import {
+  ApiError,
+  TaskDto,
+  TasksService,
+} from '@/shared/api'
 
 type TaskMembersParams = {
   params: TaskRequestParams

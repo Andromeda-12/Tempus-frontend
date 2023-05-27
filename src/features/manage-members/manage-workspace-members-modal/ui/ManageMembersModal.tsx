@@ -1,16 +1,16 @@
+import { ReactNode } from 'react'
 import { useGate, useUnit } from 'effector-react'
 import { Modal, Spinner } from '@/shared/ui'
 import { MemberDto } from '@/shared/api'
 import { SearchMember } from './SearchMember'
 import { MembersList } from './MembersList'
-import { gate, $filteredMembers } from '../model'
+import { $filteredMembers } from '../model'
 import { MembersListAction } from '../lib'
 
 interface ManageMembersModalProps {
   isLoading: boolean
   title: string
-  allMembers: MemberDto[]
-  assignedMembers: MemberDto[]
+  manageInviteLinkButton: ReactNode
   onChangeMemberParticipation: (action: MembersListAction) => void
   onClose: () => void
 }
@@ -18,18 +18,18 @@ interface ManageMembersModalProps {
 export const ManageMembersModal = ({
   isLoading,
   title,
-  allMembers,
-  assignedMembers,
+  manageInviteLinkButton,
   onChangeMemberParticipation,
   onClose
 }: ManageMembersModalProps) => {
-  useGate(gate, {
-    allMembers,
-    assignedMembers
-  })
   const filteredMembers = useUnit($filteredMembers)
   return (
-    <Modal isOpen className='w-full max-w-4xl' title={title} onClose={onClose}>
+    <Modal
+      isOpen
+      className='w-full max-w-4xl overflow-hidden'
+      title={title}
+      onClose={onClose}
+    >
       <div className='relative'>
         {isLoading && (
           <div className='absolute inset-0 bg-white/70 dark:bg-neutral/90 z-30 flex justify-center items-center'>
@@ -43,11 +43,12 @@ export const ManageMembersModal = ({
 
         <div className='h-[200px]'>
           <MembersList
-            allMembers={filteredMembers}
-            assignedMembers={assignedMembers}
+            allMembers={filteredMembers!}
             onChangeMemberParticipation={onChangeMemberParticipation}
           />
         </div>
+
+        <div className='mt-3'>{manageInviteLinkButton}</div>
       </div>
     </Modal>
   )

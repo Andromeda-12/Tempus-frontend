@@ -16,7 +16,9 @@ export const addMemberFx = createEffect<
   ApiError
 >(
   async ({ params: { projectId, workspaceId }, userId }) =>
-    await ProjectsService.projectControllerAddMember(projectId, workspaceId)
+    await ProjectsService.projectControllerAddMember(projectId, workspaceId, {
+      userId
+    })
 )
 export const removeMemberFx = createEffect<
   ProjectMembersParams,
@@ -24,7 +26,11 @@ export const removeMemberFx = createEffect<
   ApiError
 >(
   async ({ params: { projectId, workspaceId }, userId }) =>
-    await ProjectsService.projectControllerRemoveMember(projectId, workspaceId)
+    await ProjectsService.projectControllerRemoveMember(
+      projectId,
+      workspaceId,
+      { userId }
+    )
 )
 
 sample({

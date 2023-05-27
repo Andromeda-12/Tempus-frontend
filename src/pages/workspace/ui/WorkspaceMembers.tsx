@@ -1,6 +1,7 @@
 import { useUnit } from 'effector-react'
-import { MembersModalButton } from '@/widgets/members-modal'
 import { AvatarGroup } from '@/features/users/avatar-group'
+import { ManageInviteLinkButton } from '@/features/manage-invite-link'
+import { ManageWorkspaceMembersButton } from '@/features/manage-members/manage-workspace-members-modal'
 import { HasAccess } from './HasAccess'
 import { $currentWorkspace } from '../model'
 
@@ -13,7 +14,9 @@ export const WorkspaceMembers = () => {
       <AvatarGroup members={currentWorkspace?.members || []} />
 
       <HasAccess>
-        <MembersModalButton members={currentWorkspace?.members || []} />
+        <ManageWorkspaceMembersButton
+          manageInviteLinkButton={<ManageInviteLinkButton />}
+        />
       </HasAccess>
     </div>
   )

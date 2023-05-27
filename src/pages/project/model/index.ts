@@ -14,7 +14,7 @@ const startLoadTasks = combineEvents({
     currentWorkspaceModel.getCurrentWorkspaceFx.done,
     currentWorkspaceModel.getWorkspaceRoleFx.done,
     currentProjectModel.getCurrentProjectFx.done,
-    currentProjectModel.getProjectRoleFx.done
+    currentProjectModel.getProjectRoleFx.finally
   ]
 })
 
