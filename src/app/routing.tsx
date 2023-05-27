@@ -1,14 +1,15 @@
 import { createHistoryRouter } from 'atomic-router'
 import { createRoutesView } from 'atomic-router-react'
 import { createBrowserHistory } from 'history'
+import { AuthLayout, CenteredLayout, SidebarLayout } from '@/widgets/layouts'
 import { SignIn } from '@/pages/sign-in'
 import { SignUp } from '@/pages/sign-up'
 import { ForgetPassword } from '@/pages/forget-password'
+import { ConfirmChangeMail } from '@/pages/confirm-change-mail'
 import { RecoveryPassword } from '@/pages/recovery-password'
 import { Workspaces } from '@/pages/workspaces'
 import { Workspace } from '@/pages/workspace'
 import { NotFound } from '@/pages/404'
-import { AuthLayout, CenteredLayout, SidebarLayout } from '@/widgets/layouts'
 import { controls } from '@/shared/routing'
 import { Settings } from '@/pages/settings'
 import { Project } from '@/pages/project'
@@ -18,10 +19,13 @@ const routes = [
   { path: '/signup', route: SignUp.route },
   { path: '/forget-password', route: ForgetPassword.route },
   { path: '/recovery-password', route: RecoveryPassword.route },
-  { path: '/recovery-password', route: RecoveryPassword.route },
+  { path: '/confirm-change-mail', route: ConfirmChangeMail.route },
   { path: '/workspaces', route: Workspaces.route },
   { path: '/workspaces/:workspaceId', route: Workspace.route },
-  { path: '/workspaces/:workspaceId/projects/:projectId', route: Project.route },
+  {
+    path: '/workspaces/:workspaceId/projects/:projectId',
+    route: Project.route
+  },
   { path: '/settings/:settingSection', route: Settings.route },
   { path: '/404', route: NotFound.route }
 ]
@@ -47,6 +51,11 @@ export const RoutesView = createRoutesView({
     {
       route: RecoveryPassword.route,
       view: RecoveryPassword.view,
+      layout: CenteredLayout
+    },
+    {
+      route: ConfirmChangeMail.route,
+      view: ConfirmChangeMail.view,
       layout: CenteredLayout
     },
     { route: Workspaces.route, view: Workspaces.view, layout: SidebarLayout },
