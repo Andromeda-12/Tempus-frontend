@@ -16,7 +16,7 @@ export const AvatarGroup = ({ className, members }: AvatarGroupProps) => (
         text={`${member.firstName} ${member.lastName}`}
         className='relative -right-3'
       >
-        <Avatar src={getImageUrl(member.avatar)} />
+        <Avatar src={getImageUrl(member.avatar)} fallback={`${member.firstName[0]}${member.lastName[0]}`} />
       </Tooltip>
     ))}
   </div>
