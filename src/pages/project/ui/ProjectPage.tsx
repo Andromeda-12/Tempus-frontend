@@ -1,11 +1,12 @@
 import { useUnit } from 'effector-react'
 import { TaskList } from '@/widgets/task-list'
 import { TaskModal, taskModalModel } from '@/widgets/task-modal'
-import { CreateTaskButton } from '@/features/task/create-task'
 import { UpdateProjectButton } from '@/features/project/update-project'
 import { DeleteProjectButton } from '@/features/project/delete-project'
 import { TaskSearch } from '@/features/filter/task-search'
-import { TaskFilter } from '@/features/filter/task-filter'
+import { AssignTaskFilter } from '@/features/filter/assign-task-filter'
+import { CompleteTaskFilter } from '@/features/filter/complete-task-filter'
+import { CreateTaskButton } from '@/features/task/create-task'
 import { ContentContainer, Spinner } from '@/shared/ui'
 import { TaskDto } from '@/shared/api'
 import { WorkspaceCover } from './WorkspaceCover'
@@ -14,7 +15,6 @@ import { ProjectTitle } from './ProjectTitle'
 import { HasAccess } from './HasAccess'
 import { ProjectMembers } from './ProjectMembers'
 import { $isLoadingCurrentProject } from '../model'
-import { ManageProjectMembersButton } from '@/features/manage-members/manage-project-members-modal'
 
 export const ProjectPage = ({}) => {
   const isLoading = useUnit($isLoadingCurrentProject)
@@ -59,8 +59,11 @@ export const ProjectPage = ({}) => {
             </HasAccess>
           </div>
 
-          <div className='mb-5 flex justify-between items-center'>
-            <TaskFilter />
+          <div className='mb-5 flex flex-col sm:flex-row justify-between space-y-3 sm:space-y-0 sm:items-center'>
+            <div className='flex flex-col sm:flex-row sm:space-x-5 space-y-3 sm:space-y-0 '>
+              <AssignTaskFilter />
+              <CompleteTaskFilter />
+            </div>
 
             <TaskSearch />
           </div>
