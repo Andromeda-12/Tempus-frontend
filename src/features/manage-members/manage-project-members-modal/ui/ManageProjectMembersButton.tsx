@@ -1,7 +1,7 @@
 import { useUnit } from 'effector-react'
-import { Button } from '@/shared/ui'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
 import { currentProjectModel } from '@/entities/current-project'
+import { currentWorkspaceModel } from '@/entities/current-workspace'
+import { Button, IconButton } from '@/shared/ui'
 import {
   $isLoading,
   manageProjectMembersModal,
@@ -33,9 +33,7 @@ export const ManageProjectMembersButton = () => {
         />
       )}
 
-      <Button className='py-1' accent onClick={openModal}>
-        Manage members
-      </Button>
+      <IconButton icon='pencil' size='sm' variant='text' onClick={openModal} />
     </>
   )
 }
