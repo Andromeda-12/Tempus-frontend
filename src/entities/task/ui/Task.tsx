@@ -3,6 +3,7 @@ import { TaskDto } from '@/shared/api'
 import { AvatarGroup } from '@/features/users/avatar-group'
 import { ViewerAvatar } from '@/entities/viewer'
 import clsx from 'clsx'
+import { CompleteMark } from './CompleteMark'
 
 interface TaskProps {
   task: TaskDto
@@ -15,13 +16,16 @@ function truncateString(str: string, length: number) {
 }
 
 export const Task = ({ task }: TaskProps) => {
-  const { title, description, members: membersInfo } = task
+  const { title, description, members: membersInfo, isComplete } = task
   const members = membersInfo.map((memberInfo) => memberInfo.member)
 
   return (
     <Card withHover>
-      <ContentContainer py={false} className='py-5  flex flex-col space-y-2'>
-        <div className='font-medium'>{title}</div>
+      <ContentContainer py={false} className='py-5 flex flex-col space-y-2'>
+        <div className='flex items-center space-x-3'>
+          <div className='font-medium'>{title}</div>
+          {isComplete && <CompleteMark />}
+        </div>
 
         <div
           className={clsx(
