@@ -1,9 +1,9 @@
+import { useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { Task, taskModel } from '@/entities/task'
+import { Spinner } from '@/shared/ui'
 import { TaskDto } from '@/shared/api'
 import { $isAllDataLoaded, $isLoading, loadMoreTasks } from '../model'
-import { useEffect } from 'react'
-import { Spinner } from '@/shared/ui'
 
 interface TaskListProps {
   onSelectTask: (selectedTask: TaskDto) => void

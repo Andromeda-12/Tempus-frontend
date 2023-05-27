@@ -1,12 +1,13 @@
 import { createEvent, createStore, restore, sample } from 'effector'
 import { taskSearchModel } from '@/features/filter/task-search'
-import { taskFilterModel } from '@/features/filter/task-filter'
+import { assignTaskFilterModel } from '@/features/filter/assign-task-filter'
 import { taskModel } from '@/entities/task'
 import { taskManagerModel } from '@/entities/current-task'
 import { currentProjectModel } from '@/entities/current-project'
 import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { GetRequestQuery } from '@/shared/lib'
+import { GetTasksRequestQuery } from '@/shared/lib'
 import { PROJECTS_REQUEST_LIMIT } from '@/shared/config'
+import { completeTaskFilterModel } from '@/features/filter/complete-task-filter'
 
 export const loadMoreTasks = createEvent()
 export const resetOffset = createEvent()
@@ -33,12 +34,16 @@ sample({
   source: {
     offset: $offset,
     limit: $limit,
-    filter: taskFilterModel.taskFilter.currentValue,
+    assignFilter: assignTaskFilterModel.taskFilter.currentValue,
+    completedFilter: completeTaskFilterModel.completeTaskFilter.currentValue,
     searchTitle: taskSearchModel.$searchTaskTitle,
     isLoadign: $isLoading
   },
   filter: ({ isLoadign }) => !isLoadign,
-  fn: ({ offset, limit, searchTitle, filter }, { projectId, workspaceId }) => ({
+  fn: (
+    { offset, limit, searchTitle, assignFilter, completedFilter },
+    { projectId, workspaceId }
+  ) => ({
     params: {
       projectId,
       workspaceId
@@ -47,8 +52,9 @@ sample({
       offset,
       limit,
       title: searchTitle || undefined,
-      filter
-    } as GetRequestQuery
+      assignFilter,
+      completedFilter
+    } as GetTasksRequestQuery
   }),
   target: taskModel.getTasksFx
 })
@@ -87,15 +93,11 @@ sample({
 })
 
 sample({
-  clock: taskFilterModel.taskFilter.currentValue,
-  target: [loadMoreTasks, resetOffset, resetTasks]
-})
-sample({
-  clock: taskSearchModel.debouncedSearchTask,
-  target: [loadMoreTasks, resetOffset, resetTasks]
-})
-
-sample({
-  clock: taskManagerModel.completeTaskFx.doneData,
+  clock: [
+    assignTaskFilterModel.taskFilter.currentValue,
+    completeTaskFilterModel.completeTaskFilter.currentValue,
+    taskSearchModel.debouncedSearchTask,
+    taskManagerModel.completeTaskFx.doneData
+  ],
   target: [loadMoreTasks, resetOffset, resetTasks]
 })
