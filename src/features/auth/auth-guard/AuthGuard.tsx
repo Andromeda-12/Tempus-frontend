@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
+import { Store } from 'effector'
+import { useUnit } from 'effector-react'
 import { authGuard } from '@/features/auth/auth-guard'
 import { goToDashboard, goToSignIn } from '@/features/auth/auth-guard/model'
-import { useUnit } from 'effector-react'
-import { Store } from 'effector'
 
 export const AuthGuard = ({
   children,
