@@ -1,10 +1,9 @@
 import { Link } from 'atomic-router-react'
 import { useUnit } from 'effector-react'
-import { ChangePasswordForm } from '@/features/auth/change-password'
+import { ForgetPasswordForm } from '@/features/auth/forget-password'
 import { Button, Spinner } from '@/shared/ui'
 import { signinRoute } from '@/shared/routing'
 import { $email, $isLoading, $isTokenValid } from '../model'
-import { ForgetPasswordForm } from '@/features/auth/forget-password'
 
 export const RecoveryPasswordPage = () => {
   const isLoading = useUnit($isLoading)
