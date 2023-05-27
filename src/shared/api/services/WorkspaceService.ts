@@ -134,15 +134,16 @@ workspaceId: number,
     }
 
     /**
+     * Change workspace member role
      * @param workspaceId 
      * @param requestBody 
-     * @returns any 
+     * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerChangeWorkspaceRole(
 workspaceId: number,
 requestBody: UpdateRoleDto,
-): CancelablePromise<any> {
+): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/api/workspace/{workspaceId}/changeWorkspaceRole',
@@ -191,6 +192,24 @@ workspaceId: number,
     }
 
     /**
+     * Get invite url for workspace
+     * @param workspaceId 
+     * @returns string 
+     * @throws ApiError
+     */
+    public static workspaceControllerGetInviteUrl(
+workspaceId: number,
+): CancelablePromise<string> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{workspaceId}/getInviteUrl',
+            path: {
+                'workspaceId': workspaceId,
+            },
+        });
+    }
+
+    /**
      * Remove invite url from workspace
      * @param workspaceId 
      * @returns string 
@@ -211,12 +230,12 @@ workspaceId: number,
     /**
      * Check invite url valid
      * @param code 
-     * @returns string 
+     * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerCheckInviteUrl(
 code: string,
-): CancelablePromise<string> {
+): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/workspace/checkInviteUrl/{code}',
