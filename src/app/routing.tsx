@@ -13,6 +13,7 @@ import { NotFound } from '@/pages/404'
 import { controls } from '@/shared/routing'
 import { Settings } from '@/pages/settings'
 import { Project } from '@/pages/project'
+import { Invite } from '@/pages/invite'
 
 const routes = [
   { path: '/signin', route: SignIn.route },
@@ -20,6 +21,7 @@ const routes = [
   { path: '/forget-password', route: ForgetPassword.route },
   { path: '/recovery-password', route: RecoveryPassword.route },
   { path: '/confirm-change-mail', route: ConfirmChangeMail.route },
+  { path: '/invite/:code', route: Invite.route },
   { path: '/workspaces', route: Workspaces.route },
   { path: '/workspaces/:workspaceId', route: Workspace.route },
   {
@@ -56,6 +58,11 @@ export const RoutesView = createRoutesView({
     {
       route: ConfirmChangeMail.route,
       view: ConfirmChangeMail.view,
+      layout: CenteredLayout
+    },
+    {
+      route: Invite.route,
+      view: Invite.view,
       layout: CenteredLayout
     },
     { route: Workspaces.route, view: Workspaces.view, layout: SidebarLayout },
