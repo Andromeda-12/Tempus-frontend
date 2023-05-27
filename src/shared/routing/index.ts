@@ -16,11 +16,15 @@ export const signinRoute = createRoute()
 export const signupRoute = createRoute()
 export const forgetPasswordRoute = createRoute()
 export const recoveryPasswordRoute = createRoute()
+export const confirmChangeMailRoute = createRoute()
 
 export const workspacesRoute = createRoute()
 export const workspaceRoute = createRoute<{ workspaceId: number }>()
 
-export const projectRoute = createRoute<{ workspaceId: number, projectId: number }>()
+export const projectRoute = createRoute<{
+  workspaceId: number
+  projectId: number
+}>()
 
 export const settingRoute = createRoute<{ settingSection: string }>()
 export const generalSettingsRoute = createRoute()

@@ -1,14 +1,14 @@
-import { Button } from '@/shared/ui'
-import { ConfirmChangeEmailModal } from './ConfirmChangeEmailModal'
 import { useUnit } from 'effector-react'
-import { confirmModal } from '../model'
+import { Button } from '@/shared/ui'
+import { LetterSentMessageModal } from './LetterSentMessageModal'
+import { letterSentMessageModal } from '../model'
 
 export const ChangeEmailButton = () => {
-  const openModal = useUnit(confirmModal.openModal)
+  const openModal = useUnit(letterSentMessageModal.openModal)
 
   return (
     <>
-      <ConfirmChangeEmailModal />
+      <LetterSentMessageModal />
 
       <Button dense accent size='sm' onClick={openModal}>
         Change email

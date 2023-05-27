@@ -1,40 +1,39 @@
-import { createEffect, createEvent, sample } from 'effector'
+import { createEffect, createEvent, createStore, sample } from 'effector'
 import { notificationModel } from '@/features/notification'
-import { viewerModel } from '@/entities/viewer'
 import { ApiError, UserService } from '@/shared/api'
 import { createModal } from '@/shared/lib'
 
-const sendChangeEmailMailFx = createEffect<string, void, ApiError>(
-  async () => {}
+const sendChangeEmailLetterFx = createEffect<
+  {
+    email: string
+  },
+  void,
+  ApiError
+>(
+  async ({ email }) =>
+    await UserService.userControllerChangeMail({
+      email
+    })
 )
 
-export const sendChangeEmailMail = createEvent()
+export const sendChangeEmailLetter = createEvent<{
+  email: string
+}>()
 
-export const $isPending = sendChangeEmailMailFx.pending
+export const letterSentMessageModal = createModal()
 
-export const confirmModal = createModal()
+export const $isPending = sendChangeEmailLetterFx.pending
+export const $isLetterSent = createStore(false)
+  .on(sendChangeEmailLetterFx.done, () => true)
+  .reset(letterSentMessageModal.closeModal)
 
 sample({
-  clock: sendChangeEmailMail,
-  source: viewerModel.$viewer,
-  filter: Boolean,
-  fn: (viewer) => viewer.email,
-  target: sendChangeEmailMailFx
+  clock: sendChangeEmailLetter,
+  target: sendChangeEmailLetterFx
 })
 
 sample({
-  clock: sendChangeEmailMailFx.done,
-  fn: () =>
-    notificationModel.createNotificationBody({
-      type: 'success',
-      title: 'Change email',
-      message: 'We sent an email to your current email'
-    }),
-  target: notificationModel.createNotification
-})
-
-sample({
-  clock: sendChangeEmailMailFx.failData,
+  clock: sendChangeEmailLetterFx.failData,
   fn: (error) =>
     notificationModel.createNotificationBody({
       type: 'error',
@@ -42,9 +41,4 @@ sample({
       message: error.body.message
     }),
   target: notificationModel.createNotification
-})
-
-sample({
-  clock: sendChangeEmailMailFx.finally,
-  target: confirmModal.closeModal
 })
