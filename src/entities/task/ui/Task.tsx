@@ -20,7 +20,7 @@ export const Task = ({ task }: TaskProps) => {
   const members = membersInfo.map((memberInfo) => memberInfo.member)
 
   return (
-    <Card withHover>
+    <Card withHover className='overflow-visible'>
       <ContentContainer py={false} className='py-5 flex flex-col space-y-2'>
         <div className='flex items-center space-x-3'>
           <div className='font-medium'>{title}</div>
