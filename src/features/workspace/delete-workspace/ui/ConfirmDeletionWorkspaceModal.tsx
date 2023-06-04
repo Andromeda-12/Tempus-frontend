@@ -31,11 +31,11 @@ export const ConfirmDeletionWorkspaceModal = () => {
         </div>
 
         <div className='flex justify-center space-x-4'>
-          <Button accent onClick={closeModal}>
-            Cancel
-          </Button>
-          <Button variant='text' onClick={handleConfirm}>
+          <Button accent onClick={handleConfirm}>
             Delete
+          </Button>
+          <Button variant='text' onClick={closeModal}>
+            Cancel
           </Button>
         </div>
       </Modal>

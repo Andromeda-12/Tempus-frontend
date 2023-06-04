@@ -15,7 +15,7 @@ export const AvatarFallback = ({
   return (
     <AvatarPrimitive.Fallback
       className={clsx(
-        'flex absolute h-full w-full items-center justify-center bg-gray-200/60 dark:bg-gray-700',
+        'flex absolute h-full w-full items-center justify-center bg-gray-200 dark:bg-gray-700',
         {
           ['circle']: 'rounded-full',
           ['rounded']: 'rounded'

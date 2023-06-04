@@ -41,20 +41,20 @@ export const UpdateUserForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
       <FormField
-        placeholder='First name'
-        name='firstName'
-        control={control}
-        rules={{
-          required: 'First name is required'
-        }}
-      />
-
-      <FormField
         placeholder='Last name'
         name='lastName'
         control={control}
         rules={{
           required: 'Last name is required'
+        }}
+      />
+
+      <FormField
+        placeholder='First name'
+        name='firstName'
+        control={control}
+        rules={{
+          required: 'First name is required'
         }}
       />
 

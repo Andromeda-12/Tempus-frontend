@@ -2,6 +2,7 @@ import { WorkspaceList } from '@/widgets/workspace-list'
 import { WorkspaceFilter } from '@/features/filter/workspace-filter'
 import { WorkspaceSearch } from '@/features/filter/workspace-search'
 import { CreateWorkspaceButton } from '@/features/workspace/create-workspace'
+import './model'
 
 export const WorkspacesPage = () => {
   return (

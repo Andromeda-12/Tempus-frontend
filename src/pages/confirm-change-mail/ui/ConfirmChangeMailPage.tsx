@@ -10,18 +10,19 @@ export const ConfirmChangeMailPage = () => {
 
   if (isLoading) return <Spinner size='xl' />
 
-  if (isMailLinked)
-    return (
-      <div className='text-center space-y-5'>
-        <div className='text-2xl'>Email linked successfully</div>
-        <div className='text-5xl'>🎉</div>
-        <div>
-          <Link to={settingRoute} params={{ settingSection: 'user' }}>
-            <Button accent>Go to profile</Button>
-          </Link>
-        </div>
+  return (
+    <div className='text-center space-y-5'>
+      <div>
+        <div className='text-xl'>Email linked successfully</div>
+        <div className='text-4xl'>🎉</div>
       </div>
-    )
+      <div>
+        <Link to={settingRoute} params={{ settingSection: 'user' }}>
+          <Button accent>Go to profile</Button>
+        </Link>
+      </div>
+    </div>
+  )
 
   return (
     <div className='text-center space-y-5'>

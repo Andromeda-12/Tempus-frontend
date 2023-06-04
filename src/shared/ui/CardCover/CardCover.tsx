@@ -13,10 +13,15 @@ export const CardCover = ({ className, cover }: CardCoverProps) => {
         style={{ backgroundImage: `url(${cover})` }}
       ></div>
     )
-
+  // return (
+  //   <div className='h-52 flex justify-center items-center text-lg text-gray-500/40 border-b border-b-background-dark'>
+  //     No cover
+  //   </div>
+  // )
   return (
-    <div className='h-52 flex justify-center items-center text-lg text-gray-500/40 border-b border-b-background-dark'>
-      No cover
-    </div>
+    <div
+      className={clsx('h-52 bg-cover bg-center', className)}
+      style={{ backgroundImage: `url(/photo.jpg)` }}
+    ></div>
   )
 }

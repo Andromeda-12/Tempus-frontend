@@ -65,6 +65,7 @@ export const Member = ({
           icon='trash'
           className='h-[32px] w-[32px] min-w-[32px] p-0'
           size='sm'
+          variant='text'
           disabled={!isCanManage}
           onClick={removeWorkspaceMember}
         />

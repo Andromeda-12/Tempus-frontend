@@ -17,7 +17,7 @@ export const SearchMember = () => {
       className="w-full sm:w-fit"
       notAccent
       size='sm'
-      placeholder='Search by name'
+      placeholder='Search by surname'
       startIconName='search'
     />
   )

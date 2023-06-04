@@ -35,11 +35,13 @@ export const SettingsPage = () => {
     <div className='pt-10 flex flex-col h-full'>
       <h3 className='text-xl mb-5 text-black dark:text-color-dark'>Settings</h3>
 
-      <Tabs
+      <UserSettings />
+
+      {/* <Tabs
         currentTab={settingSection as string}
         tabs={tabs}
         onValueChange={(value) => hanldeTabValueChange(value as SettingsTabs)}
-      />
+      /> */}
     </div>
   )
 }

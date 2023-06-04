@@ -24,7 +24,7 @@ export const ChangePasswordForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='flex flex-col '>
+      <div className='flex flex-col space-y-5'>
         <FormField
           placeholder='Current password'
           password

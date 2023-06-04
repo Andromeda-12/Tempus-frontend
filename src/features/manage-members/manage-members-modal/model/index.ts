@@ -32,7 +32,9 @@ sample({
   source: $allMembers,
   fn: (members, searchedName) =>
     members.filter((member) =>
-      member.firstName.toLowerCase().includes(searchedName.toLowerCase())
+      `${member.lastName} ${member.firstName}`
+        .toLowerCase().trim()
+        .includes(searchedName.toLowerCase().trim())
     ),
   target: $filteredMembers
 })

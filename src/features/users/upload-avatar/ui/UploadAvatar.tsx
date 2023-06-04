@@ -14,7 +14,7 @@ export const UploadAvatar = ({ className, size }: UploadAvatarProps) => {
   const viewer = useStore(viewerModel.$viewer)
   const uploadAvatarFn = useUnit(uploadAvatar)
 
-  const fallback = viewer!.firstName[0] + viewer!.lastName[0]
+  const fallback = viewer!.lastName[0] + viewer!.firstName[0]
 
   const handleUploadAvatar = (avatarFile: File) => {
     const updateUserDto: UpdateUserDto = {

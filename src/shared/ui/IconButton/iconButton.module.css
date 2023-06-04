@@ -36,7 +36,7 @@
 
 .btn-icon-text {
   @apply bg-transparent text-color-light shadow-none hover:shadow-sm;
-  @apply hover:bg-primary/10 focus-visible:bg-primary/10 active:bg-primary/15;
+  @apply hover:bg-primary/10 focus-visible:bg-primary/10 active:bg-primary/15 disabled:bg-primary/10 hover:disabled:bg-primary/15;
 }
 :global(.dark) .btn-icon-text {
   @apply text-color-dark hover:bg-color-dark/10 focus-visible:bg-color-dark/10 active:bg-color-dark/15;

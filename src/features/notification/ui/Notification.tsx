@@ -43,7 +43,7 @@ export const Notification = ({ notification }: NotificationProps) => {
       <div className='pt-3 pb-3.5 w-full px-4 flex items-center justify-start space-x-4'>
         <Icon name={iconName[type]} size='xl' />
 
-        <div>
+        <div className='w-full'>
           <div className='font-semibold'>{title}</div>
           <div className='text-sm'>{message}</div>
         </div>

@@ -23,10 +23,10 @@ export const ConfirmDeletionTaskModal = () => {
         </div>
 
         <div className='flex justify-center space-x-4'>
-          <Button accent onClick={closeModal}>
+          <Button variant='text' onClick={closeModal}>
             Cancel
           </Button>
-          <Button variant='text' onClick={handleConfirm}>
+          <Button accent onClick={handleConfirm}>
             Delete
           </Button>
         </div>

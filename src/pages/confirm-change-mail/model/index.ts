@@ -1,17 +1,17 @@
 import { createEffect, createStore, sample } from 'effector'
 import { chainRoute } from 'atomic-router'
-import { ApiError, AuthService } from '@/shared/api'
-import { recoveryPasswordRoute } from '@/shared/routing'
+import { ApiError, AuthService, UserService } from '@/shared/api'
+import { confirmChangeMailRoute } from '@/shared/routing'
 
 export const $isMailLinked = createStore(false)
 export const $isLoading = createStore(true)
 
-const bindEmailFx = createEffect<string, string, ApiError>(async (token) =>
-  AuthService.authControllerCheckRecoveryToken(token)
+const bindEmailFx = createEffect<string, void, ApiError>(async (token) =>
+  UserService.userControllerConfirmChangeMail(token)
 )
-
+bindEmailFx.watch((e) => console.log(e))
 chainRoute({
-  route: recoveryPasswordRoute,
+  route: confirmChangeMailRoute,
   beforeOpen: {
     effect: bindEmailFx,
     mapParams: ({ query }) => query.token

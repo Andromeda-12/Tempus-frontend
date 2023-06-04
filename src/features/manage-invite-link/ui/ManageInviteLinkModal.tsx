@@ -42,17 +42,17 @@ export const ManageInviteLinkModal = () => {
     >
       <div className='font-semibold text-sm mb-6'>
         {inviteLink ? (
-          <div className='flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-3 sm: space-y-0'>
-            <span>Invite link</span>
+          <div className='flex flex-col sm:flex-row sm:items-center sm:space-x-3 space-y-3 sm:space-y-0'>
+            <span>Invite link:</span>
             <div
-              className='text-secondary/80 text-base hover:text-secondary/50 duration-75 active:scale-[99%] cursor-pointer'
+              className='dark:text-secondary/80 text-base hover:text-color-light/70 dark:hover:text-secondary/50 duration-75 active:scale-[99%] cursor-pointer'
               onClick={copyLinkToClipboardFn}
             >
               <div>{inviteLink}</div>
             </div>
           </div>
         ) : (
-          <div className='text-secondary/80'>
+          <div className='dark:text-secondary/80'>
             You don't have an invitation link yet. Generate it!
           </div>
         )}
