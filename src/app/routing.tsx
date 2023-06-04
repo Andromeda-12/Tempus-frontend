@@ -14,6 +14,7 @@ import { controls } from '@/shared/routing'
 import { Settings } from '@/pages/settings'
 import { Project } from '@/pages/project'
 import { Invite } from '@/pages/invite'
+import { Reports } from '@/pages/reports'
 
 const routes = [
   { path: '/signin', route: SignIn.route },
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/workspaces/:workspaceId/projects/:projectId',
     route: Project.route
+  },
+  {
+    path: '/reports/:workspaceId',
+    route: Reports.route
   },
   { path: '/settings/:settingSection', route: Settings.route },
   { path: '/404', route: NotFound.route }
@@ -68,6 +73,7 @@ export const RoutesView = createRoutesView({
     { route: Workspaces.route, view: Workspaces.view, layout: SidebarLayout },
     { route: Workspace.route, view: Workspace.view, layout: SidebarLayout },
     { route: Project.route, view: Project.view, layout: SidebarLayout },
+    { route: Reports.route, view: Reports.view, layout: SidebarLayout },
     { route: Settings.route, view: Settings.view, layout: SidebarLayout },
     { route: NotFound.route, view: NotFound.view }
   ],

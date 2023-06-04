@@ -27,6 +27,10 @@ export const projectRoute = createRoute<{
   projectId: number
 }>()
 
+export const reportsRoute = createRoute<{
+  workspaceId: number
+}>()
+
 export const settingRoute = createRoute<{ settingSection: string }>()
 export const generalSettingsRoute = createRoute()
 export const userSettingsRoute = createRoute()
