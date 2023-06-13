@@ -5,7 +5,9 @@ import { Icon } from '../Icon'
 
 interface SelectProps {
   values: string[]
-  value: string
+  value?: string
+  placeholder?: string
+  className?: string
   onValueChange: (value: string) => void
 }
 
@@ -26,7 +28,13 @@ const CheckIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export const Select = ({ values, value, onValueChange }: SelectProps) => {
+export const Select = ({
+  values,
+  value,
+  placeholder,
+  className,
+  onValueChange
+}: SelectProps) => {
   return (
     <SelectPrimitive.Root
       defaultValue={value}
@@ -35,15 +43,19 @@ export const Select = ({ values, value, onValueChange }: SelectProps) => {
     >
       <SelectPrimitive.Trigger asChild>
         <Button
-          className='border py-1 px-4 text-sm text-color-light dark:text-color-dark hover:bg-secondary dark:hover:bg-neutral'
+          className={clsx(
+            'border py-1 px-4 text-sm text-color-light dark:text-color-dark hover:bg-secondary dark:hover:bg-neutral',
+            className
+          )}
           dense
         >
-          <SelectPrimitive.Value />
+          <SelectPrimitive.Value placeholder={placeholder} />
           <SelectPrimitive.Icon className='ml-2'>
             <Icon name='chevronDown' size='xs' />
           </SelectPrimitive.Icon>
         </Button>
       </SelectPrimitive.Trigger>
+
       <SelectPrimitive.Content>
         <SelectPrimitive.ScrollUpButton className='flex items-center justify-center text-gray-700 dark:text-gray-300'>
           <Icon name='chevronDown' className='rotate-180' />

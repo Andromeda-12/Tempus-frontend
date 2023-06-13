@@ -60,7 +60,7 @@ export const $currentProject = restore<ProjectDto | null>(
 export const $projectViewerRole = createStore<Role | null>(null).reset(
   resetCurrentProject
 )
-export const $members = $currentProject.map((p) => p?.members)
+export const $members = $currentProject.map((p) => p?.members || null)
 
 sample({
   clock: getCurrentProjectFx.doneData,

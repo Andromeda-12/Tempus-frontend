@@ -1,9 +1,9 @@
 import { useUnit } from 'effector-react'
-import { MembersModalButton } from '@/widgets/members-modal'
 import { AvatarGroup } from '@/features/users/avatar-group'
+import { ManageProjectMembersButton } from '@/features/manage-members/manage-project-members-modal'
+import { AddProjectMemberButton } from '@/features/manage-members/add-project-member-modal'
 import { currentProjectModel } from '@/entities/current-project'
 import { HasAccess } from './HasAccess'
-import { ManageProjectMembersButton } from '@/features/manage-members/manage-project-members-modal'
 
 export const ProjectMembers = () => {
   const currentProject = useUnit(currentProjectModel.$currentProject)
@@ -14,7 +14,9 @@ export const ProjectMembers = () => {
       <AvatarGroup members={currentProject?.members || []} />
 
       <HasAccess>
-        <ManageProjectMembersButton />
+        <ManageProjectMembersButton
+          addProjectMemberButton={<AddProjectMemberButton />}
+        />
       </HasAccess>
     </div>
   )

@@ -2,13 +2,13 @@ import { ReactNode } from 'react'
 import { useUnit } from 'effector-react'
 import { IconButton } from '@/shared/ui'
 import { ManageMembersModal } from './ManageMembersModal'
+import { ConfirmDeletionMemberModal } from './ConfirmDeletionMemberModal'
 import {
   $isLoading,
   manageWorkspaceMembersModal,
   workspaceChangeParticipation,
   memberDeletionConfirmeModal
 } from '../model'
-import { ConfirmDeletionMemberModal } from './ConfirmDeletionMemberModal'
 
 export const ManageWorkspaceMembersButton = ({
   manageInviteLinkButton

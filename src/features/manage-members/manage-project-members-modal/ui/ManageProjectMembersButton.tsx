@@ -1,37 +1,41 @@
+import { ReactNode } from 'react'
 import { useUnit } from 'effector-react'
-import { currentProjectModel } from '@/entities/current-project'
-import { currentWorkspaceModel } from '@/entities/current-workspace'
-import { Button, IconButton } from '@/shared/ui'
+import { IconButton } from '@/shared/ui'
+import { ManageMembersModal } from './ManageMembersModal'
+import { ConfirmDeletionMemberModal } from './ConfirmDeletionMemberModal'
 import {
   $isLoading,
   manageProjectMembersModal,
-  projectChangeParticipation
+  projectChangeParticipation,
+  memberDeletionConfirmeModal
 } from '../model'
-import { ManageMembersModal } from '../../manage-members-modal'
 
-export const ManageProjectMembersButton = () => {
+export const ManageProjectMembersButton = ({
+  addProjectMemberButton
+}: {
+  addProjectMemberButton: ReactNode
+}) => {
   const isOpen = useUnit(manageProjectMembersModal.$isOpen)
+  const isConfirmModalOpen = useUnit(memberDeletionConfirmeModal.$isOpen)
   const openModal = useUnit(manageProjectMembersModal.openModal)
   const closeModal = useUnit(manageProjectMembersModal.closeModal)
   const projectChangeParticipationFn = useUnit(projectChangeParticipation)
 
   const isLoading = useUnit($isLoading)
 
-  const workspaceMembers = useUnit(currentWorkspaceModel.$members)
-  const projectMembers = useUnit(currentProjectModel.$members)
-
   return (
     <>
       {isOpen && (
         <ManageMembersModal
-          title='Assigned project members'
+          addProjectMemberButton={addProjectMemberButton}
+          title='Project members'
           isLoading={isLoading}
-          allMembers={workspaceMembers!}
-          assignedMembers={projectMembers!}
           onChangeMemberParticipation={projectChangeParticipationFn}
           onClose={closeModal}
         />
       )}
+
+      {isConfirmModalOpen && <ConfirmDeletionMemberModal />}
 
       <IconButton icon='pencil' size='sm' variant='text' onClick={openModal} />
     </>

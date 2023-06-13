@@ -1,5 +1,4 @@
 import { createEvent, createStore, restore, sample } from 'effector'
-import { createGate } from 'effector-react'
 import { debounce, pending } from 'patronum'
 import {
   currentWorkspaceModel,
@@ -80,7 +79,7 @@ sample({
   fn: (members, searchedName) => {
     if (searchedName)
       return members!.filter((member) =>
-        member.firstName.toLowerCase().includes(searchedName.toLowerCase().trim())
+        member.lastName.toLowerCase().includes(searchedName.toLowerCase().trim())
       )
     return members
   },

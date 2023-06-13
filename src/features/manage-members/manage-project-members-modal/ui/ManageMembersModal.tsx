@@ -9,7 +9,7 @@ import { MembersListAction } from '../lib'
 interface ManageMembersModalProps {
   isLoading: boolean
   title: string
-  manageInviteLinkButton: ReactNode
+  addProjectMemberButton: ReactNode
   onChangeMemberParticipation: (action: MembersListAction) => void
   onClose: () => void
 }
@@ -17,7 +17,7 @@ interface ManageMembersModalProps {
 export const ManageMembersModal = ({
   isLoading,
   title,
-  manageInviteLinkButton,
+  addProjectMemberButton,
   onChangeMemberParticipation,
   onClose
 }: ManageMembersModalProps) => {
@@ -47,7 +47,7 @@ export const ManageMembersModal = ({
           />
         </div>
 
-        <div className='mt-3'>{manageInviteLinkButton}</div>
+        <div className='mt-3'>{addProjectMemberButton}</div>
       </div>
     </Modal>
   )
