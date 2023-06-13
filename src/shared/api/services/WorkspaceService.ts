@@ -5,6 +5,7 @@ import type { CreateWorkspaceDto } from '../models/CreateWorkspaceDto';
 import type { GetRoleDto } from '../models/GetRoleDto';
 import type { UpdateRoleDto } from '../models/UpdateRoleDto';
 import type { UpdateWorkspaceDto } from '../models/UpdateWorkspaceDto';
+import type { ValidationUserIdDto } from '../models/ValidationUserIdDto';
 import type { WorkspaceDto } from '../models/WorkspaceDto';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -118,11 +119,13 @@ workspaceId: number,
     /**
      * Remove member from workspace
      * @param workspaceId 
+     * @param requestBody 
      * @returns WorkspaceDto 
      * @throws ApiError
      */
     public static workspaceControllerRemoveMember(
 workspaceId: number,
+requestBody: ValidationUserIdDto,
 ): CancelablePromise<WorkspaceDto> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -130,6 +133,8 @@ workspaceId: number,
             path: {
                 'workspaceId': workspaceId,
             },
+            body: requestBody,
+            mediaType: 'application/json',
         });
     }
 
