@@ -16,10 +16,6 @@ export type UpdateUserDto = {
      */
     lastName?: string;
     /**
-     * User password
-     */
-    password?: string;
-    /**
      * User avatar (File)
      */
     avatarFile?: Blob;

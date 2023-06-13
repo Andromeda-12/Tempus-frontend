@@ -3,7 +3,6 @@
 /* eslint-disable */
 import type { CreateTaskDto } from '../models/CreateTaskDto';
 import type { MemberProgressDto } from '../models/MemberProgressDto';
-import type { ReportDto } from '../models/ReportDto';
 import type { TaskDto } from '../models/TaskDto';
 import type { UpdateTaskDto } from '../models/UpdateTaskDto';
 import type { ValidationUserIdDto } from '../models/ValidationUserIdDto';
@@ -15,35 +14,14 @@ import { request as __request } from '../core/request';
 export class TasksService {
 
     /**
-     * Get report about work for user
-     * @param projectId 
-     * @param workspaceId 
-     * @returns ReportDto 
-     * @throws ApiError
-     */
-    public static taskControllerGetReport(
-projectId: number,
-workspaceId: number,
-): CancelablePromise<Array<ReportDto>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/workspace/{workspaceId}/project/{projectId}/task/getReport',
-            path: {
-                'projectId': projectId,
-                'workspaceId': workspaceId,
-            },
-        });
-    }
-
-    /**
      * Get tasks by filter
      * @param projectId 
      * @param workspaceId 
      * @param title Task title
      * @param offset Offset of tasks
      * @param limit Limit of tasks
-     * @param assignedFilter Assigned filter
-     * @param completedFilter Completed filter
+     * @param assignedFilter Assigned filter (assigned/unassigned/all)
+     * @param completedFilter Completed filter (completed/uncompleted)
      * @returns TaskDto 
      * @throws ApiError
      */
@@ -171,6 +149,32 @@ requestBody: UpdateTaskDto,
             },
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * Get member tasks by project
+     * @param userId User id
+     * @param projectId 
+     * @param workspaceId 
+     * @returns TaskDto 
+     * @throws ApiError
+     */
+    public static taskControllerGetMemberTasksByProject(
+userId: number,
+projectId: number,
+workspaceId: number,
+): CancelablePromise<Array<TaskDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{workspaceId}/project/{projectId}/task/getMemberTasksByProject',
+            path: {
+                'projectId': projectId,
+                'workspaceId': workspaceId,
+            },
+            query: {
+                'userId': userId,
+            },
         });
     }
 

@@ -11,8 +11,4 @@ export type UpdateWorkspaceDto = {
      * Image cover
      */
     coverFile?: Blob;
-    /**
-     * Workspace owner id
-     */
-    ownerId?: number;
 };

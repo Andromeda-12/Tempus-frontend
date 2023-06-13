@@ -99,7 +99,7 @@ requestBody: ChangeUserPasswordDto,
 token: string,
 ): CancelablePromise<void> {
         return __request(OpenAPI, {
-            method: 'GET',
+            method: 'POST',
             url: '/api/user/confirmChangeMail/{token}',
             path: {
                 'token': token,

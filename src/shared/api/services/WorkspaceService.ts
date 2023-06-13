@@ -36,7 +36,7 @@ formData: CreateWorkspaceDto,
      * @param offset Offset of workspaces
      * @param limit Limit of workspaces
      * @param title Workspace title
-     * @param filter Workspace title
+     * @param filter The filter can take the following values: own, others and all. Shows the user's belonging to the workspace.
      * @returns WorkspaceDto 
      * @throws ApiError
      */

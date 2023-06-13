@@ -69,6 +69,29 @@ title?: string,
     }
 
     /**
+     * Get projects by member
+     * @param userId User id
+     * @param workspaceId 
+     * @returns ProjectDto 
+     * @throws ApiError
+     */
+    public static projectControllerGetProjectsByMember(
+userId: number,
+workspaceId: number,
+): CancelablePromise<Array<ProjectDto>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/workspace/{workspaceId}/projects/getProjectsByMember',
+            path: {
+                'workspaceId': workspaceId,
+            },
+            query: {
+                'userId': userId,
+            },
+        });
+    }
+
+    /**
      * Get all projects by filter (for workspace owner|manager)
      * @param workspaceId 
      * @param offset Offset of projects
@@ -222,14 +245,14 @@ requestBody: ValidationUserIdDto,
      * @param projectId 
      * @param workspaceId 
      * @param requestBody 
-     * @returns any 
+     * @returns ProjectDto 
      * @throws ApiError
      */
     public static projectControllerChangeProjectRole(
 projectId: number,
 workspaceId: number,
 requestBody: UpdateRoleDto,
-): CancelablePromise<any> {
+): CancelablePromise<ProjectDto> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/api/workspace/{workspaceId}/projects/{projectId}/changeProjectRole',
